@@ -1,29 +1,29 @@
 <template>
-    <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
-    </div>
+  <v-app>
+      <v-layout class="rounded rounded-md">
+          <v-app-bar title="Application bar"></v-app-bar>
+
+          <v-navigation-drawer>
+              <v-list>
+                  <v-list-item title="Navigation drawer"></v-list-item>
+              </v-list>
+          </v-navigation-drawer>
+
+          <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
+              Main Content
+          </v-main>
+      </v-layout>
+  </v-app>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
 
-export default defineComponent({
-    name: 'App',
-    components: {
-        HelloWorld,
-    },
-});
-</script>
+export default {
+  name: 'App',
 
-<style>
-#app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+
+  data: () => ({
+    //
+  }),
 }
-</style>
+</script>

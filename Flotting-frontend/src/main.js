@@ -1,8 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import VueCompositionAPI from '@vue/composition-api'
+import vuetify from './plugins/vuetify'
+import { loadFonts } from './plugins/webfontloader'
 
+loadFonts()
 
 createApp(App)
-    .use(VueCompositionAPI)
-    .mount('#app')
+  .use(vuetify)
+  .mount('#app')
