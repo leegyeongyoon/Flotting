@@ -1,52 +1,43 @@
 <template>
     <v-app>
-        <v-app-bar app :elevation="0">
-            <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
-
-            <v-app-bar-title>
-                application-bar
-            </v-app-bar-title>
-
-            <template v-slot:append>
-                <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
-                </v-btn>
-
-                <v-btn icon>
-                    <v-icon>mdi-magnify</v-icon>
-                </v-btn>
-
-                <v-btn icon>
-                    <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-            </template>
-        </v-app-bar>
-
-        <v-navigation-drawer v-if="drawer">
-            <v-list>
-                <v-list-item title="Navigation drawer"></v-list-item>
-            </v-list>
-        </v-navigation-drawer>
-
-        <v-main class="bg-grey-lighten-5 d-flex align-center justify-center" style="min-height: 300px;">
-            <router-view />
-            Main Content
+        <main-header
+            class="bg-blue-grey-lighten-5
+"
+            :toggle-drawer="toggleDrawer"
+        />
+        <main-navigation
+            class="bg-blue-grey-lighten-5
+"
+            :drawer="drawer"
+        />
+        <v-main class="bg-grey-lighten-5  align-center justify-center" style="min-height: 300px; ">
+            <v-container class="pa-10" fluid>
+                <router-view />
+            </v-container>
         </v-main>
     </v-app>
 </template>
 
 <script>
+import { ref } from "vue";
+import MainHeader from "@/components/layout/MainHeader";
+import MainNavigation from "@/components/layout/MainNavigation";
+
 export default {
     name: "App",
+    components: { MainNavigation, MainHeader },
 
-    data: () => ({
-        drawer: false
-    }),
+    setup() {
+        const drawer = ref(false);
 
-    methods: {
-        toggleDrawer() {
-            this.drawer = !this.drawer;
-        }
+        const toggleDrawer = () => {
+            drawer.value = !drawer.value;
+        };
+
+        return {
+            drawer,
+            toggleDrawer
+        };
     }
 };
 </script>
