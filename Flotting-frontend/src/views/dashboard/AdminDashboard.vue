@@ -1,5 +1,7 @@
 <template>
     <div>
+        <admin-to-do-list />
+        <admin-notice />
         <v-row>
             <v-col cols="12" md="6" sm="6" order="3">
                 <sales-chart />
@@ -10,6 +12,7 @@
                 <sales-type-chart />
             </v-col>
         </v-row>
+
         <v-row>
             <v-col cols="12" sm="6" md="6" order="1" order-md="1">
                 <v-row>
@@ -58,9 +61,13 @@ import UserTypeChart from "@/views/dashboard/chart/UserTypeChart";
 import UserRatioChart from "@/views/dashboard/chart/UserRatioChart";
 import MatchingChart from "@/views/dashboard/chart/MatchingChart";
 import InActiveUserChart from "@/views/dashboard/chart/InactiveUserChart";
+import AdminToDoList from "@/views/dashboard/list/AdminToDoList";
+import AdminNotice from "@/views/dashboard/list/AdminNotice";
 export default {
     name: "AdminDashboard",
     components: {
+        AdminNotice,
+        AdminToDoList,
         InActiveUserChart,
         MatchingChart,
         UserRatioChart,
@@ -69,9 +76,6 @@ export default {
         UserChart,
         SalesTypeChart,
         SalesChart
-    },
-    data() {
-        return {};
     }
 };
 </script>
