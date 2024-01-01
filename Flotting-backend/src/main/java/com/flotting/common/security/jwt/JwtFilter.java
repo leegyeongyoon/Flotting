@@ -1,11 +1,9 @@
-package com.flotting.common.jwt;
+package com.flotting.common.security.jwt;
 
 import java.io.IOException;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -15,22 +13,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 
 @RequiredArgsConstructor
-public class JwtFilter extends OncePerRequestFilter {
+public class JwtFilter extends GenericFilter {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final UserDetailsService userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtFilter.class);
 
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
-            String jwt = jwtTokenProvider.resolveToken(request);
+            String jwt = jwtTokenProvider.resolveToken((HttpServletRequest) request);
             if (jwt != null && jwtTokenProvider.validateToken(jwt)) {
                 String username = jwtTokenProvider.getUsername(jwt);
 
@@ -40,7 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
                                 userDetails,
                                 null,
                                 userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
@@ -48,7 +45,6 @@ public class JwtFilter extends OncePerRequestFilter {
             logger.error("Cannot set user authentication: {}", e);
         }
 
-        filterChain.doFilter(request, response);
+        chain.doFilter(request, response);
     }
-
 }

@@ -1,4 +1,4 @@
-package com.flotting.common.jwt;
+package com.flotting.common.security.jwt;
 
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
