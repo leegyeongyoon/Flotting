@@ -1,11 +1,8 @@
-package com.flotting;
+package com.flotting.config;
 
 
-import com.flotting.api.user.controller.TokenArgumentResolver;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import com.flotting.config.TokenArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

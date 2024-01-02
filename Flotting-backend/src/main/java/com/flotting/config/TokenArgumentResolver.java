@@ -1,4 +1,4 @@
-package com.flotting.api.user.controller;
+package com.flotting.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
