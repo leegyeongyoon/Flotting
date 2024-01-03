@@ -25,21 +25,24 @@ public class SecurityConfig {
 
     private final UserDetailServiceImpl userDetailService;
 
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().
-//                requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
-//                .requestMatchers(new AntPathRequestMatcher("/v3/**"))
-//                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**"))
-//                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs"))
-//                .requestMatchers(new AntPathRequestMatcher( "/swagger-ui/**"))
-//                .requestMatchers(new AntPathRequestMatcher( "/swagger-resources/**"))
-//                .requestMatchers(new AntPathRequestMatcher("/favicon.ico"))
-//                .requestMatchers(new AntPathRequestMatcher("/css/**"))
-//                .requestMatchers(new AntPathRequestMatcher("/js/**"))
-//                .requestMatchers(new AntPathRequestMatcher("/img/**"))
-//                .requestMatchers(new AntPathRequestMatcher("/lib/**"));
-//    }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().
+                requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+                .requestMatchers(new AntPathRequestMatcher("/v3/**"))
+                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**"))
+                .requestMatchers(new AntPathRequestMatcher("/v3/api-docs"))
+                .requestMatchers(new AntPathRequestMatcher( "/swagger-ui/**"))
+                .requestMatchers(new AntPathRequestMatcher( "/swagger-resources/**"))
+                .requestMatchers(new AntPathRequestMatcher("/favicon.ico"))
+                .requestMatchers(new AntPathRequestMatcher("/css/**"))
+                .requestMatchers(new AntPathRequestMatcher("/js/**"))
+                .requestMatchers(new AntPathRequestMatcher("/img/**"))
+                .requestMatchers(new AntPathRequestMatcher("/user/signin"))
+                .requestMatchers(new AntPathRequestMatcher("/user/login"))
+                .requestMatchers(new AntPathRequestMatcher("/lib/**"));
+
+    }
 
 
     @Bean
@@ -52,6 +55,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(
+                                        new AntPathRequestMatcher("/user/signin"),
                                         new AntPathRequestMatcher("/v3/**"),
                                         new AntPathRequestMatcher("/v3/api-docs/**"),
                                         new AntPathRequestMatcher("/swagger-ui**"),

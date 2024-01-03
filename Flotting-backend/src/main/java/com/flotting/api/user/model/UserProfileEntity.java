@@ -1,7 +1,10 @@
 package com.flotting.api.user.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,11 +13,14 @@ import java.util.Collection;
 @Entity
 @Getter
 @Table(name="USER_PROFILE")
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class UserProfileEntity implements UserDetails {
 
     @Id
     @Column(name="USER_NO" , columnDefinition = "INT COMMENT '유저 번호'")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long userNo;
 
     @Column(name="USER_NAME", columnDefinition = "varchar(30) COMMENT '유저 이름'")
@@ -24,13 +30,13 @@ public class UserProfileEntity implements UserDetails {
     private String userStatus;
 
     @Column(name="PHONE_NUMBER", columnDefinition = "INT COMMENT '휴대폰 번호'")
-    private long phoneNumber;
+    private Long phoneNumber;
 
     @Column(name="EMAIL", columnDefinition = "varchar(30) COMMENT '이메일'")
     private String email;
 
     @Column(name="AGE", columnDefinition = "INT COMMENT '나이'")
-    private long age;
+    private Long age;
 
     @Column(name="JOB", columnDefinition = "varchar(30) COMMENT '직업'")
     private String job;
@@ -68,5 +74,13 @@ public class UserProfileEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public static UserProfileEntity signUserBuilder(UserSigninRequestVo userSigninRequestVo){
+        return UserProfileEntity.builder()
+                .userName(userSigninRequestVo.getUserName())
+                .email(userSigninRequestVo.getEmail())
+                .phoneNumber(userSigninRequestVo.getPhoneNumber())
+                .build();
     }
 }
