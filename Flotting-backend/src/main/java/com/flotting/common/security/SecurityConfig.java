@@ -45,6 +45,7 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
+        http.httpBasic(Customizer.withDefaults());
         http.sessionManagement((sessionManagement) ->
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         );
@@ -57,8 +58,7 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/v2/api-docs"),
                                         new AntPathRequestMatcher("/swagger-ui/**"),
                                         new AntPathRequestMatcher("/swagger-resources/**")).permitAll()
-                                .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults());
+                                .anyRequest().authenticated());
         http.addFilterBefore(new JwtFilter(jwtTokenProvider, userDetailService), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
