@@ -1,5 +1,5 @@
 server:
-  port: 8882
+  port: 8002
 spring:
   h2:
     console:
@@ -7,9 +7,9 @@ spring:
       path: /h2-console
   datasource:
     driver-class-name: org.h2.Driver  # Database를 H2로 사용하겠다.
-    url: jdbc:h2:mem:testdb;MODE=MySQL
+    url: jdbc:h2:tcp://localhost/~/flotting;MODE=MySQL
     username: flotting
-    password: flotting
+    password:
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
