@@ -1,29 +1,43 @@
 <template>
-  <v-app>
-      <v-layout class="rounded rounded-md">
-          <v-app-bar title="Application bar"></v-app-bar>
-
-          <v-navigation-drawer>
-              <v-list>
-                  <v-list-item title="Navigation drawer"></v-list-item>
-              </v-list>
-          </v-navigation-drawer>
-
-          <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
-              Main Content
-          </v-main>
-      </v-layout>
-  </v-app>
+    <v-app>
+        <main-header
+            class="bg-blue-grey-lighten-5
+"
+            :toggle-drawer="toggleDrawer"
+        />
+        <main-navigation
+            class="bg-blue-grey-lighten-5
+"
+            :drawer="drawer"
+        />
+        <v-main class="bg-grey-lighten-5  align-center justify-center" style="min-height: 300px; ">
+            <v-container class="pa-10" fluid>
+                <router-view />
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
+import { ref } from "vue";
+import MainHeader from "@/components/layout/MainHeader";
+import MainNavigation from "@/components/layout/MainNavigation";
 
 export default {
-  name: 'App',
+    name: "App",
+    components: { MainNavigation, MainHeader },
 
+    setup() {
+        const drawer = ref(false);
 
-  data: () => ({
-    //
-  }),
-}
+        const toggleDrawer = () => {
+            drawer.value = !drawer.value;
+        };
+
+        return {
+            drawer,
+            toggleDrawer
+        };
+    }
+};
 </script>
