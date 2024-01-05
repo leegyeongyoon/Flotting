@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 public class UserSimpleResponseDto {
 
-    private Long id;
+    private Long seq;
 
     /**
      * 생성일
@@ -48,19 +48,13 @@ public class UserSimpleResponseDto {
      */
     private String job;
 
-    /**
-     * 등록한 2차 프로필 id
-     */
-    private Long detailProfileId;
-
     public UserSimpleResponseDto(UserSimpleProfile user) {
-        this.id = user.getSeq();
+        this.seq = user.getSeq();
         this.createdAt = user.getCreatedAt();
         this.age = user.getAge();
         this.job= user.getJob().name();
         this.userStatus = user.getUserStatus().name();
         this.phoneNumber = user.getPhoneNumber();
         this.name = user.getName();
-        this.detailProfileId = user.getUserDetailProfile().getSeq();
     }
 }
