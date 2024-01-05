@@ -19,9 +19,9 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest httpServletRequest =(HttpServletRequest) webRequest.getNativeRequest();
-        String id = (String) httpServletRequest.getAttribute("id");
+        Long seq = (Long) httpServletRequest.getAttribute("seq");
         String name = (String) httpServletRequest.getAttribute("name");
-        TokenUser tokenUser = new TokenUser(id, name);
+        TokenUser tokenUser = new TokenUser(seq, name);
         return tokenUser;
     }
 

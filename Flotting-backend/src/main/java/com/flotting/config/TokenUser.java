@@ -9,11 +9,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TokenUser {
 
-    private String id;
+    /**
+     * TODO 토큰 정보도 같이 있으면 좋을듯
+     */
+
+    private Long seq;
 
     private String name;
 
     public static TokenUser defaultUser() {
-        return new TokenUser("id", "defaultUser");
+        return new TokenUser(0L, "defaultUser");
     }
 }
