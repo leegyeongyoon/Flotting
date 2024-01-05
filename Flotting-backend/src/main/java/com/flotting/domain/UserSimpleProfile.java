@@ -45,22 +45,11 @@ public class UserSimpleProfile extends BaseEntity {
     private JobEnum job;
 
     /**
-     * 1차 프로필 id
+     * 2차 프로필 id
      */
     @OneToOne
     @JoinColumn(name = "user_detail_profile")
     private UserDetailProfile userDetailProfile;
-
-    /**
-     * 프로필 승인 매니저
-     */
-    @OneToOne
-    @JoinColumn(name = "manager_id")
-    private ManagerProfile manager;
-
-    public UserSimpleResponseDto getSimpleUserInfo() {
-        return new UserSimpleResponseDto(this);
-    }
 
     public UserSimpleProfile(UserSimpleRequestDto requestDto) {
         this.name = requestDto.getName();
@@ -72,5 +61,13 @@ public class UserSimpleProfile extends BaseEntity {
 
     public void setDetailUser(UserDetailProfile detailProfile) {
         this.userDetailProfile = detailProfile;
+    }
+
+    public UserSimpleProfile updateInfo(UserSimpleRequestDto requestDto) {
+        this.name = requestDto.getName();
+        this.age = requestDto.getAge();
+        this.phoneNumber = requestDto.getPhoneNumber();
+        this.job = JobEnum.of(requestDto.getJob());
+        return this;
     }
 }
