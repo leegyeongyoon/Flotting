@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface UserSimpleQueryDsl {
 
-    List<UserSimpleResponseDto> findAllSimpleUsers();
+    List<UserSimpleResponseDto> findAllSimpleUserInfos();
 
 }

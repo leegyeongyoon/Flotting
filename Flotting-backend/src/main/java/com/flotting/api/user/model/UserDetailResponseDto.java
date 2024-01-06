@@ -1,5 +1,6 @@
 package com.flotting.api.user.model;
 
+import com.flotting.api.manager.model.ManagerProfileDto;
 import com.flotting.domain.UserDetailProfile;
 import com.flotting.domain.UserSimpleProfile;
 import com.flotting.domain.type.LocationEnum;
@@ -73,8 +74,8 @@ public class UserDetailResponseDto {
     @Schema(description = "등급", allowableValues = {"G", "D", "P"})
     private String grade;
 
-    @Schema(description = "프로필 승인한 매니저 ID")
-    private Long managerId;
+    @Schema(description = "프로필 승인한 매니저")
+    private ManagerProfileDto manager;
 
     public UserDetailResponseDto(UserDetailProfile user) {
         this.appliedPath = user.getAppliedPath().name();
@@ -96,6 +97,7 @@ public class UserDetailResponseDto {
         this.gender = user.getGender().name();
         this.smoking = user.getSmoking();
         this.recommendUserName = user.getRecommendUserName();
+        this.manager = new ManagerProfileDto(user.getManager());
     }
 
 }

@@ -23,7 +23,7 @@ public class UserSimpleQueryDslImpl implements UserSimpleQueryDsl {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserSimpleResponseDto> findAllSimpleUsers() {
+    public List<UserSimpleResponseDto> findAllSimpleUserInfos() {
         return jpaQueryFactory
                 .selectFrom(userSimpleProfile)
                 .fetch()

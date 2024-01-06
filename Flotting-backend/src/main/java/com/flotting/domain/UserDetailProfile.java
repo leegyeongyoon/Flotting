@@ -130,6 +130,13 @@ public class UserDetailProfile extends BaseEntity {
      */
     private GradeEnum grade;
 
+    /**
+     * 프로필 승인 매니저
+     */
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    private ManagerProfile manager;
+
     @Builder
     public UserDetailProfile(UserDetailRequestDto requestDto) {
         this.appliedPath = AppliedPathEnum.of(requestDto.getAppliedPath());
@@ -153,4 +160,31 @@ public class UserDetailProfile extends BaseEntity {
         this.recommendUserName = requestDto.getRecommendUserName();
     }
 
+    public UserDetailProfile updateInfo(UserDetailRequestDto requestDto) {
+        this.appliedPath = AppliedPathEnum.of(requestDto.getAppliedPath());
+        this.body = BodyEnum.of(requestDto.getBody());
+        this.detailJob = requestDto.getDetailJob();
+        this.charm = requestDto.getCharm();
+        this.drinking = DrinkingEnum.of(requestDto.getDrinking());
+        this.education = EducationEnum.of(requestDto.getEducation());
+        this.email = requestDto.getEmail();
+        this.grade = GradeEnum.of(requestDto.getGrade());
+        this.height = requestDto.getHeight();
+        this.hobby = requestDto.getHobby();
+        this.identityVerificationURI = requestDto.getIdentityVerificationURI();
+        this.location = LocationEnum.of(requestDto.getLocation());
+        this.loveValues = requestDto.getLoveValues();
+        this.nickName = requestDto.getNickName();
+        this.preference = PreferenceEnum.of(requestDto.getPreference());
+        this.preferenceDetail = requestDto.getPreferenceDetail();
+        this.gender = GenderEnum.of(requestDto.getGender());
+        this.smoking = requestDto.getSmoking();
+        this.recommendUserName = requestDto.getRecommendUserName();
+        return this;
+    }
+
+    public UserDetailProfile approveProfile(ManagerProfile manager) {
+        this.manager = manager;
+        return this;
+    }
 }

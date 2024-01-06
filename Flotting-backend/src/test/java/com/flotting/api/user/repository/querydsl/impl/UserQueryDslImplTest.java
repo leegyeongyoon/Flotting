@@ -4,8 +4,6 @@ import com.flotting.api.user.SampleDataMaker;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
 import com.flotting.config.TokenUser;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
 import com.flotting.domain.type.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,16 +33,22 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .build();
 
         //when
-        UserSimpleResponseDto userSimpleProfile = userService.saveSimpleUserInfo(requestDto);
+        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(defaultUser, requestDto);
 
         //then
-        Assertions.assertThat(userSimpleProfile).isNotNull();
-        Assertions.assertThat(userSimpleProfile.getName()).isEqualTo(requestDto.getName());
+        Assertions.assertThat(userSimpleResponseDto).isNotNull();
+        Assertions.assertThat(userSimpleResponseDto.getName()).isEqualTo(requestDto.getName());
     }
 
     @Test
     public void 사용자_2차프로필_저장() {
         //given
+        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(defaultUser, UserSimpleRequestDto.builder()
+                .name("ABC")
+                .job(JobEnum.BUSNINESS.name())
+                .age(20)
+                .phoneNumber("01043394339")
+                .build());
         UserDetailRequestDto requestDto = UserDetailRequestDto.builder()
                 .height(190)
                 .smoking(Boolean.FALSE)
@@ -67,11 +71,11 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .URI("uri").build();
 
         //when
-        UserDetailProfile savedEntity = userService.saveDetailUserInfo(requestDto);
+        UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(defaultUser, userSimpleResponseDto.getUserNo(), requestDto);
 
         //then
-        Assertions.assertThat(savedEntity).isNotNull();
-        Assertions.assertThat(savedEntity.getBody().name()).isEqualTo(requestDto.getBody());
+        Assertions.assertThat(userDetailResponseDto).isNotNull();
+        Assertions.assertThat(userDetailResponseDto.getBody()).isEqualTo(requestDto.getBody());
     }
 
     @Test
@@ -80,10 +84,10 @@ class UserQueryDslImplTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserSimpleResponseDto> simpleUsers = userService.getSimpleUsers(defaultUser);
+        List<UserSimpleResponseDto> SimpleUserInfos = userService.getSimpleUserInfos(defaultUser);
 
         //then
-        Assertions.assertThat(simpleUsers.size()).isEqualTo(6);
+        Assertions.assertThat(SimpleUserInfos.size()).isEqualTo(6);
     }
 
     @Test
@@ -92,7 +96,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserDetailResponseDto> detailUsers = userService.getDetailUsers(defaultUser);
+        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos(defaultUser);
 
         //then
         Assertions.assertThat(detailUsers.size()).isEqualTo(6);
@@ -104,7 +108,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserDetailResponseDto> users = userService.getDetailUsersByGrade(defaultUser, GradeEnum.D.name());
+        List<UserDetailResponseDto> users = userService.getDetailUserInfosByGrade(defaultUser, GradeEnum.D.name());
 
         //then
         Assertions.assertThat(users.size()).isEqualTo(3);
@@ -118,7 +122,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         //when
         UserFilterRequestDto userFilterRequestDto = new UserFilterRequestDto();
         userFilterRequestDto.setBody(BodyEnum.NORMAL.name());
-        List<UserDetailResponseDto> users = userService.getUsersByFilter(defaultUser, userFilterRequestDto);
+        List<UserResponseDto> users = userService.getUsersByFilter(defaultUser, userFilterRequestDto);
 
         //then
         Assertions.assertThat(users.size()).isEqualTo(1);

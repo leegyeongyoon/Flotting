@@ -1,12 +1,16 @@
 package com.flotting.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+
+import java.util.List;
 
 /**
  * 매니저 프로필
  */
 @Entity
 @Table(name = "manager_profile")
+@Getter
 public class ManagerProfile extends BaseEntity {
 
     /**

@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -19,6 +20,20 @@ import java.util.Collection;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class UserSimpleProfile extends BaseEntity implements UserDetails {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long userNo;
+
+    /**
+     * 생성일
+     */
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void setCreatedAt() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     /**
      * 이름
@@ -52,25 +67,13 @@ public class UserSimpleProfile extends BaseEntity implements UserDetails {
     private JobEnum job;
 
     /**
-     * 1차 프로필 id
+     * 2차 프로필 id
      */
     @OneToOne
     @JoinColumn(name = "user_detail_profile")
     private UserDetailProfile userDetailProfile;
 
-    /**
-     * 프로필 승인 매니저
-     */
-    @OneToOne
-    @JoinColumn(name = "manager_id")
-    private ManagerProfile manager;
-
-    public UserSimpleResponseDto getSimpleUserInfo() {
-        return new UserSimpleResponseDto(this);
-    }
-
-    public UserSimpleProfile(UserSimpleRequestDto requestDto , String encodedPassword) {
-
+    public UserSimpleProfile(UserSimpleRequestDto requestDto) {
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
         this.password = encodedPassword;
@@ -78,17 +81,17 @@ public class UserSimpleProfile extends BaseEntity implements UserDetails {
         this.job = JobEnum.of(requestDto.getJob());
         this.userStatus = UserStatusEnum.DORMANT;
     }
-    public static UserSimpleResponseDto toResponseDto(UserSimpleProfile userSimpleProfile) {
-        return UserSimpleResponseDto.builder()
-                .id(userSimpleProfile.getSeq())
-                .name(userSimpleProfile.getName())
-                .phoneNumber(userSimpleProfile.getPhoneNumber())
-                .job(userSimpleProfile.getJob().name())
-                .build();
-    }
 
     public void setDetailUser(UserDetailProfile detailProfile) {
         this.userDetailProfile = detailProfile;
+    }
+
+    public UserSimpleProfile updateInfo(UserSimpleRequestDto requestDto) {
+        this.name = requestDto.getName();
+        this.age = requestDto.getAge();
+        this.phoneNumber = requestDto.getPhoneNumber();
+        this.job = JobEnum.of(requestDto.getJob());
+        return this;
     }
 
     @Override

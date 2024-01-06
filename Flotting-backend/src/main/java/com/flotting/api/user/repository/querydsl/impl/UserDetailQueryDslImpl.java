@@ -1,8 +1,10 @@
 package com.flotting.api.user.repository.querydsl.impl;
 
 
+import com.flotting.api.user.model.QUserResponseDto;
 import com.flotting.api.user.model.UserFilterRequestDto;
 import com.flotting.api.user.model.UserDetailResponseDto;
+import com.flotting.api.user.model.UserResponseDto;
 import com.flotting.api.user.repository.querydsl.UserDetailQueryDsl;
 import com.flotting.domain.type.*;
 import com.querydsl.core.BooleanBuilder;
@@ -46,12 +48,18 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> findUsersByFilter(UserFilterRequestDto filter) {
-        return jpaQueryFactory
-                .selectFrom(userDetailProfile)
-                .rightJoin(userSimpleProfile)
-                .on(userSimpleProfile.userDetailProfile.eq(userDetailProfile))
-                .where(genderEq(filter.getGender())
+    public List<UserResponseDto> findUsersByFilter(UserFilterRequestDto filter) {
+        List<UserResponseDto> result = jpaQueryFactory
+                .select(new QUserResponseDto(userSimpleProfile.userNo, userSimpleProfile.age, userSimpleProfile.job, userSimpleProfile.userStatus, userSimpleProfile.phoneNumber,
+                        userSimpleProfile.name, userDetailProfile.appliedPath, userDetailProfile.body, userDetailProfile.detailJob, userDetailProfile.charm,
+                        userDetailProfile.drinking, userDetailProfile.education, userDetailProfile.email, userDetailProfile.grade,
+                        userDetailProfile.height, userDetailProfile.hobby, userDetailProfile.location,
+                        userDetailProfile.loveValues, userDetailProfile.nickName, userDetailProfile.preference, userDetailProfile.preferenceDetail,
+                        userDetailProfile.gender, userDetailProfile.smoking, userDetailProfile.recommendUserName))
+                .from(userSimpleProfile)
+                .leftJoin(userSimpleProfile.userDetailProfile, userDetailProfile)
+                .where(userSimpleProfile.userDetailProfile.eq(userDetailProfile)
+                        .and(genderEq(filter.getGender()))
                         .and(bodyEq(filter.getBody()))
                         .and(userDetailProfile.height.between(filter.getStartValue(filter.getStartHeight()), filter.getEndValue(filter.getEndHeight())))
                         .and(statusEq(filter.getStatus()))
@@ -60,9 +68,8 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
                         .and(gradeEq(filter.getGrade()))
                         .and(jobEq(filter.getJob()))
                         .and(smokingEq(filter.getSmoke())))
-                .fetch()
-                .stream().map(UserDetailResponseDto::new)
-                .collect(Collectors.toList());
+                .fetch();
+        return result;
     }
 
     private BooleanBuilder genderEq(GenderEnum genderEnum) {
@@ -92,4 +99,6 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
     private BooleanBuilder jobEq(JobEnum jobEnum) {
         return nullSafeBuilder(() -> userSimpleProfile.job.eq(jobEnum));
     }
+
+
 }
