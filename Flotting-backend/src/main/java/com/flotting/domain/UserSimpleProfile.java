@@ -5,8 +5,10 @@ import com.flotting.api.user.model.UserSimpleResponseDto;
 import com.flotting.domain.type.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.util.Collection;
 
 /**
  * 1차 프로필 테이블
@@ -16,12 +18,17 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class UserSimpleProfile extends BaseEntity {
+public class UserSimpleProfile extends BaseEntity implements UserDetails {
 
     /**
      * 이름
      */
     private String name;
+
+    /**
+     * 패스워드(pass CI를 인코딩 한 값)
+     */
+    private String password;
 
     /**
      * 나이
@@ -62,15 +69,60 @@ public class UserSimpleProfile extends BaseEntity {
         return new UserSimpleResponseDto(this);
     }
 
-    public UserSimpleProfile(UserSimpleRequestDto requestDto) {
+    public UserSimpleProfile(UserSimpleRequestDto requestDto , String encodedPassword) {
+
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
+        this.password = encodedPassword;
         this.phoneNumber = requestDto.getPhoneNumber();
         this.job = JobEnum.of(requestDto.getJob());
         this.userStatus = UserStatusEnum.DORMANT;
     }
+    public static UserSimpleResponseDto toResponseDto(UserSimpleProfile userSimpleProfile) {
+        return UserSimpleResponseDto.builder()
+                .id(userSimpleProfile.getSeq())
+                .name(userSimpleProfile.getName())
+                .phoneNumber(userSimpleProfile.getPhoneNumber())
+                .job(userSimpleProfile.getJob().name())
+                .build();
+    }
 
     public void setDetailUser(UserDetailProfile detailProfile) {
         this.userDetailProfile = detailProfile;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

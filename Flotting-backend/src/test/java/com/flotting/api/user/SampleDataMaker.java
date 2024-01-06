@@ -2,6 +2,7 @@ package com.flotting.api.user;
 
 import com.flotting.api.user.model.UserDetailRequestDto;
 import com.flotting.api.user.model.UserSimpleRequestDto;
+import com.flotting.api.user.model.UserSimpleResponseDto;
 import com.flotting.api.user.repository.UserSimpleRepository;
 import com.flotting.api.user.service.UserService;
 import com.flotting.domain.UserDetailProfile;
@@ -54,7 +55,7 @@ public class SampleDataMaker {
                     .age(ages.get(idx))
                     .phoneNumber(phoneNumbers.get(idx))
                     .build();
-            UserSimpleProfile savedSimpleUser = userService.saveSimpleUserInfo(simpleRequestDto);
+            UserSimpleResponseDto savedSimpleUser = userService.saveSimpleUserInfo(simpleRequestDto);
 
             UserDetailRequestDto detailRequestDto = UserDetailRequestDto.builder()
                     .height(heights.get(idx))
@@ -77,7 +78,7 @@ public class SampleDataMaker {
                     .recommendUserName(recommendUserNames.get(idx))
                     .URI(URIs.get(idx)).build();
             UserDetailProfile savedDetailUser = userService.saveDetailUserInfo(detailRequestDto);
-            savedSimpleUser.setDetailUser(savedDetailUser);
+//            savedSimpleUser.setDetailUser(savedDetailUser);
         });
     }
 }

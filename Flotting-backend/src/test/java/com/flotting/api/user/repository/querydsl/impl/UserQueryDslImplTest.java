@@ -35,7 +35,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .build();
 
         //when
-        UserSimpleProfile userSimpleProfile = userService.saveSimpleUserInfo(defaultUser, requestDto);
+        UserSimpleResponseDto userSimpleProfile = userService.saveSimpleUserInfo(requestDto);
 
         //then
         Assertions.assertThat(userSimpleProfile).isNotNull();
@@ -67,7 +67,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .URI("uri").build();
 
         //when
-        UserDetailProfile savedEntity = userService.saveDetailUserInfo(defaultUser, requestDto);
+        UserDetailProfile savedEntity = userService.saveDetailUserInfo(requestDto);
 
         //then
         Assertions.assertThat(savedEntity).isNotNull();

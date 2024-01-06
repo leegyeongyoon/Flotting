@@ -1,9 +1,9 @@
 package com.flotting.api.user.controller;
 
 
-import com.flotting.api.user.model.UserDetailResponseDto;
-import com.flotting.api.user.model.UserFilterRequestDto;
+import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
+import com.flotting.config.TokenUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,10 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,8 +27,15 @@ public class UserController extends ApiController {
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserDetailResponseDto.class)))
     @GetMapping("/user/filter")
     public List<UserDetailResponseDto> getUsersByFilter(TokenUser tokenUser, @ModelAttribute UserFilterRequestDto userFilterRequestDto) {
-        List<UserDetailResponseDto> usersByFilter = userService.getUsersByFilter(userFilterRequestDto);
-        return usersByFilter;
+        return userService.getUsersByFilter(tokenUser,userFilterRequestDto);
+    }
+
+    @Operation(summary = "유저 회원가입", description = "pass 회원가입 로직을 적용하기 전 테스트용으로 만들어 놓은 회원가입 로직입니다.")
+    @Parameter(name = "userSimpleRequestDto", description = "requestParam : 이, 패스워드 , 나이 , 휴대폰번호, 직업")
+    @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = UserSimpleResponseDto.class)))
+    @PostMapping("/signin")
+    public UserSimpleResponseDto singin(@RequestBody UserSimpleRequestDto userSimpleRequestDto) {
+        return userService.saveSimpleUserInfo(userSimpleRequestDto);
     }
 
 

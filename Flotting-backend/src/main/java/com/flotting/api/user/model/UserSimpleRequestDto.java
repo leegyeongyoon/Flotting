@@ -15,6 +15,8 @@ public class UserSimpleRequestDto {
 
     private String name;
 
+    private String password;
+
     private Integer age;
 
     private String phoneNumber;

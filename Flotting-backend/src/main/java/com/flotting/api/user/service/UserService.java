@@ -9,6 +9,7 @@ import com.flotting.domain.UserSimpleProfile;
 import com.flotting.domain.type.GradeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +20,10 @@ import java.util.List;
 @Slf4j
 public class UserService {
 
-    private  final UserSimpleRepository userSimpleRepository;
-    private  final UserDetailRepository userDetailRepository;
+    private final UserSimpleRepository userSimpleRepository;
+    private final UserDetailRepository userDetailRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * user등급별 조회
@@ -58,21 +61,24 @@ public class UserService {
      * user 1차 프로필 저장
      */
     @Transactional
-    public UserSimpleProfile saveSimpleUserInfo(TokenUser tokenUser, UserSimpleRequestDto requestDto) {
-        UserSimpleProfile user = new UserSimpleProfile(requestDto);
+    public UserSimpleResponseDto saveSimpleUserInfo(UserSimpleRequestDto requestDto) {
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+        UserSimpleProfile user = new UserSimpleProfile(requestDto, encodedPassword);
         UserSimpleProfile savedUser = userSimpleRepository.save(user);
         log.info("savedEntity user : {}", savedUser);
-        return savedUser;
+        return  UserSimpleProfile.toResponseDto(savedUser);
     }
 
     /**
      * user 2차 프로필 저장
      */
     @Transactional
-    public UserDetailProfile saveDetailUserInfo(TokenUser tokenUser, UserDetailRequestDto requestDto) {
+    public UserDetailProfile saveDetailUserInfo(UserDetailRequestDto requestDto) {
         UserDetailProfile userDetailProfile = new UserDetailProfile(requestDto);
         UserDetailProfile savedUser = userDetailRepository.save(userDetailProfile);
         log.info("savedEntity user : {}", savedUser);
         return savedUser;
     }
+
+
 }
