@@ -7,7 +7,6 @@ import com.flotting.api.user.service.UserProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 
 @RestController
@@ -22,8 +21,5 @@ public class UserProfileController {
         return userProfileService.userLogin(userLoginRequestVo);
     }
 
-    @PostMapping("/signin")
-    public UserProfileEntity singin(@RequestBody UserSigninRequestVo userSigninRequestVo) {
-        return userProfileService.singin(userSigninRequestVo);
-    }
+
 }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "matching_history",
-    indexes = {@Index(name = "receiverIndex", columnList = "receiver"),
+    indexes = {@Index(name = "receiverIndexs", columnList = "receiver"),
                 @Index(name = "requesterIndex", columnList = "requester"),
                 @Index(name = "matchingIndex", columnList = "matchingProcess")})
 public class MatchingHistory {

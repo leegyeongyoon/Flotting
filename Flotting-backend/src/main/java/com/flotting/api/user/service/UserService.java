@@ -9,6 +9,7 @@ import com.flotting.domain.UserSimpleProfile;
 import com.flotting.domain.type.GradeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,8 @@ public class UserService {
 
     private final UserSimpleRepository userSimpleRepository;
     private final UserDetailRepository userDetailRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * user등급별 조회
@@ -145,4 +148,6 @@ public class UserService {
         UserDetailProfile userDetail = getDetailUser(profileId);
         return new UserDetailResponseDto(userDetail);
     }
+
+
 }

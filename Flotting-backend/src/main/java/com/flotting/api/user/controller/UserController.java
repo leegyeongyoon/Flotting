@@ -31,6 +31,14 @@ public class UserController extends ApiController {
         return usersByFilter;
     }
 
+    @Operation(summary = "유저 회원가입", description = "pass 회원가입 로직을 적용하기 전 테스트용으로 만들어 놓은 회원가입 로직입니다.")
+    @Parameter(name = "userSimpleRequestDto", description = "requestParam : 이, 패스워드 , 나이 , 휴대폰번호, 직업")
+    @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = UserSimpleResponseDto.class)))
+    @PostMapping("/signin")
+    public UserSimpleResponseDto singin(@RequestBody UserSimpleRequestDto userSimpleRequestDto) {
+        return userService.saveSimpleUserInfo(userSimpleRequestDto);
+    }
+
     @Operation(summary = "1차 프로필 조회", description = "1차 프로필 전체 user조회")
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserSimpleResponseDto.class)))
     @GetMapping("/user/simple-info/all")
@@ -90,7 +98,7 @@ public class UserController extends ApiController {
     @Parameter(name = "userSimpleRequestDto", description = "userSimpleRequestDto : 이름, 나이, 전화번호, 직업")
     @ApiResponse(responseCode = "200", description = "user수정 성공", content = @Content(schema = @Schema(implementation = UserSimpleResponseDto.class)))
     @PutMapping("/user/simple/{userId}")
-    public UserSimpleResponseDto updateSimpleUserInfo(TokenUser tokenUser, 
+    public UserSimpleResponseDto updateSimpleUserInfo(TokenUser tokenUser,
                                                       @RequestBody UserSimpleRequestDto userSimpleRequestDto,
                                                       @PathVariable(name = "userId") Long targetUserId) {
         UserSimpleResponseDto userSimpleResponseDto = userService.updateSimpleUserInfo(tokenUser, targetUserId, userSimpleRequestDto);
