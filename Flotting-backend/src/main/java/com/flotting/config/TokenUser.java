@@ -13,7 +13,7 @@ public class TokenUser {
      * TODO 토큰 정보도 같이 있으면 좋을듯
      */
 
-    private Long seq;
+    private Long userNo;
 
     private String name;
 

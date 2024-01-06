@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 public class UserSimpleResponseDto {
 
-    private Long seq;
+    private Long userNo;
 
     /**
      * 생성일
@@ -51,7 +51,7 @@ public class UserSimpleResponseDto {
     private String job;
 
     public UserSimpleResponseDto(UserSimpleProfile user) {
-        this.seq = user.getSeq();
+        this.userNo = user.getUserNo();
         this.createdAt = user.getCreatedAt();
         this.age = user.getAge();
         this.job= user.getJob().name();

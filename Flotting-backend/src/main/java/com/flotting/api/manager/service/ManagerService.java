@@ -40,7 +40,7 @@ public class ManagerService {
      */
     @Transactional
     public void approveInfo(TokenUser tokenUser, Long detailProfileId) {
-        ManagerProfile manager = getManager(tokenUser.getSeq());
+        ManagerProfile manager = getManager(tokenUser.getUserNo());
         UserDetailProfile detailProfile = userService.getDetailUser(detailProfileId);
         detailProfile.approveProfile(manager);
     }

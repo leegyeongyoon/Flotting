@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 /**
@@ -19,6 +20,20 @@ import java.util.Collection;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class UserSimpleProfile extends BaseEntity implements UserDetails {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long userNo;
+
+    /**
+     * 생성일
+     */
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void setCreatedAt() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     /**
      * 이름
@@ -65,14 +80,6 @@ public class UserSimpleProfile extends BaseEntity implements UserDetails {
         this.phoneNumber = requestDto.getPhoneNumber();
         this.job = JobEnum.of(requestDto.getJob());
         this.userStatus = UserStatusEnum.DORMANT;
-    }
-    public static UserSimpleResponseDto toResponseDto(UserSimpleProfile userSimpleProfile) {
-        return UserSimpleResponseDto.builder()
-                .id(userSimpleProfile.getSeq())
-                .name(userSimpleProfile.getName())
-                .phoneNumber(userSimpleProfile.getPhoneNumber())
-                .job(userSimpleProfile.getJob().name())
-                .build();
     }
 
     public void setDetailUser(UserDetailProfile detailProfile) {

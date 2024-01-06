@@ -15,7 +15,7 @@ import lombok.Setter;
 public class UserResponseDto {
 
     @Schema(description = "simpleProfileId")
-    private Long seq;
+    private Long userNo;
 
     @Schema(description = "이름")
     private String name;
@@ -90,7 +90,7 @@ public class UserResponseDto {
     private String grade;
 
     public UserResponseDto(UserSimpleResponseDto simpleInfo, UserDetailResponseDto detailInfo) {
-        this.seq = simpleInfo.getSeq();
+        this.userNo = simpleInfo.getUserNo();
         this.age = simpleInfo.getAge();
         this.job= simpleInfo.getJob();
         this.userStatus = simpleInfo.getUserStatus();
@@ -117,13 +117,13 @@ public class UserResponseDto {
     }
 
     @QueryProjection
-    public UserResponseDto(Long seq, Integer age, JobEnum job, UserStatusEnum userStatus, String phoneNumber,
+    public UserResponseDto(Long userNo, Integer age, JobEnum job, UserStatusEnum userStatus, String phoneNumber,
                            String name, AppliedPathEnum appliedPath, BodyEnum body, String detailJob, String charm,
                            DrinkingEnum drinking, EducationEnum education, String email, GradeEnum grade,
                            Integer height, String hobby, LocationEnum location,
                            String loveValues, String nickName, PreferenceEnum preference, String preferenceDetail,
                            GenderEnum gender, Boolean smoking, String recommendUserName) {
-        this.seq = seq;
+        this.userNo = userNo;
         this.age = age;
         this.job= job.name();;
         this.userStatus = userStatus.name();

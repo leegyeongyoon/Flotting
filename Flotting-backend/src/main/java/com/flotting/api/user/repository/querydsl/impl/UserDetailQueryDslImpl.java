@@ -50,7 +50,7 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
     @Transactional(readOnly = true)
     public List<UserResponseDto> findUsersByFilter(UserFilterRequestDto filter) {
         List<UserResponseDto> result = jpaQueryFactory
-                .select(new QUserResponseDto(userSimpleProfile.seq, userSimpleProfile.age, userSimpleProfile.job, userSimpleProfile.userStatus, userSimpleProfile.phoneNumber,
+                .select(new QUserResponseDto(userSimpleProfile.userNo, userSimpleProfile.age, userSimpleProfile.job, userSimpleProfile.userStatus, userSimpleProfile.phoneNumber,
                         userSimpleProfile.name, userDetailProfile.appliedPath, userDetailProfile.body, userDetailProfile.detailJob, userDetailProfile.charm,
                         userDetailProfile.drinking, userDetailProfile.education, userDetailProfile.email, userDetailProfile.grade,
                         userDetailProfile.height, userDetailProfile.hobby, userDetailProfile.location,

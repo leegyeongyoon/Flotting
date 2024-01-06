@@ -58,7 +58,7 @@ public class SampleDataMaker {
                     .phoneNumber(phoneNumbers.get(idx))
                     .build();
             UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(TokenUser.defaultUser(), simpleRequestDto);
-            TokenUser savedUser = new TokenUser(userSimpleResponseDto.getSeq(), userSimpleResponseDto.getName());
+            TokenUser savedUser = new TokenUser(userSimpleResponseDto.getUserNo(), userSimpleResponseDto.getName());
 
             UserDetailRequestDto detailRequestDto = UserDetailRequestDto.builder()
                     .height(heights.get(idx))
@@ -80,7 +80,7 @@ public class SampleDataMaker {
                     .preferenceDetail(preferenceDetails.get(idx))
                     .recommendUserName(recommendUserNames.get(idx))
                     .URI(URIs.get(idx)).build();
-            UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(savedUser, userSimpleResponseDto.getSeq(), detailRequestDto);
+            UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(savedUser, userSimpleResponseDto.getUserNo(), detailRequestDto);
         });
     }
 }

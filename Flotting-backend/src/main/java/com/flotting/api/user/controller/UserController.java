@@ -35,8 +35,8 @@ public class UserController extends ApiController {
     @Parameter(name = "userSimpleRequestDto", description = "requestParam : 이, 패스워드 , 나이 , 휴대폰번호, 직업")
     @ApiResponse(responseCode = "200", description = "회원가입 성공", content = @Content(schema = @Schema(implementation = UserSimpleResponseDto.class)))
     @PostMapping("/signin")
-    public UserSimpleResponseDto singin(@RequestBody UserSimpleRequestDto userSimpleRequestDto) {
-        return userService.saveSimpleUserInfo(userSimpleRequestDto);
+    public UserSimpleResponseDto singin(TokenUser tokenUser, @RequestBody UserSimpleRequestDto userSimpleRequestDto) {
+        return userService.saveSimpleUserInfo(tokenUser, userSimpleRequestDto);
     }
 
     @Operation(summary = "1차 프로필 조회", description = "1차 프로필 전체 user조회")
@@ -55,7 +55,7 @@ public class UserController extends ApiController {
         return detailUserInfos;
     }
 
-    @Operation(summary = "1차 프로필 특정 user조회", description = "seq, 등록일, 이름, 나이, 전화번호, 계정상태, 직군")
+    @Operation(summary = "1차 프로필 특정 user조회", description = "userNo, 등록일, 이름, 나이, 전화번호, 계정상태, 직군")
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserSimpleResponseDto.class)))
     @GetMapping("/user/simple-info/{userId}")
     public UserSimpleResponseDto getSimpleUserInfo(TokenUser tokenUser,
