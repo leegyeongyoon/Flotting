@@ -11,7 +11,7 @@
             :drawer="drawer"
         />
         <v-main class="bg-grey-lighten-5  align-center justify-center" style="min-height: 300px; ">
-            <v-container class="pa-10" fluid>
+            <v-container fluid>
                 <router-view />
             </v-container>
         </v-main>
