@@ -1,13 +1,11 @@
 <script>
 export default {
-  name: "SecondRegister"
-}
+    name: "SecondRegister"
+};
 </script>
 
 <template>
-  <div>신규 고객 - 2차 등록 고객</div>
+    <div>신규 고객 - 2차 등록 고객</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

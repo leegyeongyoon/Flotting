@@ -9,7 +9,7 @@ import SecondRegister from "@/views/reg/second/SecondRegister";
 import FirstRegister from "@/views/reg/first/FirstRegister";
 import AdminNotice from "@/views/noti/admin/AdminNotice";
 import UserNotice from "@/views/noti/user/UserNotice";
-import Indicator from "@/views/ind/Indicator";
+import IndicatorManagement from "@/views/ind/IndicatorManagement";
 
 const routes = [
     { path: "/", component: AdminDashboard },
@@ -27,7 +27,7 @@ const routes = [
     { path: "/noti/admin", component: AdminNotice },
     { path: "/noti/user", component: UserNotice },
 
-    { path: "/indicator", component: Indicator }
+    { path: "/indicator", component: IndicatorManagement }
 ];
 
 const router = createRouter({

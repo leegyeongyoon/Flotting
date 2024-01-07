@@ -1,13 +1,11 @@
 <script>
 export default {
-  name: "AdminNotice"
-}
+    name: "AdminNotice"
+};
 </script>
 
 <template>
-  <div>공지 사항 - 관리자 공지사항</div>
+    <div>공지 사항 - 관리자 공지사항</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
