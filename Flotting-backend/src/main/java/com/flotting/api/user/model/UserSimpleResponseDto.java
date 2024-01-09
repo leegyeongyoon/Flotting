@@ -1,15 +1,9 @@
 package com.flotting.api.user.model;
 
-import com.flotting.domain.ManagerProfile;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
-import com.flotting.domain.type.JobEnum;
-import com.flotting.domain.type.UserStatusEnum;
-import jakarta.persistence.*;
+import com.flotting.api.user.entity.UserSimpleProfile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 

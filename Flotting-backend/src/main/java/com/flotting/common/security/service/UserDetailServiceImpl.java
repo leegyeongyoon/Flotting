@@ -1,8 +1,6 @@
 package com.flotting.common.security.service;
 
-import com.flotting.api.user.repository.UserProfileRepository;
 import com.flotting.api.user.repository.UserSimpleRepository;
-import com.flotting.domain.UserSimpleProfile;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

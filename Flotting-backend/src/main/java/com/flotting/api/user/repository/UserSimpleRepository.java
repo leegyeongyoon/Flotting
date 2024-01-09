@@ -1,10 +1,8 @@
 package com.flotting.api.user.repository;
 
 
-import com.flotting.api.user.model.UserProfileEntity;
 import com.flotting.api.user.repository.querydsl.UserSimpleQueryDsl;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
+import com.flotting.api.user.entity.UserSimpleProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

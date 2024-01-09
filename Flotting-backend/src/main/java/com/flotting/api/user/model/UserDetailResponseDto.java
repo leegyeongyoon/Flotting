@@ -1,11 +1,8 @@
 package com.flotting.api.user.model;
 
 import com.flotting.api.manager.model.ManagerProfileDto;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
-import com.flotting.domain.type.LocationEnum;
+import com.flotting.api.user.entity.UserDetailProfile;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

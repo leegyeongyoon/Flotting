@@ -3,15 +3,12 @@ package com.flotting.api.manager.service;
 import com.flotting.api.manager.repository.ManagerRepository;
 import com.flotting.api.user.service.UserService;
 import com.flotting.config.TokenUser;
-import com.flotting.domain.ManagerProfile;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
+import com.flotting.api.manager.entity.ManagerProfile;
+import com.flotting.api.user.entity.UserDetailProfile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor

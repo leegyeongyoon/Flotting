@@ -4,17 +4,12 @@ import com.flotting.api.user.model.UserDetailRequestDto;
 import com.flotting.api.user.model.UserDetailResponseDto;
 import com.flotting.api.user.model.UserSimpleRequestDto;
 import com.flotting.api.user.model.UserSimpleResponseDto;
-import com.flotting.api.user.repository.UserSimpleRepository;
 import com.flotting.api.user.service.UserService;
+import com.flotting.api.util.type.*;
 import com.flotting.config.TokenUser;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
-import com.flotting.domain.type.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 

@@ -1,7 +1,9 @@
-package com.flotting.domain;
+package com.flotting.api.history.entity;
 
-import com.flotting.domain.type.CSEnum;
-import com.flotting.domain.type.ProcessStatus;
+import com.flotting.api.manager.entity.ManagerProfile;
+import com.flotting.api.user.entity.UserSimpleProfile;
+import com.flotting.api.util.type.CSEnum;
+import com.flotting.api.util.type.ProcessStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

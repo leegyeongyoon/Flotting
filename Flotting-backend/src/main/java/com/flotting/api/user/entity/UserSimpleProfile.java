@@ -1,8 +1,9 @@
-package com.flotting.domain;
+package com.flotting.api.user.entity;
 
 import com.flotting.api.user.model.UserSimpleRequestDto;
-import com.flotting.api.user.model.UserSimpleResponseDto;
-import com.flotting.domain.type.*;
+import com.flotting.api.util.BaseEntity;
+import com.flotting.api.util.type.JobEnum;
+import com.flotting.api.util.type.UserStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

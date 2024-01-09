@@ -1,5 +1,6 @@
-package com.flotting.domain;
+package com.flotting.api.history.entity;
 
+import com.flotting.api.user.entity.UserSimpleProfile;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

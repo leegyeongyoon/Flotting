@@ -1,18 +1,14 @@
-package com.flotting.domain;
+package com.flotting.api.user.entity;
 
 import com.flotting.api.user.model.UserDetailRequestDto;
-import com.flotting.domain.type.*;
+import com.flotting.api.util.BaseEntity;
+import com.flotting.api.manager.entity.ManagerProfile;
+import com.flotting.api.util.type.*;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.IndexColumn;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 2차 프로필 테이블

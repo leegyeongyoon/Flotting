@@ -1,9 +1,8 @@
-package com.flotting.domain;
+package com.flotting.api.manager.entity;
 
+import com.flotting.api.util.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
-
-import java.util.List;
 
 /**
  * 매니저 프로필
