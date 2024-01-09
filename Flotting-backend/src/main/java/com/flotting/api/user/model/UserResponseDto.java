@@ -89,6 +89,9 @@ public class UserResponseDto {
     @Schema(description = "등급", allowableValues = {"G", "D", "P"})
     private String grade;
 
+    @Schema(description = "2차 프로필 id")
+    private Long detailProfileId;
+
     public UserResponseDto(UserSimpleResponseDto simpleInfo, UserDetailResponseDto detailInfo) {
         this.userNo = simpleInfo.getUserNo();
         this.age = simpleInfo.getAge();
@@ -113,7 +116,8 @@ public class UserResponseDto {
         this.preferenceDetail = detailInfo.getPreferenceDetail();
         this.gender = detailInfo.getGender();
         this.smoking = detailInfo.getSmoking();
-        this.recommendUserName = detailInfo.getRecommendUserName();;
+        this.recommendUserName = detailInfo.getRecommendUserName();
+        this.detailProfileId = detailInfo.getSeq();
     }
 
     @QueryProjection
@@ -122,7 +126,7 @@ public class UserResponseDto {
                            DrinkingEnum drinking, EducationEnum education, String email, GradeEnum grade,
                            Integer height, String hobby, LocationEnum location,
                            String loveValues, String nickName, PreferenceEnum preference, String preferenceDetail,
-                           GenderEnum gender, Boolean smoking, String recommendUserName) {
+                           GenderEnum gender, Boolean smoking, String recommendUserName, Long detailProfileId) {
         this.userNo = userNo;
         this.age = age;
         this.job= job.name();;
@@ -147,5 +151,6 @@ public class UserResponseDto {
         this.gender = gender.name();;
         this.smoking = smoking;
         this.recommendUserName = recommendUserName;
+        this.detailProfileId = detailProfileId;
     }
 }

@@ -44,6 +44,11 @@ public class UserSimpleResponseDto {
      */
     private String job;
 
+    /**
+     * 2차프로필 id
+     */
+    private Long userDetailProfileId;
+
     public UserSimpleResponseDto(UserSimpleProfile user) {
         this.userNo = user.getUserNo();
         this.createdAt = user.getCreatedAt();
@@ -52,5 +57,6 @@ public class UserSimpleResponseDto {
         this.userStatus = user.getUserStatus().name();
         this.phoneNumber = user.getPhoneNumber();
         this.name = user.getName();
+        this.userDetailProfileId = user.getUserDetailProfile().getSeq();
     }
 }

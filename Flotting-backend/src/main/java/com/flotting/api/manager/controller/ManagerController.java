@@ -2,7 +2,7 @@ package com.flotting.api.manager.controller;
 
 import com.flotting.api.manager.service.ManagerService;
 import com.flotting.api.user.model.UserDetailResponseDto;
-import com.flotting.config.TokenUser;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,9 +26,9 @@ public class ManagerController {
     @Parameter(name = "u", description = "userDetailRequestDto : 2차 프로필 정보")
     @ApiResponse(responseCode = "200", description = "user수정 성공", content = @Content(schema = @Schema(implementation = UserDetailResponseDto.class)))
     @PutMapping("/approve/user/{detailProfileId}")
-    public ResponseEntity approveUserProfile(TokenUser tokenUser,
+    public ResponseEntity approveUserProfile(
                                              @RequestParam(name = "detailProfileId") Long detailProfileId) {
-        managerService.approveInfo(tokenUser, detailProfileId);
+        managerService.approveInfo( detailProfileId);
         return ResponseEntity.ok().build();
     }
 }

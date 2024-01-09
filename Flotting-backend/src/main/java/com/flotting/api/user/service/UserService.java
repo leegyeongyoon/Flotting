@@ -3,7 +3,7 @@ package com.flotting.api.user.service;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.repository.UserDetailRepository;
 import com.flotting.api.user.repository.UserSimpleRepository;
-import com.flotting.config.TokenUser;
+
 import com.flotting.api.user.entity.UserDetailProfile;
 import com.flotting.api.user.entity.UserSimpleProfile;
 import com.flotting.api.util.type.GradeEnum;
@@ -30,7 +30,7 @@ public class UserService {
      * user등급별 조회
      */
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> getDetailUserInfosByGrade(TokenUser tokenUser, String grade) {
+    public List<UserDetailResponseDto> getDetailUserInfosByGrade(String grade) {
         return userDetailRepository.findUsersByGrade(GradeEnum.of(grade));
     }
 
@@ -38,7 +38,7 @@ public class UserService {
      * 모든 user목록 1차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserSimpleResponseDto> getSimpleUserInfos(TokenUser tokenUser) {
+    public List<UserSimpleResponseDto> getSimpleUserInfos() {
         return userSimpleRepository.findAllSimpleUserInfos();
     }
 
@@ -46,7 +46,7 @@ public class UserService {
      * 모든 user목록 2차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> getDetailUserInfos(TokenUser tokenUser) {
+    public List<UserDetailResponseDto> getDetailUserInfos() {
         return userDetailRepository.findAll()
                 .stream().map(UserDetailResponseDto::new)
                 .collect(Collectors.toList());
@@ -56,7 +56,7 @@ public class UserService {
      * 필터에 해당하는 user목록 2차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserResponseDto> getUsersByFilter(TokenUser tokenUser, UserFilterRequestDto filter) {
+    public List<UserResponseDto> getUsersByFilter(UserFilterRequestDto filter) {
         return userDetailRepository.findUsersByFilter(filter);
     }
 
@@ -64,7 +64,7 @@ public class UserService {
      * user 1차 프로필 저장
      */
     @Transactional
-    public UserSimpleResponseDto saveSimpleUserInfo(TokenUser tokenUser, UserSimpleRequestDto requestDto) {
+    public UserSimpleResponseDto saveSimpleUserInfo(UserSimpleRequestDto requestDto) {
         UserSimpleProfile user = new UserSimpleProfile(requestDto);
         UserSimpleProfile savedUser = userSimpleRepository.save(user);
         log.info("savedEntity user : {}", savedUser);
@@ -76,7 +76,7 @@ public class UserService {
      * 1차 프로필 수정
      */
     @Transactional
-    public UserSimpleResponseDto updateSimpleUserInfo(TokenUser tokenUser, Long targetUserId, UserSimpleRequestDto requestDto) {
+    public UserSimpleResponseDto updateSimpleUserInfo(Long targetUserId, UserSimpleRequestDto requestDto) {
         UserSimpleProfile simpleUser = getSimpleUser(targetUserId);
 
         UserSimpleProfile updatedProfile = simpleUser.updateInfo(requestDto);
@@ -88,7 +88,7 @@ public class UserService {
      * user 2차 프로필 저장
      */
     @Transactional
-    public UserDetailResponseDto saveDetailUserInfo(TokenUser tokenUser, Long targetUserId, UserDetailRequestDto requestDto) {
+    public UserDetailResponseDto saveDetailUserInfo(Long targetUserId, UserDetailRequestDto requestDto) {
         UserDetailProfile userDetailProfile = new UserDetailProfile(requestDto);
         UserSimpleProfile simpleUser = getSimpleUser(targetUserId);
 
@@ -103,7 +103,7 @@ public class UserService {
      * 2차 프로필 수정
      */
     @Transactional
-    public UserDetailResponseDto updateDetailUserInfo(TokenUser tokenUser, Long targetUserId, UserDetailRequestDto requestDto) {
+    public UserDetailResponseDto updateDetailUserInfo(Long targetUserId, UserDetailRequestDto requestDto) {
         UserDetailProfile detailUser = getDetailUser(targetUserId);
 
         UserDetailProfile updatedProfile = detailUser.updateInfo(requestDto);

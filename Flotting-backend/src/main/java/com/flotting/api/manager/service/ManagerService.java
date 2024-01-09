@@ -2,7 +2,7 @@ package com.flotting.api.manager.service;
 
 import com.flotting.api.manager.repository.ManagerRepository;
 import com.flotting.api.user.service.UserService;
-import com.flotting.config.TokenUser;
+
 import com.flotting.api.manager.entity.ManagerProfile;
 import com.flotting.api.user.entity.UserDetailProfile;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +32,12 @@ public class ManagerService {
 
     /**
      * 매니저 프로필 승인
-     * @param tokenUser
+     * @param
      * @param detailProfileId
      */
     @Transactional
-    public void approveInfo(TokenUser tokenUser, Long detailProfileId) {
-        ManagerProfile manager = getManager(tokenUser.getUserNo());
+    public void approveInfo(Long detailProfileId) {
+        ManagerProfile manager = getManager(detailProfileId);
         UserDetailProfile detailProfile = userService.getDetailUser(detailProfileId);
         detailProfile.approveProfile(manager);
     }

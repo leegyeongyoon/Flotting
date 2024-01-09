@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.flotting.domain.QUserSimpleProfile.userSimpleProfile;
+import static com.flotting.api.user.entity.QUserSimpleProfile.userSimpleProfile;
 
 @RequiredArgsConstructor
 @Repository

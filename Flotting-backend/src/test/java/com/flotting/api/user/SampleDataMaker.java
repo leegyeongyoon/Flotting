@@ -1,15 +1,13 @@
 package com.flotting.api.user;
 
-import com.flotting.api.user.model.UserDetailRequestDto;
-import com.flotting.api.user.model.UserDetailResponseDto;
-import com.flotting.api.user.model.UserSimpleRequestDto;
-import com.flotting.api.user.model.UserSimpleResponseDto;
+import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
 import com.flotting.api.util.type.*;
-import com.flotting.config.TokenUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -19,7 +17,8 @@ public class SampleDataMaker {
     @Autowired
     private UserService userService;
 
-    public void makeUserData() {
+    public List<UserResponseDto> makeUserData() {
+        List<UserResponseDto> result = new ArrayList();
         List<String> names = List.of("A", "B", "C", "D", "E", "F", "G");
         List<JobEnum> jobs = List.of(JobEnum.PROFESSIONAL, JobEnum.MID_MAJOR_COMPANY, JobEnum.BUSNINESS, JobEnum.MID_MAJOR_COMPANY, JobEnum.PUBLIC_COMPANY, JobEnum.PROFESSIONAL);
         List<Integer> ages = List.of(1,2,3,4,5,6);
@@ -52,8 +51,7 @@ public class SampleDataMaker {
                     .age(ages.get(idx))
                     .phoneNumber(phoneNumbers.get(idx))
                     .build();
-            UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(TokenUser.defaultUser(), simpleRequestDto);
-            TokenUser savedUser = new TokenUser(userSimpleResponseDto.getUserNo(), userSimpleResponseDto.getName());
+            UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo( simpleRequestDto);
 
             UserDetailRequestDto detailRequestDto = UserDetailRequestDto.builder()
                     .height(heights.get(idx))
@@ -75,7 +73,9 @@ public class SampleDataMaker {
                     .preferenceDetail(preferenceDetails.get(idx))
                     .recommendUserName(recommendUserNames.get(idx))
                     .URI(URIs.get(idx)).build();
-            UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(savedUser, userSimpleResponseDto.getUserNo(), detailRequestDto);
+            UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(userSimpleResponseDto.getUserNo(), detailRequestDto);
+            result.add(new UserResponseDto(userSimpleResponseDto, userDetailResponseDto));
         });
+        return result;
     }
 }

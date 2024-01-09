@@ -16,8 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.flotting.domain.QUserDetailProfile.userDetailProfile;
-import static com.flotting.domain.QUserSimpleProfile.userSimpleProfile;
+import static com.flotting.api.user.entity.QUserDetailProfile.userDetailProfile;
+import static com.flotting.api.user.entity.QUserSimpleProfile.userSimpleProfile;
+
 
 @RequiredArgsConstructor
 @Repository
@@ -55,7 +56,7 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
                         userDetailProfile.drinking, userDetailProfile.education, userDetailProfile.email, userDetailProfile.grade,
                         userDetailProfile.height, userDetailProfile.hobby, userDetailProfile.location,
                         userDetailProfile.loveValues, userDetailProfile.nickName, userDetailProfile.preference, userDetailProfile.preferenceDetail,
-                        userDetailProfile.gender, userDetailProfile.smoking, userDetailProfile.recommendUserName))
+                        userDetailProfile.gender, userDetailProfile.smoking, userDetailProfile.recommendUserName, userDetailProfile.seq))
                 .from(userSimpleProfile)
                 .leftJoin(userSimpleProfile.userDetailProfile, userDetailProfile)
                 .where(userSimpleProfile.userDetailProfile.eq(userDetailProfile)

@@ -77,7 +77,7 @@ public class UserSimpleProfile extends BaseEntity implements UserDetails {
     public UserSimpleProfile(UserSimpleRequestDto requestDto) {
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
-        this.password = encodedPassword;
+//        this.password = encodedPassword;
         this.phoneNumber = requestDto.getPhoneNumber();
         this.job = JobEnum.of(requestDto.getJob());
         this.userStatus = UserStatusEnum.DORMANT;
