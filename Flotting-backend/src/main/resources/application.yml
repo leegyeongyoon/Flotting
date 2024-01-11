@@ -7,7 +7,9 @@ spring:
       path: /h2-console
   datasource:
     driver-class-name: org.h2.Driver  # Database를 H2로 사용하겠다.
-    url: jdbc:h2:tcp://localhost/~/flotting
+#    url: jdbc:h2:tcp://localhost/~/flotting
+    url: jdbc:h2:mem:testdb;MODE=MySQL
+
     username: flotting
     password:
 
@@ -20,3 +22,6 @@ spring:
         dialect: org.hibernate.dialect.H2Dialect
         format_sql: true
         show_sql: true
+logging:
+  level:
+    root: debug

@@ -1,11 +1,9 @@
-package com.flotting.domain;
+package com.flotting.api.matching.entity;
 
-import com.flotting.domain.type.CSEnum;
-import com.flotting.domain.type.MatchingProcessEnum;
-import com.flotting.domain.type.ProcessStatus;
+import com.flotting.api.user.entity.UserSimpleEntity;
+import com.flotting.api.matching.enums.MatchingProcessEnum;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -16,7 +14,7 @@ import java.time.LocalDateTime;
     indexes = {@Index(name = "receiverIndexs", columnList = "receiver"),
                 @Index(name = "requesterIndex", columnList = "requester"),
                 @Index(name = "matchingIndex", columnList = "matchingProcess")})
-public class MatchingHistory {
+public class MatchingHistoryEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -37,14 +35,14 @@ public class MatchingHistory {
      */
     @ManyToOne
     @JoinColumn(name = "requester")
-    private UserSimpleProfile requester;
+    private UserSimpleEntity requester;
 
     /**
      * 승낙자
      */
     @ManyToOne
     @JoinColumn(name = "receiver")
-    private UserSimpleProfile receiver;
+    private UserSimpleEntity receiver;
 
     /**
      * 매칭 상태

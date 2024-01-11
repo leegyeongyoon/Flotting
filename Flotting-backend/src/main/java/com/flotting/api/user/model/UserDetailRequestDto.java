@@ -1,15 +1,6 @@
 package com.flotting.api.user.model;
 
-import com.flotting.domain.ManagerProfile;
-import com.flotting.domain.UserSimpleProfile;
-import com.flotting.domain.type.*;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

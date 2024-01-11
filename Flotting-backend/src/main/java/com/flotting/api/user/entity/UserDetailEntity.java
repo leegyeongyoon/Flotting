@@ -1,18 +1,14 @@
-package com.flotting.domain;
+package com.flotting.api.user.entity;
 
+import com.flotting.api.manager.entity.ManagerProfileEntity;
+import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.UserDetailRequestDto;
-import com.flotting.domain.type.*;
+import com.flotting.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.IndexColumn;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 2차 프로필 테이블
@@ -22,7 +18,7 @@ import java.util.List;
     indexes = @Index(name = "gradeIndex", columnList = "grade"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class UserDetailProfile extends BaseEntity {
+public class UserDetailEntity extends BaseEntity {
 
 
     /**
@@ -135,10 +131,10 @@ public class UserDetailProfile extends BaseEntity {
      */
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    private ManagerProfile manager;
+    private ManagerProfileEntity manager;
 
     @Builder
-    public UserDetailProfile(UserDetailRequestDto requestDto) {
+    public UserDetailEntity(UserDetailRequestDto requestDto) {
         this.appliedPath = AppliedPathEnum.of(requestDto.getAppliedPath());
         this.body = BodyEnum.of(requestDto.getBody());
         this.detailJob = requestDto.getDetailJob();
@@ -160,7 +156,7 @@ public class UserDetailProfile extends BaseEntity {
         this.recommendUserName = requestDto.getRecommendUserName();
     }
 
-    public UserDetailProfile updateInfo(UserDetailRequestDto requestDto) {
+    public UserDetailEntity updateInfo(UserDetailRequestDto requestDto) {
         this.appliedPath = AppliedPathEnum.of(requestDto.getAppliedPath());
         this.body = BodyEnum.of(requestDto.getBody());
         this.detailJob = requestDto.getDetailJob();
@@ -183,7 +179,7 @@ public class UserDetailProfile extends BaseEntity {
         return this;
     }
 
-    public UserDetailProfile approveProfile(ManagerProfile manager) {
+    public UserDetailEntity approveProfile(ManagerProfileEntity manager) {
         this.manager = manager;
         return this;
     }

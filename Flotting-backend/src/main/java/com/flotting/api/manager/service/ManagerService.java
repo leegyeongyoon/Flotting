@@ -1,17 +1,14 @@
 package com.flotting.api.manager.service;
 
+import com.flotting.api.manager.entity.ManagerProfileEntity;
 import com.flotting.api.manager.repository.ManagerRepository;
+import com.flotting.api.user.entity.UserDetailEntity;
 import com.flotting.api.user.service.UserService;
 import com.flotting.config.TokenUser;
-import com.flotting.domain.ManagerProfile;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +24,8 @@ public class ManagerService {
      * @return
      */
     @Transactional(readOnly = true)
-    public ManagerProfile getManager(Long managerId) {
-        ManagerProfile manager = managerRepository.findById(managerId)
+    public ManagerProfileEntity getManager(Long managerId) {
+        ManagerProfileEntity manager = managerRepository.findById(managerId)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 매니저"));
         return manager;
     }
@@ -40,8 +37,8 @@ public class ManagerService {
      */
     @Transactional
     public void approveInfo(TokenUser tokenUser, Long detailProfileId) {
-        ManagerProfile manager = getManager(tokenUser.getUserNo());
-        UserDetailProfile detailProfile = userService.getDetailUser(detailProfileId);
+        ManagerProfileEntity manager = getManager(tokenUser.getUserNo());
+        UserDetailEntity detailProfile = userService.getDetailUser(detailProfileId);
         detailProfile.approveProfile(manager);
     }
 }

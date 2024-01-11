@@ -1,6 +1,6 @@
 package com.flotting.api.user.model;
 
-import com.flotting.domain.type.*;
+import com.flotting.api.user.enums.*;
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -95,7 +95,7 @@ public class UserResponseDto {
         this.job= simpleInfo.getJob();
         this.userStatus = simpleInfo.getUserStatus();
         this.phoneNumber = simpleInfo.getPhoneNumber();
-        this.name = simpleInfo.getName();;
+        this.name = simpleInfo.getName();
         this.appliedPath = detailInfo.getAppliedPath();
         this.body = detailInfo.getBody();
         this.detailJob = detailInfo.getDetailJob();
@@ -103,17 +103,17 @@ public class UserResponseDto {
         this.drinking = detailInfo.getDrinking();
         this.education = detailInfo.getEducation();
         this.email = detailInfo.getEmail();
-        this.grade = detailInfo.getGrade();;
+        this.grade = detailInfo.getGrade();
         this.height = detailInfo.getHeight();
         this.hobby = detailInfo.getHobby();
         this.location = detailInfo.getLocation();
         this.loveValues = detailInfo.getLoveValues();
-        this.nickName = detailInfo.getNickName();;
-        this.preference = detailInfo.getPreference();;
+        this.nickName = detailInfo.getNickName();
+        this.preference = detailInfo.getPreference();
         this.preferenceDetail = detailInfo.getPreferenceDetail();
         this.gender = detailInfo.getGender();
         this.smoking = detailInfo.getSmoking();
-        this.recommendUserName = detailInfo.getRecommendUserName();;
+        this.recommendUserName = detailInfo.getRecommendUserName();
     }
 
     @QueryProjection

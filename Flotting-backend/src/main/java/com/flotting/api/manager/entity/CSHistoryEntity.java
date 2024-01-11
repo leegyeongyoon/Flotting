@@ -1,7 +1,8 @@
-package com.flotting.domain;
+package com.flotting.api.manager.entity;
 
-import com.flotting.domain.type.CSEnum;
-import com.flotting.domain.type.ProcessStatus;
+import com.flotting.api.user.entity.UserSimpleEntity;
+import com.flotting.api.manager.enums.CSEnum;
+import com.flotting.api.user.enums.ProcessStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "cs_history",
         indexes = @Index(name = "statusIndex", columnList = "status"))
-public class CSHistory {
+public class CSHistoryEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -28,14 +29,14 @@ public class CSHistory {
      */
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    private ManagerProfile manager;
+    private ManagerProfileEntity manager;
 
     /**
      * 신청자
      */
     @ManyToOne
     @JoinColumn(name = "requester_id")
-    private UserSimpleProfile requester;
+    private UserSimpleEntity requester;
 
     /**
      * 처리현황

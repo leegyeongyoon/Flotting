@@ -1,12 +1,11 @@
 package com.flotting.api.user.service;
 
+import com.flotting.api.user.entity.UserDetailEntity;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.repository.UserDetailRepository;
 import com.flotting.api.user.repository.UserSimpleRepository;
-import com.flotting.config.TokenUser;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
-import com.flotting.domain.type.GradeEnum;
+import com.flotting.api.user.enums.GradeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +29,7 @@ public class UserService {
      * user등급별 조회
      */
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> getDetailUserInfosByGrade(TokenUser tokenUser, String grade) {
+    public List<UserDetailResponseDto> getDetailUserInfosByGrade(String grade) {
         return userDetailRepository.findUsersByGrade(GradeEnum.of(grade));
     }
 
@@ -38,7 +37,7 @@ public class UserService {
      * 모든 user목록 1차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserSimpleResponseDto> getSimpleUserInfos(TokenUser tokenUser) {
+    public List<UserSimpleResponseDto> getSimpleUserInfos() {
         return userSimpleRepository.findAllSimpleUserInfos();
     }
 
@@ -46,7 +45,7 @@ public class UserService {
      * 모든 user목록 2차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> getDetailUserInfos(TokenUser tokenUser) {
+    public List<UserDetailResponseDto> getDetailUserInfos() {
         return userDetailRepository.findAll()
                 .stream().map(UserDetailResponseDto::new)
                 .collect(Collectors.toList());
@@ -56,7 +55,7 @@ public class UserService {
      * 필터에 해당하는 user목록 2차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserResponseDto> getUsersByFilter(TokenUser tokenUser, UserFilterRequestDto filter) {
+    public List<UserResponseDto> getUsersByFilter(UserFilterRequestDto filter) {
         return userDetailRepository.findUsersByFilter(filter);
     }
 
@@ -64,36 +63,35 @@ public class UserService {
      * user 1차 프로필 저장
      */
     @Transactional
-    public UserSimpleResponseDto saveSimpleUserInfo(TokenUser tokenUser, UserSimpleRequestDto requestDto) {
-        UserSimpleProfile user = new UserSimpleProfile(requestDto);
-        UserSimpleProfile savedUser = userSimpleRepository.save(user);
+    public UserSimpleResponseDto saveSimpleUserInfo(UserSimpleRequestDto requestDto) {
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+        UserSimpleEntity user = new UserSimpleEntity(requestDto, encodedPassword);
+        UserSimpleEntity savedUser = userSimpleRepository.save(user);
         log.info("savedEntity user : {}", savedUser);
-        UserSimpleResponseDto userSimpleResponseDto = new UserSimpleResponseDto(savedUser);
-        return userSimpleResponseDto;
+        return new UserSimpleResponseDto(savedUser);
     }
 
     /**
      * 1차 프로필 수정
      */
     @Transactional
-    public UserSimpleResponseDto updateSimpleUserInfo(TokenUser tokenUser, Long targetUserId, UserSimpleRequestDto requestDto) {
-        UserSimpleProfile simpleUser = getSimpleUser(targetUserId);
+    public UserSimpleResponseDto updateSimpleUserInfo(Long targetUserId, UserSimpleRequestDto requestDto) {
+        UserSimpleEntity simpleUser = getSimpleUser(targetUserId);
 
-        UserSimpleProfile updatedProfile = simpleUser.updateInfo(requestDto);
-        UserSimpleResponseDto userSimpleResponseDto = new UserSimpleResponseDto(updatedProfile);
-        return userSimpleResponseDto;
+        UserSimpleEntity updatedProfile = simpleUser.updateInfo(requestDto);
+        return new UserSimpleResponseDto(updatedProfile);
     }
 
     /**
      * user 2차 프로필 저장
      */
     @Transactional
-    public UserDetailResponseDto saveDetailUserInfo(TokenUser tokenUser, Long targetUserId, UserDetailRequestDto requestDto) {
-        UserDetailProfile userDetailProfile = new UserDetailProfile(requestDto);
-        UserSimpleProfile simpleUser = getSimpleUser(targetUserId);
+    public UserDetailResponseDto saveDetailUserInfo(Long targetUserId, UserDetailRequestDto requestDto) {
+        UserDetailEntity userDetailEntity = new UserDetailEntity(requestDto);
+        UserSimpleEntity simpleUser = getSimpleUser(targetUserId);
 
-        simpleUser.setDetailUser(userDetailProfile);
-        UserDetailProfile savedUser = userDetailRepository.save(userDetailProfile);
+        simpleUser.setDetailUser(userDetailEntity);
+        UserDetailEntity savedUser = userDetailRepository.save(userDetailEntity);
 
         log.info("savedEntity user : {}", savedUser);
         return new UserDetailResponseDto(savedUser);
@@ -103,32 +101,29 @@ public class UserService {
      * 2차 프로필 수정
      */
     @Transactional
-    public UserDetailResponseDto updateDetailUserInfo(TokenUser tokenUser, Long targetUserId, UserDetailRequestDto requestDto) {
-        UserDetailProfile detailUser = getDetailUser(targetUserId);
+    public UserDetailResponseDto updateDetailUserInfo(Long targetUserId, UserDetailRequestDto requestDto) {
+        UserDetailEntity detailUser = getDetailUser(targetUserId);
 
-        UserDetailProfile updatedProfile = detailUser.updateInfo(requestDto);
-        UserDetailResponseDto userDetailResponseDto = new UserDetailResponseDto(updatedProfile);
-        return userDetailResponseDto;
+        UserDetailEntity updatedProfile = detailUser.updateInfo(requestDto);
+        return new UserDetailResponseDto(updatedProfile);
     }
 
     /**
      * 1차 프로필 조회
      */
     @Transactional(readOnly = true)
-    public UserSimpleProfile getSimpleUser(Long profileId) {
-        UserSimpleProfile userSimpleProfile = userSimpleRepository.findById(profileId)
+    public UserSimpleEntity getSimpleUser(Long profileId) {
+        return userSimpleRepository.findById(profileId)
                 .orElseThrow(() -> new IllegalArgumentException("1차 프로필 미등록 사용자!! profileId : " + profileId));
-        return userSimpleProfile;
     }
 
     /**
      * 2차 프로필 조회
      */
     @Transactional(readOnly = true)
-    public UserDetailProfile getDetailUser(Long profileId) {
-        UserDetailProfile userDetailProfile = userDetailRepository.findById(profileId)
+    public UserDetailEntity getDetailUser(Long profileId) {
+        return userDetailRepository.findById(profileId)
                 .orElseThrow(() -> new IllegalArgumentException("2차 프로필 미등록 사용자!! profileId : " + profileId));
-        return userDetailProfile;
     }
 
     /**
@@ -136,8 +131,8 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public UserSimpleResponseDto getSimpleUserDto(Long profileId) {
-        UserSimpleProfile userSimpleProfile = getSimpleUser(profileId);
-        return new UserSimpleResponseDto(userSimpleProfile);
+        UserSimpleEntity userSimpleEntity = getSimpleUser(profileId);
+        return new UserSimpleResponseDto(userSimpleEntity);
     }
 
     /**
@@ -145,7 +140,7 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public UserDetailResponseDto getDetailUserDto(Long profileId) {
-        UserDetailProfile userDetail = getDetailUser(profileId);
+        UserDetailEntity userDetail = getDetailUser(profileId);
         return new UserDetailResponseDto(userDetail);
     }
 

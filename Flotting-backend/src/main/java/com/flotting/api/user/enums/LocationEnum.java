@@ -1,4 +1,4 @@
-package com.flotting.domain.type;
+package com.flotting.api.user.enums;
 
 public enum LocationEnum {
 

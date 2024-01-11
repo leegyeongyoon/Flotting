@@ -1,6 +1,6 @@
 package com.flotting.api.manager.model;
 
-import com.flotting.domain.ManagerProfile;
+import com.flotting.api.manager.entity.ManagerProfileEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class ManagerProfileDto {
 
-    public ManagerProfileDto(ManagerProfile manager) {
+    public ManagerProfileDto(ManagerProfileEntity manager) {
 
     }
 }

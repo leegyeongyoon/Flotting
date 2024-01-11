@@ -1,20 +1,15 @@
 package com.flotting.api.user;
 
+import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.UserDetailRequestDto;
 import com.flotting.api.user.model.UserDetailResponseDto;
 import com.flotting.api.user.model.UserSimpleRequestDto;
 import com.flotting.api.user.model.UserSimpleResponseDto;
-import com.flotting.api.user.repository.UserSimpleRepository;
 import com.flotting.api.user.service.UserService;
 import com.flotting.config.TokenUser;
-import com.flotting.domain.UserDetailProfile;
-import com.flotting.domain.UserSimpleProfile;
-import com.flotting.domain.type.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -27,10 +22,10 @@ public class SampleDataMaker {
     public void makeUserData() {
         List<String> names = List.of("A", "B", "C", "D", "E", "F", "G");
         List<JobEnum> jobs = List.of(JobEnum.PROFESSIONAL, JobEnum.MID_MAJOR_COMPANY, JobEnum.BUSNINESS, JobEnum.MID_MAJOR_COMPANY, JobEnum.PUBLIC_COMPANY, JobEnum.PROFESSIONAL);
-        List<Integer> ages = List.of(1,2,3,4,5,6);
+        List<Integer> ages = List.of(1, 2, 3, 4, 5, 6);
         List<String> phoneNumbers = List.of("0101111", "010333", "010222", "010444", "010555", "010666");
 
-        List<Integer> heights = List.of(1,2,3,4,5,6);
+        List<Integer> heights = List.of(1, 2, 3, 4, 5, 6);
         List<Boolean> smokings = List.of(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE);
         List<BodyEnum> bodies = List.of(BodyEnum.RELIABLE, BodyEnum.SLIM, BodyEnum.SOLID, BodyEnum.CHUBBY, BodyEnum.MUSCULAR, BodyEnum.NORMAL);
         List<String> charms = List.of("a", "b", "c", "d", "e", "f");
@@ -57,7 +52,7 @@ public class SampleDataMaker {
                     .age(ages.get(idx))
                     .phoneNumber(phoneNumbers.get(idx))
                     .build();
-            UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(TokenUser.defaultUser(), simpleRequestDto);
+            UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(simpleRequestDto);
             TokenUser savedUser = new TokenUser(userSimpleResponseDto.getUserNo(), userSimpleResponseDto.getName());
 
             UserDetailRequestDto detailRequestDto = UserDetailRequestDto.builder()
@@ -80,7 +75,7 @@ public class SampleDataMaker {
                     .preferenceDetail(preferenceDetails.get(idx))
                     .recommendUserName(recommendUserNames.get(idx))
                     .URI(URIs.get(idx)).build();
-            UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(savedUser, userSimpleResponseDto.getUserNo(), detailRequestDto);
+            UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(userSimpleResponseDto.getUserNo(), detailRequestDto);
         });
     }
 }

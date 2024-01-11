@@ -1,5 +1,6 @@
-package com.flotting.domain;
+package com.flotting.api.matching.entity;
 
+import com.flotting.api.user.entity.UserSimpleEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "auto_recommend_history",
         indexes = @Index(name = "receiverIndex", columnList = "receiver"))
-public class AutoRecommendHistory {
+public class AutoRecommendHistoryEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -26,12 +27,12 @@ public class AutoRecommendHistory {
      */
     @ManyToOne
     @JoinColumn(name = "receiver")
-    private UserSimpleProfile receiver;
+    private UserSimpleEntity receiver;
 
     /**
      * 추천 프로필
      */
     @ManyToOne
     @JoinColumn(name = "recommend_profile")
-    private UserSimpleProfile profile;
+    private UserSimpleEntity profile;
 }

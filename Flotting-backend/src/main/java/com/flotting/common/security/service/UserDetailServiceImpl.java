@@ -1,8 +1,7 @@
 package com.flotting.common.security.service;
 
-import com.flotting.api.user.repository.UserProfileRepository;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.repository.UserSimpleRepository;
-import com.flotting.domain.UserSimpleProfile;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,8 +17,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userSimpleRepository.findOneWithAuthoritiesByName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
+        UserSimpleEntity userSimpleEntity = userSimpleRepository.findOneWithAuthoritiesByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with phoneNumber: " + phoneNumber));
+        System.out.println("userSimpleEntity = " + userSimpleEntity);
+
+
+        return userSimpleEntity;
     }
 }

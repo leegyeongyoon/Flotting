@@ -1,10 +1,9 @@
 package com.flotting.api.user.repository.querydsl.impl;
 
 import com.flotting.api.user.SampleDataMaker;
+import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
-import com.flotting.config.TokenUser;
-import com.flotting.domain.type.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ class UserQueryDslImplTest extends SampleDataMaker {
 
     @Autowired
     private UserService userService;
-
-    private TokenUser defaultUser = TokenUser.defaultUser();
     
     @Test
     public void 사용자_1차프로필_저장() {
@@ -33,7 +30,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .build();
 
         //when
-        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(defaultUser, requestDto);
+        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo( requestDto);
 
         //then
         Assertions.assertThat(userSimpleResponseDto).isNotNull();
@@ -43,7 +40,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
     @Test
     public void 사용자_2차프로필_저장() {
         //given
-        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(defaultUser, UserSimpleRequestDto.builder()
+        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo( UserSimpleRequestDto.builder()
                 .name("ABC")
                 .job(JobEnum.BUSNINESS.name())
                 .age(20)
@@ -71,7 +68,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .URI("uri").build();
 
         //when
-        UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(defaultUser, userSimpleResponseDto.getUserNo(), requestDto);
+        UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo( userSimpleResponseDto.getUserNo(), requestDto);
 
         //then
         Assertions.assertThat(userDetailResponseDto).isNotNull();
@@ -84,7 +81,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserSimpleResponseDto> SimpleUserInfos = userService.getSimpleUserInfos(defaultUser);
+        List<UserSimpleResponseDto> SimpleUserInfos = userService.getSimpleUserInfos();
 
         //then
         Assertions.assertThat(SimpleUserInfos.size()).isEqualTo(6);
@@ -96,7 +93,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos(defaultUser);
+        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos();
 
         //then
         Assertions.assertThat(detailUsers.size()).isEqualTo(6);
@@ -108,7 +105,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserDetailResponseDto> users = userService.getDetailUserInfosByGrade(defaultUser, GradeEnum.D.name());
+        List<UserDetailResponseDto> users = userService.getDetailUserInfosByGrade( GradeEnum.D.name());
 
         //then
         Assertions.assertThat(users.size()).isEqualTo(3);
@@ -122,7 +119,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         //when
         UserFilterRequestDto userFilterRequestDto = new UserFilterRequestDto();
         userFilterRequestDto.setBody(BodyEnum.NORMAL.name());
-        List<UserResponseDto> users = userService.getUsersByFilter(defaultUser, userFilterRequestDto);
+        List<UserResponseDto> users = userService.getUsersByFilter( userFilterRequestDto);
 
         //then
         Assertions.assertThat(users.size()).isEqualTo(1);

@@ -1,4 +1,4 @@
-package com.flotting.domain.type;
+package com.flotting.api.matching.enums;
 
 public enum MatchingProcessEnum {
 

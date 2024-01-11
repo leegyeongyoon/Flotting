@@ -1,7 +1,6 @@
 package com.flotting.api.user.model;
 
-import com.flotting.domain.type.*;
-import lombok.AllArgsConstructor;
+import com.flotting.api.user.enums.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,8 +1,8 @@
-package com.flotting.domain;
+package com.flotting.api.user.entity;
 
+import com.flotting.api.user.enums.JobEnum;
+import com.flotting.api.user.enums.UserStatusEnum;
 import com.flotting.api.user.model.UserSimpleRequestDto;
-import com.flotting.api.user.model.UserSimpleResponseDto;
-import com.flotting.domain.type.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +19,7 @@ import java.util.Collection;
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class UserSimpleProfile extends BaseEntity implements UserDetails {
+public class UserSimpleEntity implements UserDetails {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -71,9 +71,9 @@ public class UserSimpleProfile extends BaseEntity implements UserDetails {
      */
     @OneToOne
     @JoinColumn(name = "user_detail_profile")
-    private UserDetailProfile userDetailProfile;
+    private UserDetailEntity userDetailEntity;
 
-    public UserSimpleProfile(UserSimpleRequestDto requestDto) {
+    public UserSimpleEntity(UserSimpleRequestDto requestDto , String encodedPassword) {
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
         this.password = encodedPassword;
@@ -82,11 +82,11 @@ public class UserSimpleProfile extends BaseEntity implements UserDetails {
         this.userStatus = UserStatusEnum.DORMANT;
     }
 
-    public void setDetailUser(UserDetailProfile detailProfile) {
-        this.userDetailProfile = detailProfile;
+    public void setDetailUser(UserDetailEntity detailProfile) {
+        this.userDetailEntity = detailProfile;
     }
 
-    public UserSimpleProfile updateInfo(UserSimpleRequestDto requestDto) {
+    public UserSimpleEntity updateInfo(UserSimpleRequestDto requestDto) {
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
         this.phoneNumber = requestDto.getPhoneNumber();
