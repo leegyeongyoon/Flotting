@@ -1,5 +1,7 @@
-package com.flotting.domain;
+package com.flotting.api.payment.entity;
 
+import com.flotting.api.matching.entity.MatchingHistoryEntity;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -9,7 +11,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "payment_history")
-public class PaymentHistory {
+public class PaymentHistoryEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -25,14 +27,14 @@ public class PaymentHistory {
      */
     @ManyToOne
     @JoinColumn(name = "payer")
-    private UserSimpleProfile payer;
+    private UserSimpleEntity payer;
 
     /**
      * 결제 매칭 id
      */
     @OneToOne
     @JoinColumn(name = "paid_matching_id")
-    private MatchingHistory matchingHistory;
+    private MatchingHistoryEntity matchingHistoryEntity;
 
 
 }
