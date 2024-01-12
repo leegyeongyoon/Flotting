@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 defineProps({
     loading: {
@@ -15,35 +17,15 @@ defineProps({
 const headers = ref([
     { title: "제출일자", key: "submitDate", align: "center", minWidth: "200px" },
     { title: "실명", key: "name", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address", align: "start", minWidth: "200px" },
-    { title: "제출일자", key: "submitDate1", align: "center", minWidth: "200px" },
-    { title: "실명", key: "name1", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address1", align: "start", minWidth: "200px" },
-    { title: "제출일자", key: "submitDate1", align: "center", minWidth: "200px" },
-    { title: "실명", key: "name2", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address2", align: "start", minWidth: "200px" },
-    { title: "제출일자", key: "submitDate2", align: "center", minWidth: "200px" },
-    { title: "실명", key: "name3", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address3", align: "start", minWidth: "200px" },
-    { title: "제출일자", key: "submitDate4", align: "center", minWidth: "200px" },
-    { title: "실명", key: "name4", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address4", align: "start", minWidth: "200px" },
-    { title: "제출일자", key: "submitDate5", align: "center", minWidth: "200px" },
-    { title: "실명", key: "name5", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address5", align: "start", minWidth: "200px" },
-    { title: "제출일자", key: "submitDate6", align: "center", minWidth: "200px" },
-    { title: "실명", key: "name6", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address6", align: "start", minWidth: "200px" },
-    { title: "제출일자", key: "submitDate7", align: "center", minWidth: "200px" },
-    { title: "실명", key: "name7", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address7", align: "start", minWidth: "200px" },
-    { title: "제출일자", key: "submitDate8", align: "center", minWidth: "200px" },
-    { title: "실명", key: "name8", align: "center", minWidth: "200px" },
-    { title: "거주지", key: "address8", align: "start", minWidth: "200px" }
+    { title: "거주지", key: "address", align: "start", minWidth: "200px" }
 ]);
 
 function download() {
     alert("엑셀 다운로드 구현 예정");
+}
+
+function clickItem(idx) {
+    router.push("/mng/user/" + idx);
 }
 </script>
 
@@ -73,9 +55,22 @@ function download() {
                     { value: 10, title: '10' },
                     { value: 20, title: '20' }
                 ]"
-            ></v-data-table>
+                :hover="true"
+            >
+                <template #item="{ item }">
+                    <tr class="cursor-pointer" @click="() => clickItem(item.idx)">
+                        <td class="text-center">{{ item.submitDate }}</td>
+                        <td class="text-center">{{ item.name }}</td>
+                        <td class="text-start">{{ item.address }}</td>
+                    </tr>
+                </template>
+            </v-data-table>
         </v-cardText>
     </v-card>
 </template>
 
-<style scoped></style>
+<style scoped>
+.cursor-pointer {
+    cursor: pointer;
+}
+</style>
