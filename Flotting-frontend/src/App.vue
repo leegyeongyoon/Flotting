@@ -28,7 +28,7 @@ export default {
     components: { MainNavigation, MainHeader },
 
     setup() {
-        const drawer = ref(false);
+        const drawer = ref(true);
 
         const toggleDrawer = () => {
             drawer.value = !drawer.value;

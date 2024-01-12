@@ -1,20 +1,50 @@
-<script>
-export default {
-    name: "UserList",
-    props: ["loading", "list"],
-    data: () => ({
-        headers: [
-            { title: "제출일자", key: "submitDate", align: "center" },
-            { title: "실명", key: "name", align: "center" },
-            { title: "거주지", key: "address", align: "start" }
-        ]
-    }),
-    methods: {
-        download() {
-            alert("엑셀 다운로드 구현 예정");
-        }
+<script setup>
+import { ref } from "vue";
+
+defineProps({
+    loading: {
+        type: Boolean,
+        default: false
+    },
+    list: {
+        type: Array,
+        default: () => []
     }
-};
+});
+
+const headers = ref([
+    { title: "제출일자", key: "submitDate", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address", align: "start", minWidth: "200px" },
+    { title: "제출일자", key: "submitDate1", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name1", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address1", align: "start", minWidth: "200px" },
+    { title: "제출일자", key: "submitDate1", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name2", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address2", align: "start", minWidth: "200px" },
+    { title: "제출일자", key: "submitDate2", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name3", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address3", align: "start", minWidth: "200px" },
+    { title: "제출일자", key: "submitDate4", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name4", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address4", align: "start", minWidth: "200px" },
+    { title: "제출일자", key: "submitDate5", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name5", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address5", align: "start", minWidth: "200px" },
+    { title: "제출일자", key: "submitDate6", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name6", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address6", align: "start", minWidth: "200px" },
+    { title: "제출일자", key: "submitDate7", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name7", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address7", align: "start", minWidth: "200px" },
+    { title: "제출일자", key: "submitDate8", align: "center", minWidth: "200px" },
+    { title: "실명", key: "name8", align: "center", minWidth: "200px" },
+    { title: "거주지", key: "address8", align: "start", minWidth: "200px" }
+]);
+
+function download() {
+    alert("엑셀 다운로드 구현 예정");
+}
 </script>
 
 <template>
