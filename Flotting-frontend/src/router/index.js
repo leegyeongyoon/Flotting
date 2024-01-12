@@ -10,12 +10,14 @@ import FirstRegister from "@/views/reg/first/FirstRegister";
 import AdminNotice from "@/views/noti/admin/AdminNotice";
 import UserNotice from "@/views/noti/user/UserNotice";
 import IndicatorManagement from "@/views/ind/IndicatorManagement";
+import UserDetail from "@/views/mng/user/UserDetail.vue";
 
 const routes = [
     { path: "/", component: AdminDashboard },
     { path: "/account", component: UserList },
 
     { path: "/mng/user", component: UserManagement },
+    { path: "/mng/user/:id", component: UserDetail },
     { path: "/mng/profile", component: RequestChangeProfile },
 
     { path: "/reg/first", component: FirstRegister },
