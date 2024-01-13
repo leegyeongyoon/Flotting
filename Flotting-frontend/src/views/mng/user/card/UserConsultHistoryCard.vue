@@ -1,7 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import UserConsultHistoryDetailEditor from "@/views/mng/user/card/UserConsultHistoryDetailEditor.vue";
 
-defineProps({
+const props = defineProps({
     items: {
         type: Array,
         default: () => [
@@ -11,7 +12,8 @@ defineProps({
                 status: "접수",
                 code: "12345",
                 name: "고객1",
-                managerName: "매니저1"
+                managerName: "매니저1",
+                detail: "detail1"
             },
             {
                 idx: 2,
@@ -19,7 +21,8 @@ defineProps({
                 status: "접수",
                 code: "12345",
                 name: "고객1",
-                managerName: "매니저1"
+                managerName: "매니저1",
+                detail: "detail1"
             },
             {
                 idx: 3,
@@ -27,7 +30,8 @@ defineProps({
                 status: "접수",
                 code: "12345",
                 name: "고객1",
-                managerName: "매니저1"
+                managerName: "매니저1",
+                detail: "detail1"
             },
             {
                 idx: 4,
@@ -35,7 +39,8 @@ defineProps({
                 status: "접수",
                 code: "12345",
                 name: "고객1",
-                managerName: "매니저1"
+                managerName: "매니저1",
+                detail: "detail1"
             },
             {
                 idx: 5,
@@ -43,7 +48,8 @@ defineProps({
                 status: "접수",
                 code: "12345",
                 name: "고객1",
-                managerName: "매니저1"
+                managerName: "매니저1",
+                detail: "detail1"
             }
         ]
     }
@@ -56,9 +62,16 @@ const headers = ref([
     { title: "고객명", key: "name", align: "center" },
     { title: "담당매니저", key: "managerName", align: "center" }
 ]);
+const expanded = ref([]);
 
-function clickItem(idx) {
-    alert("상담 상세 팝업 개발 예정, idx : " + idx);
+function clickEditSaveBtn(item, index) {
+    console.log(item);
+    console.log(index);
+    console.log(props.items[index]);
+}
+
+function update(val) {
+    console.log(val);
 }
 </script>
 
@@ -75,23 +88,24 @@ function clickItem(idx) {
         </v-card-item>
         <v-container class="pt-0" fluid>
             <v-data-table
+                :expanded="expanded"
                 :headers="headers"
                 :items="items"
+                item-value="idx"
                 :items-per-page="5"
                 :items-per-page-options="[
                     { value: 5, title: '5' },
                     { value: 10, title: '10' },
                     { value: 20, title: '20' }
                 ]"
-                :hover="true"
+                show-expand
             >
-                <template #item="{ item }">
-                    <tr class="cursor-pointer" @click="() => clickItem(item.idx)">
-                        <td class="text-center">{{ item.submitDate }}</td>
-                        <td class="text-center">{{ item.status }}</td>
-                        <td class="text-center">{{ item.code }}</td>
-                        <td class="text-center">{{ item.name }}</td>
-                        <td class="text-center">{{ item.managerName }}</td>
+                <template #expanded-row="{ index, columns, item }">
+                    <tr>
+                        <td :colspan="columns.length" class="pa-0">
+                            <user-consult-history-detail-editor :index="index" :item="item" :val="item.detail"></user-consult-history-detail-editor>
+                        </td>
+                        <!--                      <td :colspan="columns.length">More info about {{ item.name }}</td>-->
                     </tr>
                 </template>
             </v-data-table>
