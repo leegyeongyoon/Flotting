@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import UserConsultHistoryDetailEditor from "@/views/mng/user/card/UserConsultHistoryDetailEditor.vue";
+import UserConsultHistoryDetailEditor from "@/components/container/UserConsultHistoryDetailEditor.vue";
 
 const props = defineProps({
     items: {

@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import UserInfoCard from "@/views/mng/user/card/UserInfoCard.vue";
-import UserPayHistoryCard from "@/views/mng/user/card/UserPayHistoryCard.vue";
-import UserConsultHistoryCard from "@/views/mng/user/card/UserConsultHistoryCard.vue";
+import UserInfoCard from "@/components/card/UserInformationCard.vue";
+import UserPayHistoryCard from "@/views/user/card/UserPayHistoryCard.vue";
+import UserConsultHistoryCard from "@/components/card/UserConsultHistoryCard.vue";
 
 const route = useRoute();
 const router = useRouter();

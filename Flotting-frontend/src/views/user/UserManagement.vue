@@ -1,6 +1,6 @@
 <script setup>
-import SearchParameterCard from "@/views/mng/user/card/SearchParameterCard.vue";
-import UserList from "@/views/mng/user/list/UserList.vue";
+import SearchParameterCard from "@/components/card/UserSearchParameterCard.vue";
+import UserManagementList from "@/views/list/UserManagementList.vue";
 import { ref } from "vue";
 
 const breadcrumbs = ref([
@@ -75,7 +75,7 @@ function search(param) {
         </v-row>
         <v-row>
             <v-col cols="12" sm="12" order="2" order-sm="1">
-                <user-list :loading="loading" :list="list" />
+                <user-management-list :loading="loading" :list="list" />
             </v-col>
         </v-row>
     </div>

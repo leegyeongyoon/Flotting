@@ -1,5 +1,6 @@
 <script setup>
-import { ref, watch } from "vue";
+import { onBeforeMount, ref, watch } from "vue";
+import { onBeforeRouteLeave } from "vue-router";
 
 const emit = defineEmits(["search"]);
 
@@ -86,6 +87,14 @@ watch(modalAge, newValue => {
     if (!newValue) {
         searchParams.value.age = age.value;
     }
+});
+
+onBeforeMount(() => {
+    console.log("b > " + JSON.stringify(searchParams.value));
+});
+
+onBeforeRouteLeave(() => {
+    console.log("b > " + searchParams.value);
 });
 </script>
 

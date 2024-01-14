@@ -1,6 +1,13 @@
 <script setup>
 import { ref } from "vue";
 const test = ref("1234");
+
+defineProps({
+    isEdit: {
+        type: Boolean,
+        default: false
+    }
+});
 </script>
 
 <template>
@@ -10,7 +17,7 @@ const test = ref("1234");
                 <v-col class="d-flex align-center">
                     <v-cardTitle class="text-md-h6 "> (사용자 이름) </v-cardTitle>
                 </v-col>
-                <v-col class="d-flex justify-end">
+                <v-col v-if="isEdit" class="d-flex justify-end">
                     <v-btn size="small" class="ma-1" color="green">저장</v-btn>
                     <v-btn size="small" class="ma-1" color="red">정지</v-btn>
                 </v-col>
