@@ -7,13 +7,14 @@ module.exports = {
     },
     root: true,
     env: {
-        node: true
+        node: true,
+        "vue/setup-compiler-macros": true
     },
     globals: {
         $: true,
         jQuery: true
     },
-    extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier", "eslint-config-prettier"],
+    extends: ["plugin:vue/base", "plugin:vue/vue3-essential", "plugin:vue/vue3-recommended", "@vue/prettier", "eslint-config-prettier"],
     plugins: ["prettier"],
     ignorePatterns: ["vuetify.js", "webfontloader.js"],
     rules: {
