@@ -1,22 +1,5 @@
 <template>
     <v-navigation-drawer :elevation="3" class="blue-grey-darken-2" v-if="drawer" v-model="selectedItem">
-        <!--        <v-list>-->
-        <!--            <v-list-item>-->
-        <!--                <v-list-item-avatar> 아이콘</v-list-item-avatar>-->
-        <!--            </v-list-item>-->
-        <!--            <v-list-item link>-->
-        <!--                <v-list-item-content>-->
-        <!--                    <v-list-item-title class="text-h6">-->
-        <!--                        Flooting-->
-        <!--                    </v-list-item-title>-->
-        <!--                    <v-list-item-subtitle>https://flotting.com/</v-list-item-subtitle>-->
-        <!--                </v-list-item-content>-->
-        <!--                <v-list-item-action>-->
-        <!--                    <v-icon>mdi-menu-down</v-icon>-->
-        <!--                </v-list-item-action>-->
-        <!--            </v-list-item>-->
-        <!--        </v-list>-->
-        <!--        <v-divider></v-divider>-->
         <v-list :opened="open">
             <v-list-item :to="'/'" prepend-icon="mdi-view-dashboard" title="대시 보드" value="dashboard"></v-list-item>
             <v-list-item :to="'/account'" prepend-icon="mdi-view-dashboard" title="Account" value="account"></v-list-item>
