@@ -3,6 +3,8 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
+const emit = defineEmits(["clickRow"]);
+
 defineProps({
     loading: {
         type: Boolean,
@@ -25,7 +27,7 @@ function download() {
 }
 
 function clickItem(idx) {
-    router.push("/mng/user/" + idx);
+    emit("clickRow", idx);
 }
 </script>
 

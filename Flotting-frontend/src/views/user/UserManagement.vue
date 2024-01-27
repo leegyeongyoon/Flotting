@@ -1,5 +1,5 @@
 <script setup>
-import SearchParameterCard from "@/components/card/UserSearchParameterCard.vue";
+import UserSearchParameterCard from "@/components/card/UserSearchParameterCard.vue";
 import UserManagementList from "@/views/user/list/UserManagementList.vue";
 import { ref } from "vue";
 
@@ -58,6 +58,10 @@ function search(param) {
         loading.value = false;
     }, 2000);
 }
+
+function onClickRow(idx) {
+    router.push("/mng/user/" + idx);
+}
 </script>
 
 <template>
@@ -69,12 +73,12 @@ function search(param) {
         </v-breadcrumbs>
         <v-row>
             <v-col cols="12" sm="12" order="2" order-sm="1">
-                <search-parameter-card @search="search" />
+                <user-search-parameter-card @search="search" />
             </v-col>
         </v-row>
         <v-row>
             <v-col cols="12" sm="12" order="2" order-sm="1">
-                <user-management-list :loading="loading" :list="list" />
+                <user-management-list :loading="loading" :list="list" @click-row="onClickRow" />
             </v-col>
         </v-row>
     </div>
