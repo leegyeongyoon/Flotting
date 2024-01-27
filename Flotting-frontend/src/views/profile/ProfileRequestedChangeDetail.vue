@@ -14,7 +14,7 @@ const breadcrumbs = ref([
     {
         title: "프로필 변경 요청",
         disabled: false,
-        href: "/mng/profile"
+        to: "/mng/profile"
     },
     {
         title: "프로필 상세 정보",

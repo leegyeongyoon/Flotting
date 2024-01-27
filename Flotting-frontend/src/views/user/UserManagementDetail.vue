@@ -14,8 +14,7 @@ const breadcrumbs = ref([
     },
     {
         title: "고객 정보 검색",
-        disabled: false,
-        href: "/mng/user"
+        to: "/mng/user"
     },
     {
         title: "고객 상세 정보",

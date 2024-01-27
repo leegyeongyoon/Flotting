@@ -8,8 +8,7 @@ const breadcrumbs = ref([
     },
     {
         title: "프로필 변경 요청",
-        disabled: false,
-        href: "/mng/profile"
+        disabled: false
     }
 ]);
 const loading = ref(false);

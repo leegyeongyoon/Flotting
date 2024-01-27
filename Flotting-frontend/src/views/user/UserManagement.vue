@@ -9,8 +9,7 @@ const breadcrumbs = ref([
     },
     {
         title: "고객 정보 검색",
-        disabled: false,
-        href: "user"
+        disabled: false
     }
 ]);
 const loading = ref(false);
