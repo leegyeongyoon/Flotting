@@ -1,8 +1,32 @@
 <script setup>
 import { onBeforeMount, ref, watch } from "vue";
-import { onBeforeRouteLeave } from "vue-router";
+import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
 
 const emit = defineEmits(["search"]);
+const router = useRouter();
+const route = useRoute();
+const store = useStore();
+
+onBeforeMount(() => {
+    const path = route.path;
+    const params = store.getters.getSearchParams(path);
+    if (!!params) {
+        Object.keys(params).forEach(key => {
+            console.log(key + " / " + params[key]);
+            searchParams.value[key] = params[key];
+        });
+        height.value = params.height;
+        age.value = params.age;
+    }
+});
+
+onBeforeRouteLeave((to, from) => {
+    const params = searchParams.value;
+    if (!!params) {
+        store.commit("setSearchParams", { path: from.path, params: { ...params } });
+    }
+});
 
 const searchParams = ref({
     gender: null,
@@ -16,7 +40,6 @@ const searchParams = ref({
     smoked: null,
     searchDate: [null, null]
 });
-
 const height = ref([150, 200]);
 const age = ref([20, 45]);
 
@@ -87,14 +110,6 @@ watch(modalAge, newValue => {
     if (!newValue) {
         searchParams.value.age = age.value;
     }
-});
-
-onBeforeMount(() => {
-    console.log("b > " + JSON.stringify(searchParams.value));
-});
-
-onBeforeRouteLeave(() => {
-    console.log("b > " + searchParams.value);
 });
 </script>
 
