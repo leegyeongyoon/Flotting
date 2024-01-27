@@ -1,6 +1,6 @@
 <script setup>
 import SearchParameterCard from "@/components/card/UserSearchParameterCard.vue";
-import UserManagementList from "@/views/list/UserManagementList.vue";
+import UserManagementList from "@/views/user/list/UserManagementList.vue";
 import { ref } from "vue";
 
 const breadcrumbs = ref([

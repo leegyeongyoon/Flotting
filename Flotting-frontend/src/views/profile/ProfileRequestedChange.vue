@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import ProfileRequestedChangeList from "@/views/list/ProfileRequestedChangeList.vue";
+import ProfileRequestedChangeList from "@/views/profile/list/ProfileRequestedChangeList.vue";
 
 const breadcrumbs = ref([
     {
