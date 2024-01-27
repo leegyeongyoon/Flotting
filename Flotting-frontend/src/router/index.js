@@ -3,8 +3,6 @@ import AdminDashboard from "@/views/dashboard/AdminDashboard";
 import UserList from "@/views/account/UserList";
 import UserManagement from "@/views/user/UserManagement.vue";
 import ProfileRequestedChange from "@/views/profile/ProfileRequestedChange.vue";
-import CsResponse from "@/views/cns/user/CsResponse";
-import ManagerConsulting from "@/views/cns/manager/ManagerConsulting";
 import AdminNotice from "@/views/noti/admin/AdminNotice";
 import UserNotice from "@/views/noti/user/UserNotice";
 import IndicatorManagement from "@/views/ind/IndicatorManagement";
@@ -13,6 +11,9 @@ import ProfileRequestedChangeDetail from "@/views/profile/ProfileRequestedChange
 import RegisterFirst from "@/views/reg/RegisterFirst.vue";
 import RegisterSecond from "@/views/reg/RegisterSecond.vue";
 import RegisterSecondDetail from "@/views/reg/RegisterSecondDetail.vue";
+import ConsultManager from "@/views/cns/ConsultManager.vue";
+import ConsultUser from "@/views/cns/ConsultUser.vue";
+import ConsultManagerDetail from "@/views/cns/ConsultManagerDetail.vue";
 
 const routes = [
     { path: "/", component: AdminDashboard },
@@ -27,8 +28,9 @@ const routes = [
     { path: "/reg/second", component: RegisterSecond },
     { path: "/reg/second/:id", component: RegisterSecondDetail },
 
-    { path: "/cns/user", component: CsResponse },
-    { path: "/cns/manager", component: ManagerConsulting },
+    { path: "/cns/user", component: ConsultUser },
+    { path: "/cns/manager", component: ConsultManager },
+    { path: "/cns/manager/:id", component: ConsultManagerDetail },
 
     { path: "/noti/admin", component: AdminNotice },
     { path: "/noti/user", component: UserNotice },
