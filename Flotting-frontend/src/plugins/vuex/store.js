@@ -1,44 +1,18 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
+import profileStore from "@/plugins/vuex/modules/profileStore";
+import userStore from "@/plugins/vuex/modules/userStore";
+import mainStore from "@/plugins/vuex/modules/mainStore";
 
 export default createStore({
-    state() {
-        return {
-            profile: {
-                평생이용권여부: "-",
-                주차정보:
-                    "글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.",
-                신청경로: "-",
-                연락처: "-",
-                1: "-",
-                2: "-",
-                3: "-",
-                4: "-",
-                5: "-",
-                6: "-",
-                7: "-",
-                8: "-",
-                9: "-",
-                10: "-"
-            }
-        };
+    modules: {
+        profileStore: profileStore,
+        userStore: userStore,
+        mainStore: mainStore
     },
-    mutations: {
-        setProfile(state, data) {
-            state.profile = data;
-        },
-        setProfileByKey(state, data) {
-            state.profile[data.key] = data.value;
-        }
-    },
-    getters: {
-        getProfile: state => {
-            return state.profile;
-        },
-        getProfileDetail: state => key => {
-            return state.profile[key];
-        },
-        getProfileKeys: state => {
-            return Object.keys(state.profile);
-        }
-    }
+    plugins: [
+        createPersistedState({
+            paths: ["userStore"]
+        })
+    ]
 });
