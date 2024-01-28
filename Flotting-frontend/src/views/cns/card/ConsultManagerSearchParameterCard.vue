@@ -1,7 +1,6 @@
 <script setup>
 import { onBeforeMount, ref, watch } from "vue";
-import { onBeforeRouteLeave, useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
 import { DatePicker } from "v-calendar";
 import "v-calendar/style.css";
 import dayjs from "dayjs";
@@ -9,23 +8,16 @@ import dayjs from "dayjs";
 const emit = defineEmits(["search"]);
 const router = useRouter();
 const route = useRoute();
-const store = useStore();
 
 onBeforeMount(() => {
     const path = route.path;
-    const params = store.getters.getSearchParams(path);
+    const params = localStorage.getItem(path);
     if (!!params) {
-        Object.keys(params).forEach(key => {
-            searchParams.value[key] = params[key];
+        const paramsObj = JSON.parse(params);
+        Object.keys(paramsObj).forEach(key => {
+            searchParams.value[key] = paramsObj[key];
         });
-        name.value = params.name;
-    }
-});
-
-onBeforeRouteLeave((to, from) => {
-    const params = searchParams.value;
-    if (!!params) {
-        store.commit("setSearchParams", { path: from.path, params: { ...params } });
+        name.value = paramsObj.name;
     }
 });
 

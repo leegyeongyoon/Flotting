@@ -1,30 +1,30 @@
 <script setup>
 import { onBeforeMount, ref, watch } from "vue";
-import { onBeforeRouteLeave, onBeforeRouteUpdate, useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
 
+const props = defineProps({
+    isKeep: {
+        type: Boolean,
+        default: true
+    }
+});
 const emit = defineEmits(["search"]);
 const router = useRouter();
 const route = useRoute();
-const store = useStore();
 
 onBeforeMount(() => {
-    const path = route.path;
-    const params = store.getters.getSearchParams(path);
-    if (!!params) {
-        Object.keys(params).forEach(key => {
-            console.log(key + " / " + params[key]);
-            searchParams.value[key] = params[key];
-        });
-        height.value = params.height;
-        age.value = params.age;
+    if (!props.isKeep) {
+        return;
     }
-});
-
-onBeforeRouteLeave((to, from) => {
-    const params = searchParams.value;
+    const path = route.path;
+    const params = localStorage.getItem(path);
     if (!!params) {
-        store.commit("setSearchParams", { path: from.path, params: { ...params } });
+        const paramsObj = JSON.parse(params);
+        Object.keys(paramsObj).forEach(key => {
+            searchParams.value[key] = paramsObj[key];
+        });
+        height.value = paramsObj.height;
+        age.value = paramsObj.age;
     }
 });
 
@@ -73,6 +73,7 @@ const jobs = ref([
 ]);
 
 function search(param) {
+    !!props.isKeep && localStorage.setItem(route.path, JSON.stringify(param));
     emit("search", param);
 }
 

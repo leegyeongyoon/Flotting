@@ -1,15 +1,13 @@
 <script setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import UserInfoCard from "@/components/card/UserInformationCard.vue";
-import ApprovalRejectCard from "@/components/card/ApprovalRejectCard.vue";
 import ConsultManagerUserRequestInfoCard from "@/views/cns/card/ConsultManagerUserRequestInfoCard.vue";
 import UserSearchParameterCard from "@/components/card/UserSearchParameterCard.vue";
 import UserManagementList from "@/views/user/list/UserManagementList.vue";
 import ConsultManagerLetterCard from "@/views/cns/card/ConsultManagerLetterCard.vue";
 import ConsultManagerTargetCard from "@/views/cns/card/ConsultManagerTargetCard.vue";
+import UserProfileTable from "@/components/table/UserProfileTable.vue";
 
-const route = useRoute();
 const router = useRouter();
 
 const breadcrumbs = ref([
@@ -79,7 +77,8 @@ function search(param) {
 }
 
 function onClickRow(idx) {
-    alert("프로필 보이기 , idx : " + idx);
+    // TODO : set profile in vuex
+    dialog.value = true;
 }
 
 async function save(event) {
@@ -118,6 +117,8 @@ const letter = ref("");
 function setLetter(text) {
     letter.value = text;
 }
+
+const dialog = ref(false);
 </script>
 
 <template>
@@ -137,8 +138,26 @@ function setLetter(text) {
         <v-row>
             <v-col cols="8" sm="8" class="d-flex flex-column ga-3">
                 <consult-manager-user-request-info-card />
-                <user-search-parameter-card @search="search" />
+                <user-search-parameter-card :is-keep="false" @search="search" />
                 <user-management-list :loading="loading" :list="list" @click-row="onClickRow" />
+                <v-dialog v-model="dialog" scrollable width="auto">
+                    <v-card class="text-center text-sm-start w-100" fluid>
+                        <v-card-title class="text-md-h6 "> (사용자 이름) </v-card-title>
+                        <v-divider />
+                        <v-card-text>
+                            <user-profile-table />
+                        </v-card-text>
+                        <v-divider />
+                        <v-card-actions class="d-flex justify-end">
+                            <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                                Close
+                            </v-btn>
+                            <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+                                Save
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </v-col>
             <v-col cols="4" sm="4">
                 <v-form class="d-flex flex-column ga-3" @submit.prevent="save">

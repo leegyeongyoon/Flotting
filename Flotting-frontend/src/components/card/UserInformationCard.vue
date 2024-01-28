@@ -1,6 +1,8 @@
 <script setup>
-import { ref } from "vue";
-const test = ref("1234");
+import UserProfileTable from "@/components/table/UserProfileTable.vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 defineProps({
     isEdit: {
@@ -8,6 +10,21 @@ defineProps({
         default: false
     }
 });
+
+function save() {
+    if (!confirm("정말로 저장하시겠습니까?")) {
+        return;
+    }
+    const data = store.getters.getProfile;
+    alert("저장 API / data : " + JSON.stringify(data));
+}
+
+function stop() {
+    if (!confirm("정말로 정지하시겠습니까?")) {
+        return;
+    }
+    alert("정지 API");
+}
 </script>
 
 <template>
@@ -15,52 +32,16 @@ defineProps({
         <v-card-item>
             <v-row>
                 <v-col class="d-flex align-center">
-                    <v-cardTitle class="text-md-h6 "> (사용자 이름) </v-cardTitle>
+                    <v-card-title class="text-md-h6 "> (사용자 이름) </v-card-title>
                 </v-col>
                 <v-col v-if="isEdit" class="d-flex justify-end">
-                    <v-btn size="small" class="ma-1" color="green">저장</v-btn>
-                    <v-btn size="small" class="ma-1" color="red">정지</v-btn>
+                    <v-btn size="small" class="ma-1" color="green" @click="save">저장</v-btn>
+                    <v-btn size="small" class="ma-1" color="red" @click="stop">정지</v-btn>
                 </v-col>
             </v-row>
         </v-card-item>
         <v-container class="pt-0" fluid>
-            <v-table density="compact">
-                <thead>
-                    <tr>
-                        <th class="text-left w-25">
-                            속성
-                        </th>
-                        <th class="text-left w-75">
-                            정보
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="td-py-2">
-                    <tr>
-                        <td>평생이용권여부</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td class="py-2">평생이용권여부</td>
-                        <td>
-                            글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이
-                            긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.글이 긴거 테스트해보자.
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>평생이용권여부</td>
-                        <td>
-                            <v-text-field v-model="test" class="py-2" density="compact" variant="solo" hide-details></v-text-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>평생이용권여부</td>
-                        <td>
-                            <v-textarea v-model="test" rows="1" auto-grow class="py-2" variant="solo" hide-details></v-textarea>
-                        </td>
-                    </tr>
-                </tbody>
-            </v-table>
+            <user-profile-table :is-edit="isEdit" />
         </v-container>
     </v-card>
 </template>

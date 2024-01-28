@@ -43,7 +43,7 @@ function clickListBtn() {
         </v-row>
         <v-row>
             <v-col cols="6" sm="6">
-                <user-info-card />
+                <user-info-card :is-edit="true" />
             </v-col>
             <v-col cols="6" sm="6">
                 <v-row>
