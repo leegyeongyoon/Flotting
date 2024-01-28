@@ -1,15 +1,7 @@
 <template>
     <v-app>
-        <main-header
-            class="bg-blue-grey-lighten-5
-"
-            :toggle-drawer="toggleDrawer"
-        />
-        <main-navigation
-            class="bg-blue-grey-lighten-5
-"
-            :drawer="drawer"
-        />
+        <main-header class="bg-blue-grey-lighten-5" />
+        <main-navigation class="bg-blue-grey-lighten-5" />
         <v-main class="bg-grey-lighten-5  align-center justify-center" style="min-height: 300px; ">
             <v-container fluid>
                 <router-view />
@@ -19,25 +11,11 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import MainHeader from "@/components/layout/MainHeader";
 import MainNavigation from "@/components/layout/MainNavigation";
 
 export default {
     name: "App",
-    components: { MainNavigation, MainHeader },
-
-    setup() {
-        const drawer = ref(true);
-
-        const toggleDrawer = () => {
-            drawer.value = !drawer.value;
-        };
-
-        return {
-            drawer,
-            toggleDrawer
-        };
-    }
+    components: { MainNavigation, MainHeader }
 };
 </script>
