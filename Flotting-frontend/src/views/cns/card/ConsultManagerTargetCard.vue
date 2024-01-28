@@ -1,7 +1,4 @@
 <script setup>
-import { ref } from "vue";
-const rejectReason = ref("");
-
 const emit = defineEmits(["delete"]);
 
 defineProps({
@@ -10,8 +7,6 @@ defineProps({
         default: () => []
     }
 });
-
-const btnValue = ref("");
 
 function clickDeleteIcon(i) {
     if (!confirm("정말로 삭제하시겠습니까?")) {

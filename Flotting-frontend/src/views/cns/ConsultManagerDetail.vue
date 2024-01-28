@@ -1,14 +1,17 @@
 <script setup>
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import ConsultManagerUserRequestInfoCard from "@/views/cns/card/ConsultManagerUserRequestInfoCard.vue";
 import UserSearchParameterCard from "@/components/card/UserSearchParameterCard.vue";
 import UserManagementList from "@/views/user/list/UserManagementList.vue";
 import ConsultManagerLetterCard from "@/views/cns/card/ConsultManagerLetterCard.vue";
 import ConsultManagerTargetCard from "@/views/cns/card/ConsultManagerTargetCard.vue";
 import UserProfileTable from "@/components/table/UserProfileTable.vue";
+import { useStore } from "vuex";
 
 const router = useRouter();
+
+const store = useStore();
 
 const breadcrumbs = ref([
     {
@@ -78,6 +81,7 @@ function search(param) {
 
 function onClickRow(idx) {
     // TODO : set profile in vuex
+    store.commit("setProfileByKey", { key: "idx", value: idx });
     dialog.value = true;
 }
 
@@ -86,11 +90,13 @@ async function save(event) {
     if (!results.valid) {
         return;
     }
-    console.log(letter.value);
+
     if (targets.value.length !== 2) {
         alert("소개 대상을 2명 선택해주세요.");
         return;
     }
+
+    alert("전담 소개 제출 API / letter : " + letter.value + " / targets : " + JSON.stringify(targets.value));
 }
 
 const targets = ref([
@@ -107,11 +113,6 @@ function deleteTarget(index) {
     console.log("index : ", +index);
     targets.value = targets.value.filter((el, idx) => idx !== index);
 }
-function addTarget(target) {
-    const list = targets.value;
-    list.push(target);
-    target.value = list;
-}
 
 const letter = ref("");
 function setLetter(text) {
@@ -119,6 +120,20 @@ function setLetter(text) {
 }
 
 const dialog = ref(false);
+
+function add() {
+    const idx = store.getters.getProfileDetail("idx");
+    const row = list.value[idx];
+    const target = { userNumber: idx, name: row.name };
+    const currentTargets = targets.value;
+    if (!!currentTargets.find(el => el.userNumber === target.userNumber)) {
+        alert("중복으로 추가하셨습니다.");
+        return;
+    }
+    currentTargets.push(target);
+    targets.value = currentTargets;
+    dialog.value = false;
+}
 </script>
 
 <template>
@@ -140,7 +155,7 @@ const dialog = ref(false);
                 <consult-manager-user-request-info-card />
                 <user-search-parameter-card :is-keep="false" @search="search" />
                 <user-management-list :loading="loading" :list="list" @click-row="onClickRow" />
-                <v-dialog v-model="dialog" scrollable width="auto">
+                <v-dialog v-model="dialog" scrollable="true" width="auto">
                     <v-card class="text-center text-sm-start w-100" fluid>
                         <v-card-title class="text-md-h6 "> (사용자 이름) </v-card-title>
                         <v-divider />
@@ -152,8 +167,8 @@ const dialog = ref(false);
                             <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
                                 Close
                             </v-btn>
-                            <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-                                Save
+                            <v-btn color="blue-darken-1" variant="text" @click="add">
+                                Add
                             </v-btn>
                         </v-card-actions>
                     </v-card>
