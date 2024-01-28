@@ -2,6 +2,8 @@
 import UserSearchParameterCard from "@/components/card/UserSearchParameterCard.vue";
 import UserManagementList from "@/views/user/list/UserManagementList.vue";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const breadcrumbs = ref([
     {
