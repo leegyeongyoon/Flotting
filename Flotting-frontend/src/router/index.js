@@ -14,9 +14,12 @@ import RegisterSecondDetail from "@/views/reg/RegisterSecondDetail.vue";
 import ConsultManager from "@/views/cns/ConsultManager.vue";
 import ConsultUser from "@/views/cns/ConsultUser.vue";
 import ConsultManagerDetail from "@/views/cns/ConsultManagerDetail.vue";
+import AdminLogin from "@/views/login/AdminLogin.vue";
+import store from "@/plugins/vuex/store";
 
 const routes = [
-    { path: "/", component: AdminDashboard },
+    { path: "/", component: AdminLogin },
+    { path: "/home", component: AdminDashboard },
     { path: "/account", component: UserList },
 
     { path: "/mng/user", component: UserManagement },
@@ -41,6 +44,12 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
+});
+
+router.beforeEach((to, from) => {
+    if (to.path !== "/" && !store.getters.isLogin) {
+        return "/";
+    }
 });
 
 export default router;
