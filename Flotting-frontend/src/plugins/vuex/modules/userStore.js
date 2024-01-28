@@ -5,19 +5,19 @@ const userStore = {
         token: ""
     },
     mutations: {
-        login(state, payload) {
+        login: (state, payload) => {
             state.userId = payload.userId;
             state.userName = payload.userName;
             state.token = payload.token;
         },
-        logout(state) {
+        logout: state => {
             state.userId = "";
             state.userName = "";
             state.token = "";
         }
     },
     getters: {
-        isLogin(state) {
+        isLogin: state => {
             return !!state.token;
         }
     }

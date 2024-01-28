@@ -25,21 +25,21 @@ const profileStore = {
         };
     },
     mutations: {
-        setProfile(state, data) {
+        setProfile: (state, data) => {
             state.profile = data;
         },
-        setProfileByKey(state, data) {
+        setProfileByKey: (state, data) => {
             state.profile[data.key] = data.value;
         }
     },
     getters: {
-        getProfile(state) {
+        getProfile: state => {
             return state.profile;
         },
-        getProfileDetail(state, key) {
+        getProfileDetail: state => key => {
             return state.profile[key];
         },
-        getProfileKeys(state) {
+        getProfileKeys: state => {
             return Object.keys(state.profile);
         }
     }

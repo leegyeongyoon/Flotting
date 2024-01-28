@@ -3,18 +3,18 @@ const mainStore = {
         drawer: true
     },
     mutations: {
-        toggleDrawer(state) {
+        toggleDrawer: state => {
             state.drawer = !state.drawer;
         },
-        setDrawer(state, val) {
+        setDrawer: (state, val) => {
             state.drawer = val;
         },
-        closeDrawer(state) {
+        closeDrawer: state => {
             state.drawer = false;
         }
     },
     getters: {
-        getDrawer(state) {
+        getDrawer: state => {
             return state.drawer;
         }
     }
