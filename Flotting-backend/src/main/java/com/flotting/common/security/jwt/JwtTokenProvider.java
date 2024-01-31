@@ -25,6 +25,10 @@ public class JwtTokenProvider {
     private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
 
+    /**
+     *
+     * @param userUid (phoneNumber)
+     */
     public String createToken(String userUid, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userUid);
         claims.put("roles", roles);
