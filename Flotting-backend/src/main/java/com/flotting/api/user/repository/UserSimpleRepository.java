@@ -1,0 +1,15 @@
+package com.flotting.api.user.repository;
+
+
+import com.flotting.api.user.repository.querydsl.UserSimpleQueryDsl;
+import com.flotting.api.user.entity.UserSimpleEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface UserSimpleRepository extends JpaRepository<UserSimpleEntity, Long>, UserSimpleQueryDsl {
+    Optional<UserSimpleEntity> findOneWithAuthoritiesByPhoneNumber(String phoneNumber);
+
+    Optional<UserSimpleEntity> findByPhoneNumber(String phoneNumber);
+
+}

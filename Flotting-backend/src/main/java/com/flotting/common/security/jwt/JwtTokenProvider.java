@@ -25,6 +25,10 @@ public class JwtTokenProvider {
     private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
 
+    /**
+     *
+     * @param userUid (phoneNumber)
+     */
     public String createToken(String userUid, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userUid);
         claims.put("roles", roles);
@@ -33,6 +37,7 @@ public class JwtTokenProvider {
         long tokenValidMillisecond = 1000L * 60 * 60;
 
         return Jwts.builder()
+                .setSubject(userUid)
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + tokenValidMillisecond))
@@ -48,7 +53,7 @@ public class JwtTokenProvider {
 
     public String getUsername(String token) {
         return Jwts.parserBuilder().setSigningKey(secretKey).build()
-                .parseClaimsJwt(token).getBody().getSubject();
+                .parseClaimsJws(token).getBody().getSubject();
     }
 
     public String resolveToken(HttpServletRequest request) {
