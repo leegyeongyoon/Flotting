@@ -20,8 +20,8 @@ public class UserProfileEntity implements UserDetails {
 
     @Id
     @Column(name="USER_NO" , columnDefinition = "INT COMMENT '유저 번호'")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userNo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userNo;
 
     @Column(name="USER_NAME", columnDefinition = "varchar(30) COMMENT '유저 이름'")
     private String userName;

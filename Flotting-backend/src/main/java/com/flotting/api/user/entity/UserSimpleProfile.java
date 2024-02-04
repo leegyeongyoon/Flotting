@@ -2,6 +2,7 @@ package com.flotting.api.user.entity;
 
 import com.flotting.api.user.model.UserSimpleRequestDto;
 import com.flotting.api.util.BaseEntity;
+import com.flotting.api.util.type.GenderEnum;
 import com.flotting.api.util.type.JobEnum;
 import com.flotting.api.util.type.UserStatusEnum;
 import jakarta.persistence.*;
@@ -20,7 +21,7 @@ import java.util.Collection;
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class UserSimpleProfile extends BaseEntity implements UserDetails {
+public class UserSimpleProfile implements UserDetails {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -70,7 +71,7 @@ public class UserSimpleProfile extends BaseEntity implements UserDetails {
     /**
      * 2차 프로필 id
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_detail_profile")
     private UserDetailProfile userDetailProfile;
 
@@ -128,5 +129,27 @@ public class UserSimpleProfile extends BaseEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public int getAgeScore(GenderEnum gender) {
+        if (GenderEnum.M.equals(gender)) {
+            if (this.age >= 40) {
+                return 2;
+            } else {
+                return 0;
+            }
+        } else {
+            if (this.age >= 36) {
+                return 0;
+            } else if (this.age >= 30) {
+                return 5;
+            } else if (this.age >= 25) {
+                return 10;
+            } else if (this.age >= 20) {
+                return 15;
+            } else {
+                return 0;
+            }
+        }
     }
 }

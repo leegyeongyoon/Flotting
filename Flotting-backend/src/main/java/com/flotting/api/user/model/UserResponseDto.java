@@ -3,15 +3,14 @@ package com.flotting.api.user.model;
 import com.flotting.api.util.type.*;
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class UserResponseDto {
 
     @Schema(description = "simpleProfileId")
@@ -29,13 +28,15 @@ public class UserResponseDto {
     @Schema(description = "계정상태")
     private String userStatus;
 
-    @Schema(description = "직업")
+    @Schema(description = "직업", allowableValues = {"PROFESSIONAL", "MID_MAJOR_COMPANY", "FINANCE", "PUBLIC_COMPANY",
+            "EDU", "LAB", "MEDICAL", "BUSNINESS","SMALL_COMPANY", "FREELANCER", "STUDENT",
+    })
     private String job;
 
     @Schema(description = "신장")
     private Integer height;
 
-    @Schema(description = "성별")
+    @Schema(description = "성별", allowableValues={"F", "M"})
     private String gender;
 
     @Schema(description = "거주지", allowableValues = {"SEOUL_NORTH", "SEOUL_SOUTH", "SEOUL_WEST", "SEOUL_EAST",
@@ -46,7 +47,7 @@ public class UserResponseDto {
     @Schema(description = "이메일")
     private String email;
 
-    @Schema(description = "신청 경로", allowableValues = {"A", "B", "C", "D", "E", "F", "G", "H", "I"})
+    @Schema(description = "신청 경로", allowableValues = {"SMALL_CLASS_C", "SMALL_CLASS_M", "FRIP", "MOONTO", "INSTA", "RECOMMEND", "NAVER", "ETC", "PORTAL"})
     private String appliedPath;
 
     @Schema(description = "추천인 이름")
@@ -77,13 +78,13 @@ public class UserResponseDto {
     @Schema(description = "직장명")
     private String detailJob;
 
-    @Schema(description = "졸업 이력", allowableValues = {"A", "B", "C", "D", "E", "F", "G"})
+    @Schema(description = "졸업 이력", allowableValues = {"HIGH_SCHOOL_GRADUATION", "JUNIOR_COLLEGE_ATTENDING", "JUNIOR_COLLEGE_GRADUATION", "COLLEGE_ATTENDING", "COLLEGE_GRADUATION", "COLLEGE_ACADEMY_ATTENDING", "COLLEGE_ACADEMY_GRADUATION"})
     private String education;
 
     @Schema(description = "흡연 여부")
     private Boolean smoking;
 
-    @Schema(description = "음주 빈도", allowableValues = {"A", "B", "C", "D"})
+    @Schema(description = "음주 빈도", allowableValues = {"THREE_WEEK", "TWO_WEEK", "ONE_WEEK", "ZERO_WEEK"})
     private String drinking;
 
     @Schema(description = "등급", allowableValues = {"G", "D", "P"})

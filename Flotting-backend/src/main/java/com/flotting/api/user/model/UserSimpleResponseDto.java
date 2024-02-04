@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
@@ -57,6 +58,6 @@ public class UserSimpleResponseDto {
         this.userStatus = user.getUserStatus().name();
         this.phoneNumber = user.getPhoneNumber();
         this.name = user.getName();
-        this.userDetailProfileId = user.getUserDetailProfile().getSeq();
+        this.userDetailProfileId = Objects.nonNull(user.getUserDetailProfile()) ? user.getUserDetailProfile().getSeq() : null;
     }
 }
