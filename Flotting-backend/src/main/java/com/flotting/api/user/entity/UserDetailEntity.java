@@ -3,19 +3,21 @@ package com.flotting.api.user.entity;
 import com.flotting.api.manager.entity.ManagerProfileEntity;
 import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.UserDetailRequestDto;
-import com.flotting.domain.BaseEntity;
+import com.flotting.api.util.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * 2차 프로필 테이블
  */
 @Entity
 @Table(name = "user_detail_profile",
-    indexes = @Index(name = "gradeIndex", columnList = "grade"))
+        indexes = @Index(name = "gradeIndex", columnList = "grade"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class UserDetailEntity extends BaseEntity {
@@ -53,9 +55,14 @@ public class UserDetailEntity extends BaseEntity {
     private String recommendUserName;
 
     /**
-     * 취향1가지
+     * 취향1가지 key
      */
     private PreferenceEnum preference;
+    /**
+     * 취향 1가지 value
+     */
+    @ElementCollection
+    private List<String> preferenceValue;
 
     /**
      * 가장중요한 조건
@@ -99,7 +106,7 @@ public class UserDetailEntity extends BaseEntity {
 
     /**
      * 흡연 여부
-    */
+     */
     private Boolean smoking;
 
     /**
@@ -132,6 +139,19 @@ public class UserDetailEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private ManagerProfileEntity manager;
+
+    /**
+     * 등급 점수
+     */
+    private Integer totalScore;
+
+    /**
+     * 외모 점수
+     */
+    private Integer faceScore;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "userDetailEntity")
+    private UserSimpleEntity userSimpleEntity;
 
     @Builder
     public UserDetailEntity(UserDetailRequestDto requestDto) {
@@ -183,4 +203,36 @@ public class UserDetailEntity extends BaseEntity {
         this.manager = manager;
         return this;
     }
+
+    public void setTotalScore(int score) {
+
+        this.totalScore = score;
+    }
+
+    public int getHeightScore(GenderEnum gender) {
+        if(GenderEnum.M.equals(gender)) {
+            if(this.height >= 175) {
+                return 12;
+            } else if (this.height >= 170) {
+                return 8;
+            } else if (this.height >= 165) {
+                return 4;
+            } else {
+                return 0;
+            }
+        } else {
+            if(this.height >= 175) {
+                return 0;
+            } else if (this.height >= 170) {
+                return 2;
+            } else if (this.height >= 160) {
+                return 6;
+            } else if (this.height >= 150) {
+                return 4;
+            } else {
+                return 0;
+            }
+        }
+    }
+
 }

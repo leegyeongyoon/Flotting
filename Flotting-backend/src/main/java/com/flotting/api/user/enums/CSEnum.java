@@ -1,4 +1,4 @@
-package com.flotting.api.manager.enums;
+package com.flotting.api.user.enums;
 
 public enum CSEnum {
 

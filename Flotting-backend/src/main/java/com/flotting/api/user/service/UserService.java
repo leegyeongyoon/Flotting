@@ -5,7 +5,9 @@ import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.repository.UserDetailRepository;
 import com.flotting.api.user.repository.UserSimpleRepository;
+import com.flotting.api.user.enums.GenderEnum;
 import com.flotting.api.user.enums.GradeEnum;
+import com.flotting.api.user.enums.PreferenceEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -144,5 +147,41 @@ public class UserService {
         return new UserDetailResponseDto(userDetail);
     }
 
+    /**
+     * 사용자 2차 프로필 등록 최종점수 계산
+     */
+    @Transactional
+    public void calculateScore(Long detailProfileId) {
+//        userDetailEntity detailUser = getDetailUser(detailProfileId);
+//        userSimpleEntity simpleUser = detailUser.getuserSimpleEntity();
+//        GenderEnum gender = detailUser.getGender();
+//        int totalScore = 0;
+//        totalScore += simpleUser.getJob().getScore(gender);
+//        totalScore += detailUser.getBody().getScore(gender);
+//        totalScore += detailUser.getEducation().getScore(gender);
+//        totalScore += detailUser.getHeightScore(gender);
+//        totalScore += simpleUser.getAgeScore(gender);
+//
+//        log.info("사용자 : {} 총점 : {}", simpleUser.getUserNo(), totalScore);
+//        detailUser.setTotalScore(totalScore);
+    }
 
+    @Transactional(readOnly = true)
+    public List<UserDetailEntity> getEqualScoreUsers(GenderEnum targetUserGender, int targetUserScore) {
+        if(GenderEnum.M.equals(targetUserGender)) {
+            return userDetailRepository.findByGenderAndTotalScore(GenderEnum.F, targetUserScore);
+        } else {
+            return userDetailRepository.findByGenderAndTotalScore(GenderEnum.M, targetUserScore);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public Set<UserResponseDto> getEqualScoreAndPreferenceUsers(GenderEnum gender, int score, PreferenceEnum preference, List<String> value) {
+       return userDetailRepository.findUsersByScoreAndPreference(gender, score, preference, value);
+    }
+
+    @Transactional(readOnly = true)
+    public Set<UserResponseDto> getEqualPreferenceUsers(GenderEnum gender, int score, PreferenceEnum preference, List<String> value) {
+        return userDetailRepository.findUsersByPreference(gender, score, preference, value);
+    }
 }

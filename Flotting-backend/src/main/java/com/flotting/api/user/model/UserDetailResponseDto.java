@@ -11,6 +11,9 @@ import lombok.Setter;
 @Schema(description = "2차 프로필 사용자 정보")
 public class UserDetailResponseDto {
 
+    @Schema(description = "id")
+    private Long seq;
+
     @Schema(description = "신장")
     private Integer height;
 
@@ -75,6 +78,7 @@ public class UserDetailResponseDto {
     private ManagerProfileDto manager;
 
     public UserDetailResponseDto(UserDetailEntity user) {
+        this.seq = user.getSeq();
         this.appliedPath = user.getAppliedPath().name();
         this.body = user.getBody().name();
         this.detailJob = user.getDetailJob();

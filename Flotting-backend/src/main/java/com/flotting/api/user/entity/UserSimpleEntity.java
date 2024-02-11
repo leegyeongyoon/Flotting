@@ -1,10 +1,14 @@
 package com.flotting.api.user.entity;
 
+import com.flotting.api.user.model.UserSimpleRequestDto;
+import com.flotting.api.user.enums.GenderEnum;
 import com.flotting.api.user.enums.JobEnum;
 import com.flotting.api.user.enums.UserStatusEnum;
-import com.flotting.api.user.model.UserSimpleRequestDto;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -69,8 +73,8 @@ public class UserSimpleEntity implements UserDetails {
     /**
      * 2차 프로필 id
      */
-    @OneToOne
-    @JoinColumn(name = "user_detail_profile")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_detail_entity")
     private UserDetailEntity userDetailEntity;
 
     public UserSimpleEntity(UserSimpleRequestDto requestDto , String encodedPassword) {
@@ -127,5 +131,27 @@ public class UserSimpleEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public int getAgeScore(GenderEnum gender) {
+        if (GenderEnum.M.equals(gender)) {
+            if (this.age >= 40) {
+                return 2;
+            } else {
+                return 0;
+            }
+        } else {
+            if (this.age >= 36) {
+                return 0;
+            } else if (this.age >= 30) {
+                return 5;
+            } else if (this.age >= 25) {
+                return 10;
+            } else if (this.age >= 20) {
+                return 15;
+            } else {
+                return 0;
+            }
+        }
     }
 }

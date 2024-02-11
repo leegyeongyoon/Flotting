@@ -1,6 +1,5 @@
-package com.flotting.api.payment.entity;
+package com.flotting.api.history.entity;
 
-import com.flotting.api.matching.entity.MatchingHistoryEntity;
 import com.flotting.api.user.entity.UserSimpleEntity;
 import jakarta.persistence.*;
 
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "payment_history")
-public class PaymentHistoryEntity {
+public class PaymentHistory {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -34,7 +33,7 @@ public class PaymentHistoryEntity {
      */
     @OneToOne
     @JoinColumn(name = "paid_matching_id")
-    private MatchingHistoryEntity matchingHistoryEntity;
+    private MatchingHistory matchingHistory;
 
 
 }

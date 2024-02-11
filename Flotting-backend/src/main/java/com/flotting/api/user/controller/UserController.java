@@ -3,7 +3,7 @@ package com.flotting.api.user.controller;
 
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
-import com.flotting.config.TokenUser;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

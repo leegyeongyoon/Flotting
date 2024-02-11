@@ -1,7 +1,8 @@
-package com.flotting.api.manager.entity;
+package com.flotting.api.history.entity;
 
+import com.flotting.api.manager.entity.ManagerProfileEntity;
 import com.flotting.api.user.entity.UserSimpleEntity;
-import com.flotting.api.manager.enums.CSEnum;
+import com.flotting.api.user.enums.CSEnum;
 import com.flotting.api.user.enums.ProcessStatus;
 import jakarta.persistence.*;
 
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "cs_history",
         indexes = @Index(name = "statusIndex", columnList = "status"))
-public class CSHistoryEntity {
+public class CSHistory {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

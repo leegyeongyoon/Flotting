@@ -4,6 +4,7 @@ import com.flotting.api.user.SampleDataMaker;
 import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
 
     @Autowired
     private UserService userService;
-    
+
     @Test
     public void 사용자_1차프로필_저장() {
         //given
@@ -30,7 +31,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .build();
 
         //when
-        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo( requestDto);
+        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(requestDto);
 
         //then
         Assertions.assertThat(userSimpleResponseDto).isNotNull();
@@ -40,7 +41,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
     @Test
     public void 사용자_2차프로필_저장() {
         //given
-        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo( UserSimpleRequestDto.builder()
+        UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo(UserSimpleRequestDto.builder()
                 .name("ABC")
                 .job(JobEnum.BUSNINESS.name())
                 .age(20)
@@ -52,15 +53,15 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .body(BodyEnum.SLIM.name())
                 .charm("abc")
                 .detailJob("abc")
-                .drinking(DrinkingEnum.A.name())
-                .education(EducationEnum.A.name())
+                .drinking(DrinkingEnum.ONE_WEEK.name())
+                .education(EducationEnum.COLLEGE_ACADEMY_ATTENDING.name())
                 .email("abc")
                 .grade(GradeEnum.D.name())
                 .hobby("abc")
                 .location(LocationEnum.SEOUL_EAST.name())
                 .loveValues("abc")
                 .nickName("bing")
-                .path(AppliedPathEnum.H.name())
+                .path(AppliedPathEnum.ETC.name())
                 .gender(GenderEnum.F.name())
                 .preference(PreferenceEnum.AGE.name())
                 .preferenceDetail("abc")
@@ -68,7 +69,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
                 .URI("uri").build();
 
         //when
-        UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo( userSimpleResponseDto.getUserNo(), requestDto);
+        UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(userSimpleResponseDto.getUserNo(), requestDto);
 
         //then
         Assertions.assertThat(userDetailResponseDto).isNotNull();
@@ -90,7 +91,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
     @Test
     public void 사용자_2차프로필_조회() {
         //given
-        makeUserData();
+        List<UserResponseDto> userResponseDtos = makeUserData();
 
         //when
         List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos();
@@ -102,10 +103,10 @@ class UserQueryDslImplTest extends SampleDataMaker {
     @Test
     public void 사용자_등급별_조회() {
         //given
-        makeUserData();
+        List<UserResponseDto> userResponseDtos = makeUserData();
 
         //when
-        List<UserDetailResponseDto> users = userService.getDetailUserInfosByGrade( GradeEnum.D.name());
+        List<UserDetailResponseDto> users = userService.getDetailUserInfosByGrade(GradeEnum.D.name());
 
         //then
         Assertions.assertThat(users.size()).isEqualTo(3);
@@ -119,7 +120,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         //when
         UserFilterRequestDto userFilterRequestDto = new UserFilterRequestDto();
         userFilterRequestDto.setBody(BodyEnum.NORMAL.name());
-        List<UserResponseDto> users = userService.getUsersByFilter( userFilterRequestDto);
+        List<UserResponseDto> users = userService.getUsersByFilter(userFilterRequestDto);
 
         //then
         Assertions.assertThat(users.size()).isEqualTo(1);

@@ -1,6 +1,6 @@
 package com.flotting.api.manager.entity;
 
-import com.flotting.domain.BaseEntity;
+import com.flotting.api.util.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 

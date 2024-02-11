@@ -2,9 +2,9 @@ package com.flotting.api.user.enums;
 
 public enum AppliedPathEnum {
 
-    A("소모임(클래스)"), B("소모임(모임)"), C("프립"),
-    D("문토"), E("인스타그램"), F("지인 추천"),
-    G("네이버 카페"), H("기타"), I("포탈 검색");
+    SMALL_CLASS_C("소모임(클래스)"), SMALL_CLASS_M("소모임(모임)"), FRIP("프립"),
+    MOONTO("문토"), INSTA("인스타그램"), RECOMMEND("지인 추천"),
+    NAVER("네이버 카페"), ETC("기타"), PORTAL("포탈 검색");
 
     private String value;
 

@@ -1,4 +1,4 @@
-package com.flotting.domain;
+package com.flotting.api.util;
 
 import jakarta.persistence.*;
 import lombok.Getter;
