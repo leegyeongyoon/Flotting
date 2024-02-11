@@ -1,6 +1,6 @@
 package com.flotting.api.history.entity;
 
-import com.flotting.api.user.entity.UserSimpleProfile;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.util.type.MatchingProcessEnum;
 import jakarta.persistence.*;
 
@@ -35,14 +35,14 @@ public class MatchingHistory {
      */
     @ManyToOne
     @JoinColumn(name = "requester")
-    private UserSimpleProfile requester;
+    private UserSimpleEntity requester;
 
     /**
      * 승낙자
      */
     @ManyToOne
     @JoinColumn(name = "receiver")
-    private UserSimpleProfile receiver;
+    private UserSimpleEntity receiver;
 
     /**
      * 매칭 상태

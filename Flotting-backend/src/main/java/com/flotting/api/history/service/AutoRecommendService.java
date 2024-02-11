@@ -2,9 +2,8 @@ package com.flotting.api.history.service;
 
 import com.flotting.api.history.entity.AutoRecommendHistory;
 import com.flotting.api.history.repository.AutoRecommendRepository;
-import com.flotting.api.user.entity.UserDetailProfile;
-import com.flotting.api.user.entity.UserSimpleProfile;
-import com.flotting.api.user.model.UserFilterRequestDto;
+import com.flotting.api.user.entity.UserDetailEntity;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.model.UserResponseDto;
 import com.flotting.api.user.service.UserService;
 import com.flotting.api.util.type.GenderEnum;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -27,12 +25,12 @@ public class AutoRecommendService {
     private final AutoRecommendRepository autoRecommendRepository;
 
     /**
-     * userSimpleProfile의 랜덤 2인 매칭
+     * userSimpleEntity의 랜덤 2인 매칭
      */
     //TODO 매칭기준 기획 필요
     public void createAutoRecommend(Long detailProfileId) {
-        UserDetailProfile detailUser = userService.getDetailUser(detailProfileId);
-        UserSimpleProfile user = detailUser.getUserSimpleProfile();
+        UserDetailEntity detailUser = userService.getDetailUser(detailProfileId);
+        UserSimpleEntity user = detailUser.getUserSimpleEntity();
         /**
          * [
          *      {type : body, value : normal},
@@ -78,7 +76,7 @@ public class AutoRecommendService {
         IntStream.range(0, 1).forEach(idx -> {
             UserResponseDto recommendedProfile = userResponseDtos.get(idx);
             Long recommendedUserId = recommendedProfile.getDetailProfileId();
-            UserDetailProfile recommendedUser = userService.getDetailUser(recommendedUserId);
+            UserDetailEntity recommendedUser = userService.getDetailUser(recommendedUserId);
             AutoRecommendHistory autoRecommendHistory = AutoRecommendHistory.builder()
                     .receiver(recommendedUser)
                     .profile(detailUser)

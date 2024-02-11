@@ -1,7 +1,7 @@
 package com.flotting.api.user.model;
 
 import com.flotting.api.manager.model.ManagerProfileDto;
-import com.flotting.api.user.entity.UserDetailProfile;
+import com.flotting.api.user.entity.UserDetailEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -77,7 +77,7 @@ public class UserDetailResponseDto {
     @Schema(description = "프로필 승인한 매니저")
     private ManagerProfileDto manager;
 
-    public UserDetailResponseDto(UserDetailProfile user) {
+    public UserDetailResponseDto(UserDetailEntity user) {
         this.seq = user.getSeq();
         this.appliedPath = user.getAppliedPath().name();
         this.body = user.getBody().name();

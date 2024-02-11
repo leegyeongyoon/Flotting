@@ -1,13 +1,11 @@
 package com.flotting.api.manager.service;
 
+import com.flotting.api.manager.entity.ManagerProfileEntity;
 import com.flotting.api.manager.repository.ManagerRepository;
-import com.flotting.api.user.entity.UserSimpleProfile;
+import com.flotting.api.user.entity.UserDetailEntity;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.service.UserService;
-
-import com.flotting.api.manager.entity.ManagerProfile;
-import com.flotting.api.user.entity.UserDetailProfile;
 import com.flotting.api.util.type.GenderEnum;
-import com.flotting.api.util.type.JobEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,8 +25,8 @@ public class ManagerService {
      * @return
      */
     @Transactional(readOnly = true)
-    public ManagerProfile getManager(Long managerId) {
-        ManagerProfile manager = managerRepository.findById(managerId)
+    public ManagerProfileEntity getManager(Long managerId) {
+        ManagerProfileEntity manager = managerRepository.findById(managerId)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 매니저"));
         return manager;
     }
@@ -44,9 +42,9 @@ public class ManagerService {
      */
     @Transactional
     public void approveInfo(Long detailProfileId) {
-        ManagerProfile manager = getManager(detailProfileId);
-        UserDetailProfile detailProfile = userService.getDetailUser(detailProfileId);
-        UserSimpleProfile simpleProfile = detailProfile.getUserSimpleProfile();
+        ManagerProfileEntity manager = getManager(detailProfileId);
+        UserDetailEntity detailProfile = userService.getDetailUser(detailProfileId);
+        UserSimpleEntity simpleProfile = detailProfile.getUserSimpleEntity();
         detailProfile.approveProfile(manager);
         GenderEnum gender = detailProfile.getGender();
         int jobScore = simpleProfile.getJob().getScore(gender);

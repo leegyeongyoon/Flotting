@@ -1,7 +1,7 @@
 package com.flotting.api.history.entity;
 
-import com.flotting.api.manager.entity.ManagerProfile;
-import com.flotting.api.user.entity.UserSimpleProfile;
+import com.flotting.api.manager.entity.ManagerProfileEntity;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.util.type.CSEnum;
 import com.flotting.api.util.type.ProcessStatus;
 import jakarta.persistence.*;
@@ -30,14 +30,14 @@ public class CSHistory {
      */
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    private ManagerProfile manager;
+    private ManagerProfileEntity manager;
 
     /**
      * 신청자
      */
     @ManyToOne
     @JoinColumn(name = "requester_id")
-    private UserSimpleProfile requester;
+    private UserSimpleEntity requester;
 
     /**
      * 처리현황

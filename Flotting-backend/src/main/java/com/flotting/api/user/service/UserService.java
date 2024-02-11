@@ -1,11 +1,10 @@
 package com.flotting.api.user.service;
 
+import com.flotting.api.user.entity.UserDetailEntity;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.repository.UserDetailRepository;
 import com.flotting.api.user.repository.UserSimpleRepository;
-
-import com.flotting.api.user.entity.UserDetailProfile;
-import com.flotting.api.user.entity.UserSimpleProfile;
 import com.flotting.api.util.type.GenderEnum;
 import com.flotting.api.util.type.GradeEnum;
 import com.flotting.api.util.type.PreferenceEnum;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -69,11 +67,11 @@ public class UserService {
      */
     @Transactional
     public UserSimpleResponseDto saveSimpleUserInfo(UserSimpleRequestDto requestDto) {
-        UserSimpleProfile user = new UserSimpleProfile(requestDto);
-        UserSimpleProfile savedUser = userSimpleRepository.save(user);
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+        UserSimpleEntity user = new UserSimpleEntity(requestDto, encodedPassword);
+        UserSimpleEntity savedUser = userSimpleRepository.save(user);
         log.info("savedEntity user : {}", savedUser);
-        UserSimpleResponseDto userSimpleResponseDto = new UserSimpleResponseDto(savedUser);
-        return userSimpleResponseDto;
+        return new UserSimpleResponseDto(savedUser);
     }
 
     /**
@@ -81,11 +79,10 @@ public class UserService {
      */
     @Transactional
     public UserSimpleResponseDto updateSimpleUserInfo(Long targetUserId, UserSimpleRequestDto requestDto) {
-        UserSimpleProfile simpleUser = getSimpleUser(targetUserId);
+        UserSimpleEntity simpleUser = getSimpleUser(targetUserId);
 
-        UserSimpleProfile updatedProfile = simpleUser.updateInfo(requestDto);
-        UserSimpleResponseDto userSimpleResponseDto = new UserSimpleResponseDto(updatedProfile);
-        return userSimpleResponseDto;
+        UserSimpleEntity updatedProfile = simpleUser.updateInfo(requestDto);
+        return new UserSimpleResponseDto(updatedProfile);
     }
 
     /**
@@ -93,11 +90,11 @@ public class UserService {
      */
     @Transactional
     public UserDetailResponseDto saveDetailUserInfo(Long targetUserId, UserDetailRequestDto requestDto) {
-        UserDetailProfile userDetailProfile = new UserDetailProfile(requestDto);
-        UserSimpleProfile simpleUser = getSimpleUser(targetUserId);
+        UserDetailEntity userDetailEntity = new UserDetailEntity(requestDto);
+        UserSimpleEntity simpleUser = getSimpleUser(targetUserId);
 
-        simpleUser.setDetailUser(userDetailProfile);
-        UserDetailProfile savedUser = userDetailRepository.save(userDetailProfile);
+        simpleUser.setDetailUser(userDetailEntity);
+        UserDetailEntity savedUser = userDetailRepository.save(userDetailEntity);
 
         log.info("savedEntity user : {}", savedUser);
         return new UserDetailResponseDto(savedUser);
@@ -108,31 +105,28 @@ public class UserService {
      */
     @Transactional
     public UserDetailResponseDto updateDetailUserInfo(Long targetUserId, UserDetailRequestDto requestDto) {
-        UserDetailProfile detailUser = getDetailUser(targetUserId);
+        UserDetailEntity detailUser = getDetailUser(targetUserId);
 
-        UserDetailProfile updatedProfile = detailUser.updateInfo(requestDto);
-        UserDetailResponseDto userDetailResponseDto = new UserDetailResponseDto(updatedProfile);
-        return userDetailResponseDto;
+        UserDetailEntity updatedProfile = detailUser.updateInfo(requestDto);
+        return new UserDetailResponseDto(updatedProfile);
     }
 
     /**
      * 1차 프로필 조회
      */
     @Transactional(readOnly = true)
-    public UserSimpleProfile getSimpleUser(Long profileId) {
-        UserSimpleProfile userSimpleProfile = userSimpleRepository.findById(profileId)
+    public UserSimpleEntity getSimpleUser(Long profileId) {
+        return userSimpleRepository.findById(profileId)
                 .orElseThrow(() -> new IllegalArgumentException("1차 프로필 미등록 사용자!! profileId : " + profileId));
-        return userSimpleProfile;
     }
 
     /**
      * 2차 프로필 조회
      */
     @Transactional(readOnly = true)
-    public UserDetailProfile getDetailUser(Long profileId) {
-        UserDetailProfile userDetailProfile = userDetailRepository.findById(profileId)
+    public UserDetailEntity getDetailUser(Long profileId) {
+        return userDetailRepository.findById(profileId)
                 .orElseThrow(() -> new IllegalArgumentException("2차 프로필 미등록 사용자!! profileId : " + profileId));
-        return userDetailProfile;
     }
 
     /**
@@ -140,8 +134,8 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public UserSimpleResponseDto getSimpleUserDto(Long profileId) {
-        UserSimpleProfile userSimpleProfile = getSimpleUser(profileId);
-        return new UserSimpleResponseDto(userSimpleProfile);
+        UserSimpleEntity userSimpleEntity = getSimpleUser(profileId);
+        return new UserSimpleResponseDto(userSimpleEntity);
     }
 
     /**
@@ -149,7 +143,7 @@ public class UserService {
      */
     @Transactional(readOnly = true)
     public UserDetailResponseDto getDetailUserDto(Long profileId) {
-        UserDetailProfile userDetail = getDetailUser(profileId);
+        UserDetailEntity userDetail = getDetailUser(profileId);
         return new UserDetailResponseDto(userDetail);
     }
 
@@ -158,8 +152,8 @@ public class UserService {
      */
     @Transactional
     public void calculateScore(Long detailProfileId) {
-//        UserDetailProfile detailUser = getDetailUser(detailProfileId);
-//        UserSimpleProfile simpleUser = detailUser.getUserSimpleProfile();
+//        userDetailEntity detailUser = getDetailUser(detailProfileId);
+//        userSimpleEntity simpleUser = detailUser.getuserSimpleEntity();
 //        GenderEnum gender = detailUser.getGender();
 //        int totalScore = 0;
 //        totalScore += simpleUser.getJob().getScore(gender);
@@ -173,7 +167,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserDetailProfile> getEqualScoreUsers(GenderEnum targetUserGender, int targetUserScore) {
+    public List<UserDetailEntity> getEqualScoreUsers(GenderEnum targetUserGender, int targetUserScore) {
         if(GenderEnum.M.equals(targetUserGender)) {
             return userDetailRepository.findByGenderAndTotalScore(GenderEnum.F, targetUserScore);
         } else {

@@ -1,12 +1,14 @@
 package com.flotting.api.user.entity;
 
 import com.flotting.api.user.model.UserSimpleRequestDto;
-import com.flotting.api.util.BaseEntity;
 import com.flotting.api.util.type.GenderEnum;
 import com.flotting.api.util.type.JobEnum;
 import com.flotting.api.util.type.UserStatusEnum;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,7 +23,7 @@ import java.util.Collection;
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class UserSimpleProfile implements UserDetails {
+public class UserSimpleEntity implements UserDetails {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -72,23 +74,23 @@ public class UserSimpleProfile implements UserDetails {
      * 2차 프로필 id
      */
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_detail_profile")
-    private UserDetailProfile userDetailProfile;
+    @JoinColumn(name = "user_detail_entity")
+    private UserDetailEntity userDetailEntity;
 
-    public UserSimpleProfile(UserSimpleRequestDto requestDto) {
+    public UserSimpleEntity(UserSimpleRequestDto requestDto , String encodedPassword) {
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
-//        this.password = encodedPassword;
+        this.password = encodedPassword;
         this.phoneNumber = requestDto.getPhoneNumber();
         this.job = JobEnum.of(requestDto.getJob());
         this.userStatus = UserStatusEnum.DORMANT;
     }
 
-    public void setDetailUser(UserDetailProfile detailProfile) {
-        this.userDetailProfile = detailProfile;
+    public void setDetailUser(UserDetailEntity detailProfile) {
+        this.userDetailEntity = detailProfile;
     }
 
-    public UserSimpleProfile updateInfo(UserSimpleRequestDto requestDto) {
+    public UserSimpleEntity updateInfo(UserSimpleRequestDto requestDto) {
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
         this.phoneNumber = requestDto.getPhoneNumber();

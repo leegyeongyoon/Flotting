@@ -1,11 +1,14 @@
 package com.flotting.api.user.entity;
 
+import com.flotting.api.manager.entity.ManagerProfileEntity;
 import com.flotting.api.user.model.UserDetailRequestDto;
 import com.flotting.api.util.BaseEntity;
-import com.flotting.api.manager.entity.ManagerProfile;
 import com.flotting.api.util.type.*;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -14,12 +17,10 @@ import java.util.List;
  */
 @Entity
 @Table(name = "user_detail_profile",
-    indexes = @Index(name = "gradeIndex", columnList = "grade"))
+        indexes = @Index(name = "gradeIndex", columnList = "grade"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@ToString
-@EqualsAndHashCode
-public class UserDetailProfile extends BaseEntity {
+public class UserDetailEntity extends BaseEntity {
 
 
     /**
@@ -105,7 +106,7 @@ public class UserDetailProfile extends BaseEntity {
 
     /**
      * 흡연 여부
-    */
+     */
     private Boolean smoking;
 
     /**
@@ -137,7 +138,7 @@ public class UserDetailProfile extends BaseEntity {
      */
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    private ManagerProfile manager;
+    private ManagerProfileEntity manager;
 
     /**
      * 등급 점수
@@ -149,11 +150,11 @@ public class UserDetailProfile extends BaseEntity {
      */
     private Integer faceScore;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "userDetailProfile")
-    private UserSimpleProfile userSimpleProfile;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "userDetailEntity")
+    private UserSimpleEntity userSimpleEntity;
 
     @Builder
-    public UserDetailProfile(UserDetailRequestDto requestDto) {
+    public UserDetailEntity(UserDetailRequestDto requestDto) {
         this.appliedPath = AppliedPathEnum.of(requestDto.getAppliedPath());
         this.body = BodyEnum.of(requestDto.getBody());
         this.detailJob = requestDto.getDetailJob();
@@ -173,12 +174,9 @@ public class UserDetailProfile extends BaseEntity {
         this.gender = GenderEnum.of(requestDto.getGender());
         this.smoking = requestDto.getSmoking();
         this.recommendUserName = requestDto.getRecommendUserName();
-        this.preferenceValue = requestDto.getPreferenceValue();
-        this.totalScore = requestDto.getTotalScore();
-        this.faceScore = requestDto.getFaceScore();
     }
 
-    public UserDetailProfile updateInfo(UserDetailRequestDto requestDto) {
+    public UserDetailEntity updateInfo(UserDetailRequestDto requestDto) {
         this.appliedPath = AppliedPathEnum.of(requestDto.getAppliedPath());
         this.body = BodyEnum.of(requestDto.getBody());
         this.detailJob = requestDto.getDetailJob();
@@ -201,7 +199,7 @@ public class UserDetailProfile extends BaseEntity {
         return this;
     }
 
-    public UserDetailProfile approveProfile(ManagerProfile manager) {
+    public UserDetailEntity approveProfile(ManagerProfileEntity manager) {
         this.manager = manager;
         return this;
     }
@@ -222,7 +220,7 @@ public class UserDetailProfile extends BaseEntity {
             } else {
                 return 0;
             }
-         } else {
+        } else {
             if(this.height >= 175) {
                 return 0;
             } else if (this.height >= 170) {

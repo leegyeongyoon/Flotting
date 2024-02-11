@@ -10,7 +10,7 @@ import lombok.Getter;
 @Entity
 @Table(name = "manager_profile")
 @Getter
-public class ManagerProfile extends BaseEntity {
+public class ManagerProfileEntity extends BaseEntity {
 
     /**
      * 이름

@@ -1,8 +1,6 @@
 package com.flotting.api.user.repository.querydsl.impl;
 
 
-import com.flotting.api.user.model.UserDetailResponseDto;
-import com.flotting.api.user.model.UserSimpleRequestDto;
 import com.flotting.api.user.model.UserSimpleResponseDto;
 import com.flotting.api.user.repository.querydsl.UserSimpleQueryDsl;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.flotting.api.user.entity.QUserSimpleProfile.userSimpleProfile;
+import static com.flotting.api.user.entity.QUserSimpleEntity.userSimpleEntity;
 
 @RequiredArgsConstructor
 @Repository
@@ -25,7 +23,7 @@ public class UserSimpleQueryDslImpl implements UserSimpleQueryDsl {
     @Transactional(readOnly = true)
     public List<UserSimpleResponseDto> findAllSimpleUserInfos() {
         return jpaQueryFactory
-                .selectFrom(userSimpleProfile)
+                .selectFrom(userSimpleEntity)
                 .fetch()
                 .stream().map(UserSimpleResponseDto::new)
                 .collect(Collectors.toList());

@@ -21,9 +21,10 @@ public class UserSimpleRequestDto {
     private String job;
 
     @Builder
-    public UserSimpleRequestDto (String name, Integer age, String phoneNumber, String job) {
+    public UserSimpleRequestDto (String name,String password, Integer age, String phoneNumber, String job) {
         this.age = age;
         this.phoneNumber = phoneNumber;
+        this.password = password;
         this.job = job;
         this.name = name;
     }

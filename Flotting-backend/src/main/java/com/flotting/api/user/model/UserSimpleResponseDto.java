@@ -1,6 +1,6 @@
 package com.flotting.api.user.model;
 
-import com.flotting.api.user.entity.UserSimpleProfile;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,9 +48,9 @@ public class UserSimpleResponseDto {
     /**
      * 2차프로필 id
      */
-    private Long userDetailProfileId;
+    private Long userDetailEntityId;
 
-    public UserSimpleResponseDto(UserSimpleProfile user) {
+    public UserSimpleResponseDto(UserSimpleEntity user) {
         this.userNo = user.getUserNo();
         this.createdAt = user.getCreatedAt();
         this.age = user.getAge();
@@ -58,6 +58,6 @@ public class UserSimpleResponseDto {
         this.userStatus = user.getUserStatus().name();
         this.phoneNumber = user.getPhoneNumber();
         this.name = user.getName();
-        this.userDetailProfileId = Objects.nonNull(user.getUserDetailProfile()) ? user.getUserDetailProfile().getSeq() : null;
+        this.userDetailEntityId = Objects.nonNull(user.getUserDetailEntity()) ? user.getUserDetailEntity().getSeq() : null;
     }
 }

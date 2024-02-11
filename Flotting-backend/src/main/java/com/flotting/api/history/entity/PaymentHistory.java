@@ -1,6 +1,6 @@
 package com.flotting.api.history.entity;
 
-import com.flotting.api.user.entity.UserSimpleProfile;
+import com.flotting.api.user.entity.UserSimpleEntity;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -26,7 +26,7 @@ public class PaymentHistory {
      */
     @ManyToOne
     @JoinColumn(name = "payer")
-    private UserSimpleProfile payer;
+    private UserSimpleEntity payer;
 
     /**
      * 결제 매칭 id
