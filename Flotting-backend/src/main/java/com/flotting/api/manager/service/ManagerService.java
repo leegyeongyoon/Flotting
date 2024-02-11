@@ -5,7 +5,7 @@ import com.flotting.api.manager.repository.ManagerRepository;
 import com.flotting.api.user.entity.UserDetailEntity;
 import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.service.UserService;
-import com.flotting.api.util.type.GenderEnum;
+import com.flotting.api.user.enums.GenderEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

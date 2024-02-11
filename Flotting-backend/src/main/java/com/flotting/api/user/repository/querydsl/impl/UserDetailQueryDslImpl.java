@@ -1,12 +1,12 @@
 package com.flotting.api.user.repository.querydsl.impl;
 
 
+import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.QUserResponseDto;
 import com.flotting.api.user.model.UserDetailResponseDto;
 import com.flotting.api.user.model.UserFilterRequestDto;
 import com.flotting.api.user.model.UserResponseDto;
 import com.flotting.api.user.repository.querydsl.UserDetailQueryDsl;
-import com.flotting.api.util.type.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
 package com.flotting.api.user.repository.querydsl.impl;
 
 import com.flotting.api.user.SampleDataMaker;
+import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
-import com.flotting.api.util.type.*;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

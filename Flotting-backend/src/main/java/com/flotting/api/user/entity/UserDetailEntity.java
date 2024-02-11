@@ -1,9 +1,9 @@
 package com.flotting.api.user.entity;
 
 import com.flotting.api.manager.entity.ManagerProfileEntity;
+import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.UserDetailRequestDto;
 import com.flotting.api.util.BaseEntity;
-import com.flotting.api.util.type.*;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

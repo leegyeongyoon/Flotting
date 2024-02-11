@@ -1,9 +1,9 @@
 package com.flotting.api.user.entity;
 
 import com.flotting.api.user.model.UserSimpleRequestDto;
-import com.flotting.api.util.type.GenderEnum;
-import com.flotting.api.util.type.JobEnum;
-import com.flotting.api.util.type.UserStatusEnum;
+import com.flotting.api.user.enums.GenderEnum;
+import com.flotting.api.user.enums.JobEnum;
+import com.flotting.api.user.enums.UserStatusEnum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

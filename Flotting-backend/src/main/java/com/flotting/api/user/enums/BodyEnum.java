@@ -1,4 +1,4 @@
-package com.flotting.api.util.type;
+package com.flotting.api.user.enums;
 
 public enum BodyEnum {
 

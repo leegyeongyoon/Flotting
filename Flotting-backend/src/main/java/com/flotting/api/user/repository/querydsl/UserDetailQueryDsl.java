@@ -3,9 +3,9 @@ package com.flotting.api.user.repository.querydsl;
 import com.flotting.api.user.model.UserFilterRequestDto;
 import com.flotting.api.user.model.UserDetailResponseDto;
 import com.flotting.api.user.model.UserResponseDto;
-import com.flotting.api.util.type.GenderEnum;
-import com.flotting.api.util.type.GradeEnum;
-import com.flotting.api.util.type.PreferenceEnum;
+import com.flotting.api.user.enums.GenderEnum;
+import com.flotting.api.user.enums.GradeEnum;
+import com.flotting.api.user.enums.PreferenceEnum;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 
