@@ -4,7 +4,6 @@ import com.flotting.api.user.SampleDataMaker;
 import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,12 +113,14 @@ class UserQueryDslImplTest extends SampleDataMaker {
 
     @Test
     public void 사용자_필터링() {
+        //TODO 입력안하는거는 all
         //given
         makeUserData();
 
         //when
         UserFilterRequestDto userFilterRequestDto = new UserFilterRequestDto();
-        userFilterRequestDto.setBody(BodyEnum.NORMAL.name());
+        List<String> body = List.of(BodyEnum.NORMAL.name(), BodyEnum.RELIABLE.name());
+        userFilterRequestDto.setBody(body);
         List<UserResponseDto> users = userService.getUsersByFilter(userFilterRequestDto);
 
         //then

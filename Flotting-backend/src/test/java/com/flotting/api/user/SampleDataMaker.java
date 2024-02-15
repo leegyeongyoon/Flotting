@@ -20,6 +20,7 @@ public class SampleDataMaker {
     public List<UserResponseDto> makeUserData() {
         List<UserResponseDto> result = new ArrayList();
         List<String> names = List.of("A", "B", "C", "D", "E", "F", "G");
+        List<UserStatusEnum> statusEnums = List.of("NORAL", "NORAL", "NORAL", "NORAL","NORAL","NORAL");
         List<JobEnum> jobs = List.of(JobEnum.PROFESSIONAL, JobEnum.MID_MAJOR_COMPANY, JobEnum.BUSNINESS, JobEnum.MID_MAJOR_COMPANY, JobEnum.PUBLIC_COMPANY, JobEnum.PROFESSIONAL);
         List<Integer> ages = List.of(1,18,3,4,5,6);
         List<String> phoneNumbers = List.of("0101111", "010333", "010222", "010444", "010555", "010666");
@@ -48,11 +49,13 @@ public class SampleDataMaker {
         List<Integer> faceScores = List.of(1,1,1,1,1,1);
 
         IntStream.range(0, 6).forEach(idx -> {
+            //StatuEnum넣기
             UserSimpleRequestDto simpleRequestDto = UserSimpleRequestDto.builder()
                     .name(names.get(idx))
                     .job(jobs.get(idx).name())
                     .age(ages.get(idx))
                     .phoneNumber(phoneNumbers.get(idx))
+                    .password("1234")
                     .build();
             UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo( simpleRequestDto);
 

@@ -61,14 +61,14 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
                 .leftJoin(userSimpleEntity.userDetailEntity, userDetailEntity)
                 .where(userSimpleEntity.userDetailEntity.eq(userDetailEntity)
                         .and(genderEq(filter.getGender()))
-                        .and(bodyEq(filter.getBody()))
-                        .and(userDetailEntity.height.between(filter.getStartValue(filter.getStartHeight()), filter.getEndValue(filter.getEndHeight())))
-                        .and(statusEq(filter.getStatus()))
-                        .and(locationEq(filter.getLocation()))
-                        .and(userSimpleEntity.age.between(filter.getStartValue(filter.getStartAge()), filter.getEndValue(filter.getEndAge())))
-                        .and(gradeEq(filter.getGrade()))
-                        .and(jobEq(filter.getJob()))
-                        .and(smokingEq(filter.getSmoke())))
+                        .and(bodyIn(filter.getBody()))
+                        .and(heightBetween(filter.getHeight()))
+                        .and(statusIn(filter.isDormant()))
+                        .and(locationIn(filter.getLocation()))
+                        .and(ageBetween(filter.getAge()))
+                        .and(gradeIn(filter.getGrade()))
+                        .and(jobIn(filter.getJob()))
+                        .and(smokingEq(filter.isSmoke())))
                 .fetch();
         return result;
     }
@@ -134,6 +134,14 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
         }
     }
 
+    private BooleanBuilder heightBetween(UserFilterRequestDto.ScopeModel height) {
+        return nullSafeBuilder(() -> userDetailEntity.height.between(height.getMin(), height.getMin()));
+    }
+
+    private BooleanBuilder ageBetween(UserFilterRequestDto.ScopeModel age) {
+        return nullSafeBuilder(() -> userSimpleEntity.age.between(age.getMin(), age.getMax()));
+    }
+
     private BooleanBuilder genderEq(GenderEnum genderEnum) {
         return nullSafeBuilder(() -> userDetailEntity.gender.eq(genderEnum));
     }
@@ -142,28 +150,34 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
         return nullSafeBuilder(() -> userDetailEntity.gender.notIn(genderEnum));
     }
 
-    private BooleanBuilder bodyEq(BodyEnum bodyEnum) {
-        return nullSafeBuilder(() -> userDetailEntity.body.eq(bodyEnum));
+    private BooleanBuilder bodyIn(List<BodyEnum> bodyEnum) {
+        return nullSafeBuilder(() -> userDetailEntity.body.in(bodyEnum));
     }
 
-    private BooleanBuilder statusEq(UserStatusEnum statusEnum) {
-        return nullSafeBuilder(() -> userSimpleEntity.userStatus.eq(statusEnum));
+    private BooleanBuilder statusIn(boolean isDormant) {
+        return nullSafeBuilder(() -> {
+            if(isDormant) {
+                return userSimpleEntity.userStatus.eq(UserStatusEnum.DORMANT);
+            } else {
+                return userSimpleEntity.userStatus.in(UserStatusEnum.NORMAL);
+            }
+        });
     }
 
-    private BooleanBuilder locationEq(LocationEnum locationEnum) {
-        return nullSafeBuilder(() -> userDetailEntity.location.eq(locationEnum));
+    private BooleanBuilder locationIn(List<LocationEnum> locationEnum) {
+        return nullSafeBuilder(() -> userDetailEntity.location.in(locationEnum));
     }
 
-    private BooleanBuilder gradeEq(GradeEnum gradeEnum) {
-        return nullSafeBuilder(() -> userDetailEntity.grade.eq(gradeEnum));
+    private BooleanBuilder gradeIn(List<GradeEnum> gradeEnum) {
+        return nullSafeBuilder(() -> userDetailEntity.grade.in(gradeEnum));
     }
 
-    private BooleanBuilder smokingEq(Boolean smoking) {
-        return nullSafeBuilder(() -> userDetailEntity.smoking.eq(smoking));
+    private BooleanBuilder smokingEq(boolean isSmoke) {
+        return nullSafeBuilder(() -> userDetailEntity.smoking.eq(isSmoke));
     }
 
-    private BooleanBuilder jobEq(JobEnum jobEnum) {
-        return nullSafeBuilder(() -> userSimpleEntity.job.eq(jobEnum));
+    private BooleanBuilder jobIn(List<JobEnum> jobEnum) {
+        return nullSafeBuilder(() -> userSimpleEntity.job.in(jobEnum));
     }
 
 

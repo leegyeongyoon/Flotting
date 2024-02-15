@@ -31,11 +31,13 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 성별
      */
+    @Enumerated(value = EnumType.STRING)
     private GenderEnum gender;
 
     /**
      * 주소
      */
+    @Enumerated(value = EnumType.STRING)
     private LocationEnum location;
 
     /**
@@ -47,6 +49,7 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 신청경로
      */
+    @Enumerated(value = EnumType.STRING)
     private AppliedPathEnum appliedPath;
 
     /**
@@ -57,6 +60,7 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 취향1가지 key
      */
+    @Enumerated(value = EnumType.STRING)
     private PreferenceEnum preference;
     /**
      * 취향 1가지 value
@@ -92,6 +96,7 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 체형
      */
+    @Enumerated(value = EnumType.STRING)
     private BodyEnum body;
 
     /**
@@ -102,6 +107,7 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 학력
      */
+    @Enumerated(value = EnumType.STRING)
     private EducationEnum education;
 
     /**
@@ -112,6 +118,7 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 음주
      */
+    @Enumerated(value = EnumType.STRING)
     private DrinkingEnum drinking;
 
     /**
@@ -131,6 +138,7 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 프로필 등급
      */
+    @Enumerated(value = EnumType.STRING)
     private GradeEnum grade;
 
     /**

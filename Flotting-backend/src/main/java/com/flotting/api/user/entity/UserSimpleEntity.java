@@ -63,7 +63,8 @@ public class UserSimpleEntity implements UserDetails {
     /**
      * 계정상태
      */
-    private UserStatusEnum userStatus;
+    @Enumerated(value = EnumType.STRING)
+    private UserStatusEnum userStatus = UserStatusEnum.NORMAL;
 
     /**
      * 공무원&공기업, 중견기업&대기업, 전문직, 사업가
