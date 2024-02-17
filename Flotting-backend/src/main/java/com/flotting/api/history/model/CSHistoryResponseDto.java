@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class CSHistoryResponseModel {
+public class CSHistoryResponseDto {
 
     private Long id;
 
@@ -25,7 +25,7 @@ public class CSHistoryResponseModel {
     private String content;
     private CSEnum csType;
 
-    public CSHistoryResponseModel(CSHistory csHistory) {
+    public CSHistoryResponseDto(CSHistory csHistory) {
         this.id = csHistory.getId();
         this.requestDate = csHistory.getRequestDate();
         this.managerId = csHistory.getManager().getSeq();
