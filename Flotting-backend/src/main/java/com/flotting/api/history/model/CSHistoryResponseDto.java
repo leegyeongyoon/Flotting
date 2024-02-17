@@ -18,7 +18,8 @@ public class CSHistoryResponseDto {
 
     private Long managerId;
 
-    private Long requestId;
+    private Long requesterId;
+    private String requesterName;
 
     private ProcessStatus status;
 
@@ -29,7 +30,8 @@ public class CSHistoryResponseDto {
         this.id = csHistory.getId();
         this.requestDate = csHistory.getRequestDate();
         this.managerId = csHistory.getManager().getSeq();
-        this.requestId = csHistory.getRequester().getUserNo();
+        this.requesterId = csHistory.getRequester().getUserNo();
+        this.requesterName = csHistory.getRequester().getName();
         this.status = csHistory.getStatus();
         this.content = csHistory.getContent();
         this.csType = csHistory.getCsType();

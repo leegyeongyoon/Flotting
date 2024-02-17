@@ -6,11 +6,10 @@ import com.flotting.api.user.repository.UserDetailRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class AutoRecommendServiceTest extends SampleDataMaker {
@@ -28,7 +27,7 @@ class AutoRecommendServiceTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserDetailResponseDto> allUsers = userDetailRepository.findAllDetailUsers();
+        List<UserDetailResponseDto> allUsers = userDetailRepository.findAllDetailUsers(Pageable.unpaged());
         UserDetailResponseDto firstUser = allUsers.get(0);
         autoRecommendService.createAutoRecommend(firstUser.getSeq());
 

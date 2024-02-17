@@ -10,6 +10,7 @@ import com.flotting.api.user.repository.querydsl.UserDetailQueryDsl;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,9 +40,11 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> findAllDetailUsers() {
+    public List<UserDetailResponseDto> findAllDetailUsers(Pageable pageable) {
         return jpaQueryFactory
                 .selectFrom(userDetailEntity)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch()
                 .stream().map(UserDetailResponseDto::new)
                 .collect(Collectors.toList());
@@ -49,7 +52,7 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserResponseDto> findUsersByFilter(UserFilterRequestDto filter) {
+    public List<UserResponseDto> findUsersByFilter(UserFilterRequestDto filter, Pageable pageable) {
         List<UserResponseDto> result = jpaQueryFactory
                 .select(new QUserResponseDto(userSimpleEntity.userNo, userSimpleEntity.age, userSimpleEntity.job, userSimpleEntity.userStatus, userSimpleEntity.phoneNumber,
                         userSimpleEntity.name, userDetailEntity.appliedPath, userDetailEntity.body, userDetailEntity.detailJob, userDetailEntity.charm,
@@ -69,6 +72,8 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
                         .and(gradeIn(filter.getGrade()))
                         .and(jobIn(filter.getJob()))
                         .and(smokingEq(filter.isSmoke())))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
         return result;
     }

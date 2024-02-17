@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -81,7 +82,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserSimpleResponseDto> SimpleUserInfos = userService.getSimpleUserInfos();
+        List<UserSimpleResponseDto> SimpleUserInfos = userService.getSimpleUserInfos(Pageable.unpaged());
 
         //then
         Assertions.assertThat(SimpleUserInfos.size()).isEqualTo(6);
@@ -93,7 +94,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         List<UserResponseDto> userResponseDtos = makeUserData();
 
         //when
-        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos();
+        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos(Pageable.unpaged());
 
         //then
         Assertions.assertThat(detailUsers.size()).isEqualTo(6);
@@ -121,7 +122,8 @@ class UserQueryDslImplTest extends SampleDataMaker {
         UserFilterRequestDto userFilterRequestDto = new UserFilterRequestDto();
         List<String> body = List.of(BodyEnum.NORMAL.name(), BodyEnum.RELIABLE.name());
         userFilterRequestDto.setBody(body);
-        List<UserResponseDto> users = userService.getUsersByFilter(userFilterRequestDto);
+        Pageable unpaged = Pageable.unpaged();
+        List<UserResponseDto> users = userService.getUsersByFilter(userFilterRequestDto,unpaged);
 
         //then
         Assertions.assertThat(users.size()).isEqualTo(1);

@@ -10,6 +10,7 @@ import com.flotting.api.user.enums.GradeEnum;
 import com.flotting.api.user.enums.PreferenceEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,16 +41,16 @@ public class UserService {
      * 모든 user목록 1차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserSimpleResponseDto> getSimpleUserInfos() {
-        return userSimpleRepository.findAllSimpleUserInfos();
+    public List<UserSimpleResponseDto> getSimpleUserInfos(Pageable pageable) {
+        return userSimpleRepository.findAllSimpleUserInfos(pageable);
     }
 
     /**
      * 모든 user목록 2차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> getDetailUserInfos() {
-        return userDetailRepository.findAll()
+    public List<UserDetailResponseDto> getDetailUserInfos(Pageable pageable) {
+        return userDetailRepository.findAll(pageable).getContent()
                 .stream().map(UserDetailResponseDto::new)
                 .collect(Collectors.toList());
     }
@@ -58,8 +59,8 @@ public class UserService {
      * 필터에 해당하는 user목록 2차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserResponseDto> getUsersByFilter(UserFilterRequestDto filter) {
-        return userDetailRepository.findUsersByFilter(filter);
+    public List<UserResponseDto> getUsersByFilter(UserFilterRequestDto filter, Pageable pageable) {
+        return userDetailRepository.findUsersByFilter(filter, pageable);
     }
 
     /**

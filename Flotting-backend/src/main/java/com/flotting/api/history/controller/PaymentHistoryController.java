@@ -4,6 +4,7 @@ import com.flotting.api.history.model.PaymentHistoryResponseDto;
 import com.flotting.api.history.model.PaymentResponseDto;
 import com.flotting.api.history.service.PaymentHistoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,8 @@ public class PaymentHistoryController {
      * @return
      */
     @GetMapping("/payment-history/all")
-    public List<PaymentHistoryResponseDto> getAllHistories() {
-        return paymentHistoryService.getAllPaymentHistory();
+    public List<PaymentHistoryResponseDto> getAllHistories(Pageable pageable) {
+        return paymentHistoryService.getAllPaymentHistory(pageable);
     }
 
     /**

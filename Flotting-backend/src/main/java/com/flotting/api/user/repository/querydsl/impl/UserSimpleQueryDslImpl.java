@@ -5,6 +5,7 @@ import com.flotting.api.user.model.UserSimpleResponseDto;
 import com.flotting.api.user.repository.querydsl.UserSimpleQueryDsl;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +22,11 @@ public class UserSimpleQueryDslImpl implements UserSimpleQueryDsl {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserSimpleResponseDto> findAllSimpleUserInfos() {
+    public List<UserSimpleResponseDto> findAllSimpleUserInfos(Pageable pageable) {
         return jpaQueryFactory
                 .selectFrom(userSimpleEntity)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch()
                 .stream().map(UserSimpleResponseDto::new)
                 .collect(Collectors.toList());
