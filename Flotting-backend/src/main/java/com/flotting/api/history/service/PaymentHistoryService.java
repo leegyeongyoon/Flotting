@@ -9,6 +9,7 @@ import com.flotting.api.history.repository.PaymentHistoryRepository;
 import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,9 +25,9 @@ public class PaymentHistoryService {
     private final GoodsService goodsService;
 
     @Transactional(readOnly = true)
-    public List<PaymentHistoryResponseDto> getAllPaymentHistory() {
+    public List<PaymentHistoryResponseDto> getAllPaymentHistory(Pageable pageable) {
         ArrayList<PaymentHistoryResponseDto> result = new ArrayList<>();
-        List<PaymentHistory> datas = paymentHistoryRepository.findAll();
+        List<PaymentHistory> datas = paymentHistoryRepository.findAll(pageable).getContent();
         datas.forEach(data -> {
             result.add(new PaymentHistoryResponseDto(data));
         });
