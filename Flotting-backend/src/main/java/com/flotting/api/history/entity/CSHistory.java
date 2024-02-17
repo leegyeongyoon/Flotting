@@ -5,6 +5,7 @@ import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.enums.CSEnum;
 import com.flotting.api.user.enums.ProcessStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
  * cs 이력 관리 테이블
  */
 @Entity
+@Getter
 @Table(name = "cs_history",
         indexes = @Index(name = "statusIndex", columnList = "status"))
 public class CSHistory {

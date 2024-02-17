@@ -27,7 +27,7 @@ public class UserController {
     @Parameter(name = "userFilterRequestDto", description = "requestParam : 성별, 체형, 신장, 휴면, 거주지, 나이, 등급, 직업, 흡연")
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserResponseDto.class)))
     @GetMapping("/filter")
-    public List<UserResponseDto> getUsersByFilter( @ModelAttribute UserFilterRequestDto userFilterRequestDto) {
+    public List<UserResponseDto> getUsersByFilter( @RequestBody UserFilterRequestDto userFilterRequestDto) {
         return userService.getUsersByFilter( userFilterRequestDto);
     }
 
