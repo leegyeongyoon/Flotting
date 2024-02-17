@@ -1,6 +1,7 @@
 package com.flotting.api.user.model;
 
 import com.flotting.api.user.enums.*;
+import com.flotting.api.util.ExcelDownloadable;
 import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -11,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class UserResponseDto {
+public class UserResponseDto implements ExcelDownloadable {
 
     @Schema(description = "simpleProfileId")
     private Long userNo;
@@ -153,5 +154,23 @@ public class UserResponseDto {
         this.smoking = smoking;
         this.recommendUserName = recommendUserName;
         this.detailProfileId = detailProfileId;
+    }
+
+
+    @Override
+    public String[] getHeaders() {
+        String[] headers = {"이름", "나이", "전화번호", "계정상태", "직업", "신장", "성별", "거주지", "이메일", "신청 경로", "추천인 이름",
+                "선호도1위", "선호 구체적 설명", "나의 매력", "나의 연애관", "취미", "닉네임", "체형", "직장명", "졸업 이력", "흡연 여부", "음주 빈도", "등급"};
+        return headers;
+    }
+
+    @Override
+    public String[] getCellDatas() {
+        String[] cellDatas = {
+                this.name, String.valueOf(this.age), this.phoneNumber, this.userStatus, this.job, String.valueOf(this.height), this.gender, this.location,
+                this.email, this.appliedPath, this.recommendUserName, this.getPreference(), this.preferenceDetail, this.charm, this.loveValues, this.hobby,
+                this.nickName, this.body, this.detailJob, this.education, String.valueOf(this.smoking), this.drinking, this.grade
+        };
+        return cellDatas;
     }
 }

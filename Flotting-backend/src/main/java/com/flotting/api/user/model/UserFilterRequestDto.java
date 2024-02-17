@@ -1,9 +1,7 @@
 package com.flotting.api.user.model;
 
 import com.flotting.api.user.enums.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -14,6 +12,8 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @Slf4j
+@ToString
+@EqualsAndHashCode
 public class UserFilterRequestDto {
 
     GenderEnum gender;

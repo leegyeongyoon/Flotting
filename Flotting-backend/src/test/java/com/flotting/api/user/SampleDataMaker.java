@@ -23,9 +23,8 @@ public class SampleDataMaker {
         List<JobEnum> jobs = List.of(JobEnum.PROFESSIONAL, JobEnum.MID_MAJOR_COMPANY, JobEnum.BUSNINESS, JobEnum.MID_MAJOR_COMPANY, JobEnum.PUBLIC_COMPANY, JobEnum.PROFESSIONAL);
         List<Integer> ages = List.of(1,18,3,4,5,6);
         List<String> phoneNumbers = List.of("0101111", "010333", "010222", "010444", "010555", "010666");
-
         List<Integer> heights = List.of(1,2,180,4,5,6);
-        List<Boolean> smokings = List.of(Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE, Boolean.FALSE, Boolean.TRUE);
+        List<Boolean> smokings = List.of(Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE);
         List<BodyEnum> bodies = List.of(BodyEnum.RELIABLE, BodyEnum.SLIM, BodyEnum.SOLID, BodyEnum.CHUBBY, BodyEnum.MUSCULAR, BodyEnum.NORMAL);
         List<String> charms = List.of("a", "b", "c", "d", "e", "f");
         List<String> detailJobs = List.of("a", "b", "c", "d", "e", "f");
@@ -48,7 +47,6 @@ public class SampleDataMaker {
         List<Integer> faceScores = List.of(1,1,1,1,1,1);
 
         IntStream.range(0, 6).forEach(idx -> {
-            //StatuEnum넣기
             UserSimpleRequestDto simpleRequestDto = UserSimpleRequestDto.builder()
                     .name(names.get(idx))
                     .job(jobs.get(idx).name())

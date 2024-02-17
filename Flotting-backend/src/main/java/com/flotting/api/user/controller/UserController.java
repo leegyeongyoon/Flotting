@@ -3,12 +3,14 @@ package com.flotting.api.user.controller;
 
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
+import com.flotting.api.util.service.ExcelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final ExcelService excelService;
 
     @Operation(summary = "filter에 해당하는 user조회", description = "1,2차 프로필 정보 조회")
     @Parameter(name = "userFilterRequestDto", description = "requestParam : 성별, 체형, 신장, 휴면, 거주지, 나이, 등급, 직업, 흡연")
@@ -106,6 +109,11 @@ public class UserController {
                                                   @RequestBody UserDetailRequestDto userDetailRequestDto,
                                                   @PathVariable(name = "userId") Long targetUserId) {
         return userService.updateDetailUserInfo( targetUserId, userDetailRequestDto);
+    }
+
+    @PostMapping("/excel/download")
+    public void downloadExcel(@RequestBody UserFilterRequestDto userFilterRequestDto, HttpServletResponse response) {
+        userService.downloadExcel(userFilterRequestDto, response);
     }
 
 }

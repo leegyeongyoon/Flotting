@@ -84,7 +84,7 @@ public class UserSimpleEntity implements UserDetails {
         this.password = encodedPassword;
         this.phoneNumber = requestDto.getPhoneNumber();
         this.job = JobEnum.of(requestDto.getJob());
-        this.userStatus = UserStatusEnum.DORMANT;
+        this.userStatus = UserStatusEnum.NORMAL;
     }
 
     public void setDetailUser(UserDetailEntity detailProfile) {

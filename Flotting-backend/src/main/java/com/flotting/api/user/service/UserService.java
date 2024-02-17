@@ -2,12 +2,14 @@ package com.flotting.api.user.service;
 
 import com.flotting.api.user.entity.UserDetailEntity;
 import com.flotting.api.user.entity.UserSimpleEntity;
-import com.flotting.api.user.model.*;
-import com.flotting.api.user.repository.UserDetailRepository;
-import com.flotting.api.user.repository.UserSimpleRepository;
 import com.flotting.api.user.enums.GenderEnum;
 import com.flotting.api.user.enums.GradeEnum;
 import com.flotting.api.user.enums.PreferenceEnum;
+import com.flotting.api.user.model.*;
+import com.flotting.api.user.repository.UserDetailRepository;
+import com.flotting.api.user.repository.UserSimpleRepository;
+import com.flotting.api.util.service.ExcelService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,7 @@ public class UserService {
     private final UserDetailRepository userDetailRepository;
 
     private final PasswordEncoder passwordEncoder;
+    private final ExcelService excelService;
 
     /**
      * user등급별 조회
@@ -184,5 +187,15 @@ public class UserService {
     @Transactional(readOnly = true)
     public Set<UserResponseDto> getEqualPreferenceUsers(GenderEnum gender, int score, PreferenceEnum preference, List<String> value) {
         return userDetailRepository.findUsersByPreference(gender, score, preference, value);
+    }
+
+    @Transactional(readOnly = true)
+    public void downloadExcel(UserFilterRequestDto userFilterRequestDto, HttpServletResponse response) {
+        List<UserResponseDto> responseDtos = getUsersByFilter(userFilterRequestDto, Pageable.unpaged());
+        if(responseDtos.size() == 0) {
+            log.info("데이터 없음! userFilter : {}", userFilterRequestDto.toString());
+            return;
+        }
+        excelService.downloadExcel(responseDtos, response);
     }
 }
