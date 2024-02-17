@@ -1,6 +1,6 @@
 package com.flotting.api.history.controller;
 
-import com.flotting.api.history.model.CSHistoryResponseModel;
+import com.flotting.api.history.model.CSHistoryResponseDto;
 import com.flotting.api.history.service.CSHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,12 +16,12 @@ public class CSHistoryController {
     private final CSHistoryService csHistoryService;
 
     @GetMapping("/cs-history/all")
-    public List<CSHistoryResponseModel> getAllHistories() {
+    public List<CSHistoryResponseDto> getAllHistories() {
         return csHistoryService.getAllCSHistory();
     }
 
     @GetMapping("/cs-history/{historyId}")
-    public CSHistoryResponseModel getHistory(@PathVariable(name = "historyId") Long historyId) {
+    public CSHistoryResponseDto getHistory(@PathVariable(name = "historyId") Long historyId) {
         return csHistoryService.getCSHistory(historyId);
     }
 }

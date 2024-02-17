@@ -3,6 +3,7 @@ package com.flotting.api.history.entity;
 import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.util.type.MatchingProcessEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
  * 매칭 이력 관리 테이블
  */
 @Entity
+@Getter
 @Table(name = "matching_history",
     indexes = {@Index(name = "receiverIndexs", columnList = "receiver"),
                 @Index(name = "requesterIndex", columnList = "requester"),
