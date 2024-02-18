@@ -28,6 +28,12 @@
                 <v-list-item v-for="([title, to], i) in announcement" :key="i" :title="title" :value="title" :to="to"></v-list-item>
             </v-list-group>
             <v-list-item :to="'/indicator'" prepend-icon="mdi-chart-line" title="지표 관리(기존)" value="indicator"></v-list-item>
+            <v-list-group value="System">
+                <template #activator="{ props }">
+                    <v-list-item v-bind="props" prepend-icon="mdi-cog-outline" title="시스템 관리"></v-list-item>
+                </template>
+                <v-list-item v-for="([title, to], i) in system" :key="i" :title="title" :value="title" :to="to"></v-list-item>
+            </v-list-group>
         </v-list>
         <template #append>
             <div class="pa-2">
@@ -64,6 +70,7 @@ const announcement = ref([
     ["관리자 공지사항", "/noti/admin"],
     ["고객 공지사항", "/noti/user"]
 ]);
+const system = ref([["관리자 관리", "/sys/manager"]]);
 const selectedItem = ref(null);
 
 function logout() {

@@ -16,6 +16,7 @@ import ConsultUser from "@/views/cns/ConsultUser.vue";
 import ConsultManagerDetail from "@/views/cns/ConsultManagerDetail.vue";
 import AdminLogin from "@/views/login/AdminLogin.vue";
 import store from "@/plugins/vuex/store";
+import SystemManager from "@/views/sys/SystemManager.vue";
 
 const routes = [
     { path: "/", component: AdminLogin },
@@ -38,7 +39,9 @@ const routes = [
     { path: "/noti/admin", component: AdminNotice },
     { path: "/noti/user", component: UserNotice },
 
-    { path: "/indicator", component: IndicatorManagement }
+    { path: "/indicator", component: IndicatorManagement },
+
+    { path: "/sys/manager", component: SystemManager }
 ];
 
 const router = createRouter({
