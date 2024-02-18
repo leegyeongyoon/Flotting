@@ -155,7 +155,7 @@ function add() {
                 <consult-manager-user-request-info-card />
                 <user-search-parameter-card :is-keep="false" @search="search" />
                 <user-management-list :loading="loading" :list="list" @click-row="onClickRow" />
-                <v-dialog v-model="dialog" scrollable="true" width="auto" min-width="800">
+                <v-dialog v-model="dialog" :scrollable="true" width="auto" min-width="800">
                     <v-card class="text-center text-sm-start w-100" fluid>
                         <v-card-title class="text-md-h6 "> (사용자 이름) </v-card-title>
                         <v-divider />
