@@ -12,13 +12,17 @@ const props = defineProps({
     title: {
         type: String,
         default: ""
+    },
+    indexKey: {
+        type: String,
+        default: ""
     }
 });
 
-const text = ref(store.getters.getProfileDetail(props.title));
+const text = ref(store.getters.getProfile(props.indexKey));
 
 watch(text, newVal => {
-    store.commit("setProfileByKey", { key: props.title, value: newVal });
+    store.commit("setProfileByKey", { key: props.indexKey, value: newVal });
 });
 </script>
 

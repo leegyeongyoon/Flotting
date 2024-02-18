@@ -15,7 +15,7 @@ function save() {
     if (!confirm("정말로 저장하시겠습니까?")) {
         return;
     }
-    const data = store.getters.getProfile;
+    const data = store.getters.getProfile();
     alert("저장 API / data : " + JSON.stringify(data));
 }
 
@@ -32,7 +32,7 @@ function stop() {
         <v-card-item>
             <v-row>
                 <v-col class="d-flex align-center">
-                    <v-card-title class="text-md-h6 "> (사용자 이름) </v-card-title>
+                    <v-card-title class="text-md-h6 ">{{ store.getters.getProfile("name") }}</v-card-title>
                 </v-col>
                 <v-col v-if="isEdit" class="d-flex justify-end">
                     <v-btn size="small" class="ma-1" color="green" @click="save">저장</v-btn>
