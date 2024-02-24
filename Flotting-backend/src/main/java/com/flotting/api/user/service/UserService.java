@@ -54,12 +54,12 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<UserDetailResponseDto> getDetailUserInfos(Pageable pageable, String type) {
         if("all".equals(type)) {
-            return userDetailRepository.findAll(pageable).getContent()
+            return userDetailRepository.findAllByOrderByCreatedAtDesc(pageable).getContent()
                     .stream().map(UserDetailResponseDto::new)
                     .collect(Collectors.toList());
         } else {
             boolean isApprovedType = "approved".equals(type);
-            return userDetailRepository.findAllByIsApproved(pageable, isApprovedType).getContent()
+            return userDetailRepository.findAllByIsApprovedOrderByCreatedAtDesc(pageable, isApprovedType).getContent()
                     .stream().map(UserDetailResponseDto::new)
                     .collect(Collectors.toList());
         }

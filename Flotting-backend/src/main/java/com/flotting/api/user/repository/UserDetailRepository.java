@@ -13,5 +13,7 @@ import java.util.List;
 public interface UserDetailRepository extends JpaRepository<UserDetailEntity, Long>, UserDetailQueryDsl {
     List<UserDetailEntity> findByGenderAndTotalScore(GenderEnum gender, int totalScore);
 
-    Page<UserDetailEntity> findAllByIsApproved(Pageable pageable, boolean isApproved);
+    Page<UserDetailEntity> findAllByIsApprovedOrderByCreatedAtDesc(Pageable pageable, boolean isApproved);
+
+    Page<UserDetailEntity> findAllByOrderByCreatedAtDesc(Pageable pageable);
 }
