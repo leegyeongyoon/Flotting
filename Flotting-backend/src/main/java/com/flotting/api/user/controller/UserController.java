@@ -52,8 +52,9 @@ public class UserController {
     @Operation(summary = "2차 프로필 조회", description = "2차 프로필 전체 user조회")
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserDetailResponseDto.class)))
     @GetMapping("/detail-info/all")
-    public List<UserDetailResponseDto> getDetailUserInfos(Pageable pageable) {
-        return userService.getDetailUserInfos(pageable);
+    public List<UserDetailResponseDto> getDetailUserInfos(Pageable pageable,
+                                                          @RequestParam(name = "type", defaultValue = "all") String type) {
+        return userService.getDetailUserInfos(pageable, type);
     }
 
     @Operation(summary = "1차 프로필 특정 user조회", description = "userNo, 등록일, 이름, 나이, 전화번호, 계정상태, 직군")

@@ -149,6 +149,11 @@ public class UserDetailEntity extends BaseEntity {
     private ManagerProfileEntity manager;
 
     /**
+     * 승인여부
+     */
+    private Boolean isApproved;
+
+    /**
      * 등급 점수
      */
     private Integer totalScore;
@@ -160,6 +165,8 @@ public class UserDetailEntity extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "userDetailEntity")
     private UserSimpleEntity userSimpleEntity;
+
+    private String rejectedReason;
 
     @Builder
     public UserDetailEntity(UserDetailRequestDto requestDto) {
@@ -208,6 +215,14 @@ public class UserDetailEntity extends BaseEntity {
     }
 
     public UserDetailEntity approveProfile(ManagerProfileEntity manager) {
+        this.isApproved = true;
+        this.manager = manager;
+        return this;
+    }
+
+    public UserDetailEntity rejectProfile(ManagerProfileEntity manager, String reason) {
+        this.isApproved = false;
+        this.rejectedReason = reason;
         this.manager = manager;
         return this;
     }
