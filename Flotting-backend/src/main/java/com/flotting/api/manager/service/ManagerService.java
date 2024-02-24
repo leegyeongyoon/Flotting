@@ -1,11 +1,12 @@
 package com.flotting.api.manager.service;
 
 import com.flotting.api.manager.entity.ManagerProfileEntity;
+import com.flotting.api.manager.model.RejectRequestDto;
 import com.flotting.api.manager.repository.ManagerRepository;
 import com.flotting.api.user.entity.UserDetailEntity;
 import com.flotting.api.user.entity.UserSimpleEntity;
-import com.flotting.api.user.service.UserService;
 import com.flotting.api.user.enums.GenderEnum;
+import com.flotting.api.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,13 @@ public class ManagerService {
         int totalScore = jobScore + heightScore + bodyScore + eduScore + faceScore;
         log.info("Approve User : {} score : {}", detailProfile.getEmail(), totalScore);
         detailProfile.setTotalScore(totalScore);
+    }
+
+    @Transactional
+    public void rejectInfo(Long detailProfileId, RejectRequestDto requestDto) {
+        //TODO 세션으로 managerID가져오기 필요
+        ManagerProfileEntity manager = getManager(detailProfileId);
+        UserDetailEntity detailProfile = userService.getDetailUser(detailProfileId);
+        detailProfile.rejectProfile(manager, requestDto.getReason());
     }
 }

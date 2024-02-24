@@ -52,10 +52,17 @@ public class UserService {
      * 모든 user목록 2차프로필 조회
      */
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> getDetailUserInfos(Pageable pageable) {
-        return userDetailRepository.findAll(pageable).getContent()
-                .stream().map(UserDetailResponseDto::new)
-                .collect(Collectors.toList());
+    public List<UserDetailResponseDto> getDetailUserInfos(Pageable pageable, String type) {
+        if("all".equals(type)) {
+            return userDetailRepository.findAllByOrderByCreatedAtDesc(pageable).getContent()
+                    .stream().map(UserDetailResponseDto::new)
+                    .collect(Collectors.toList());
+        } else {
+            boolean isApprovedType = "approved".equals(type);
+            return userDetailRepository.findAllByIsApprovedOrderByCreatedAtDesc(pageable, isApprovedType).getContent()
+                    .stream().map(UserDetailResponseDto::new)
+                    .collect(Collectors.toList());
+        }
     }
 
     /**
