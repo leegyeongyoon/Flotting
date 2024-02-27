@@ -3,14 +3,16 @@ package com.flotting.api.user.controller;
 
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
-import com.flotting.config.TokenUser;
+import com.flotting.api.util.service.ExcelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +24,14 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final ExcelService excelService;
 
     @Operation(summary = "filter에 해당하는 user조회", description = "1,2차 프로필 정보 조회")
     @Parameter(name = "userFilterRequestDto", description = "requestParam : 성별, 체형, 신장, 휴면, 거주지, 나이, 등급, 직업, 흡연")
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserResponseDto.class)))
     @GetMapping("/filter")
-    public List<UserResponseDto> getUsersByFilter( @ModelAttribute UserFilterRequestDto userFilterRequestDto) {
-        return userService.getUsersByFilter( userFilterRequestDto);
+    public List<UserResponseDto> getUsersByFilter( @RequestBody UserFilterRequestDto userFilterRequestDto, Pageable pageable) {
+        return userService.getUsersByFilter( userFilterRequestDto, pageable);
     }
 
     @Operation(summary = "유저 회원가입", description = "pass 회원가입 로직을 적용하기 전 테스트용으로 만들어 놓은 회원가입 로직입니다.")
@@ -42,15 +45,16 @@ public class UserController {
     @Operation(summary = "1차 프로필 조회", description = "1차 프로필 전체 user조회")
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserSimpleResponseDto.class)))
     @GetMapping("/simple-info/all")
-    public List<UserSimpleResponseDto> getSimpleUserInfos() {
-        return userService.getSimpleUserInfos();
+    public List<UserSimpleResponseDto> getSimpleUserInfos(Pageable pageable) {
+        return userService.getSimpleUserInfos(pageable);
     }
 
     @Operation(summary = "2차 프로필 조회", description = "2차 프로필 전체 user조회")
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserDetailResponseDto.class)))
-    @GetMapping("/detail-info/all")
-    public List<UserDetailResponseDto> getDetailUserInfos() {
-        return userService.getDetailUserInfos();
+    @GetMapping("/detail-info")
+    public List<UserDetailResponseDto> getDetailUserInfos(Pageable pageable,
+                                                          @RequestParam(name = "type", defaultValue = "all") String type) {
+        return userService.getDetailUserInfos(pageable, type);
     }
 
     @Operation(summary = "1차 프로필 특정 user조회", description = "userNo, 등록일, 이름, 나이, 전화번호, 계정상태, 직군")
@@ -106,6 +110,11 @@ public class UserController {
                                                   @RequestBody UserDetailRequestDto userDetailRequestDto,
                                                   @PathVariable(name = "userId") Long targetUserId) {
         return userService.updateDetailUserInfo( targetUserId, userDetailRequestDto);
+    }
+
+    @PostMapping("/excel/download")
+    public void downloadExcel(@RequestBody UserFilterRequestDto userFilterRequestDto, HttpServletResponse response) {
+        userService.downloadExcel(userFilterRequestDto, response);
     }
 
 }

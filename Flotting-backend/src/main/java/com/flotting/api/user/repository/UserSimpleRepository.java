@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface UserSimpleRepository extends JpaRepository<UserSimpleEntity, Long>, UserSimpleQueryDsl {
-    Optional<UserSimpleEntity> findOneWithAuthoritiesByPhoneNumber(String phoneNumber);
-
+    Optional<UserSimpleEntity> findOneWithAuthoritiesByName(String userName);
     Optional<UserSimpleEntity> findByPhoneNumber(String phoneNumber);
-
 }

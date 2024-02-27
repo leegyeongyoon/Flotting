@@ -2,6 +2,8 @@ package com.flotting.api.user.model;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -48,12 +50,19 @@ public class UserDetailRequestDto {
 
     private Long managerId;
 
+    private Integer totalScore;
+
+    private Integer faceScore;
+
+    private List<String> preferenceValue;
+
     @Builder
     public UserDetailRequestDto(String path, String body, String detailJob, String charm,
                                 String drinking, String education, String email, String grade,
                                 Integer height, String hobby, String URI, String location,
                                 String loveValues, String nickName, String preference, String preferenceDetail,
-                                String gender, Boolean smoking, String recommendUserName) {
+                                String gender, Boolean smoking, String recommendUserName,
+                                List<String> preferenceValue, Integer totalScore, Integer faceScore) {
         this.appliedPath = path;
         this.body = body;
         this.detailJob = detailJob;
@@ -73,5 +82,8 @@ public class UserDetailRequestDto {
         this.gender = gender;
         this.smoking = smoking;
         this.recommendUserName = recommendUserName;
+        this.preferenceValue = preferenceValue;
+        this.totalScore = totalScore;
+        this.faceScore = faceScore;
     }
 }

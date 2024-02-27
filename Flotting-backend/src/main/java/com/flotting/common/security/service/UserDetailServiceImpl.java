@@ -18,7 +18,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-        UserSimpleEntity userSimpleEntity = userSimpleRepository.findOneWithAuthoritiesByPhoneNumber(phoneNumber)
+        UserSimpleEntity userSimpleEntity = userSimpleRepository.findOneWithAuthoritiesByName(phoneNumber)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with phoneNumber: " + phoneNumber));
         System.out.println("userSimpleEntity = " + userSimpleEntity);
 
