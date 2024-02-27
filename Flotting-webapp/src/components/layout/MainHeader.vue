@@ -1,5 +1,5 @@
 <template>
-    <v-app-bar app :elevation="2" class="bg-teal-lighten-4">
+    <v-app-bar app :elevation="2" class="bg-teal-lighten-4 ">
         <template v-slot:prepend>
             <v-icon icon="mdi-bell-outline"></v-icon>
         </template>
