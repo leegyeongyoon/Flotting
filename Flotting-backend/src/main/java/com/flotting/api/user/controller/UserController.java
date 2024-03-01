@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public class UserController {
     @Parameter(name = "userFilterRequestDto", description = "requestParam : 성별, 체형, 신장, 휴면, 거주지, 나이, 등급, 직업, 흡연")
     @ApiResponse(responseCode = "200", description = "user조회 성공", content = @Content(schema = @Schema(implementation = UserResponseDto.class)))
     @GetMapping("/filter")
-    public List<UserResponseDto> getUsersByFilter( @RequestBody UserFilterRequestDto userFilterRequestDto, Pageable pageable) {
+    public List<UserResponseDto> getUsersByFilter( @RequestBody UserFilterRequestDto userFilterRequestDto,
+                                                   @PageableDefault(size = 15) Pageable pageable) {
         return userService.getUsersByFilter( userFilterRequestDto, pageable);
     }
 

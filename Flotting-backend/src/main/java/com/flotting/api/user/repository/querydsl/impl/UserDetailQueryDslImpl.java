@@ -71,7 +71,8 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
                         .and(ageBetween(filter.getAge()))
                         .and(gradeIn(filter.getGrade()))
                         .and(jobIn(filter.getJob()))
-                        .and(smokingEq(filter.isSmoke())))
+                        .and(smokingEq(filter.isSmoke()))
+                        .and(userDetailEntity.isApproved.eq(filter.isApproved())))
                 .offset(pageable.isPaged() ? pageable.getOffset() : 0)
                 .limit(pageable.isPaged() ? pageable.getPageSize() : Integer.MAX_VALUE)
                 .fetch();
