@@ -25,6 +25,8 @@ public class UserFilterRequestDto {
     List<LocationEnum> location;
     List<JobEnum> job;
 
+    boolean isApproved;
+
     ScopeModel height;
     ScopeModel age;
 
