@@ -1,11 +1,13 @@
 package com.flotting.api.user.service;
 
+import com.flotting.api.user.entity.PersonalManagerRequesterEntity;
 import com.flotting.api.user.entity.UserDetailEntity;
 import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.enums.GenderEnum;
 import com.flotting.api.user.enums.GradeEnum;
 import com.flotting.api.user.enums.PreferenceEnum;
 import com.flotting.api.user.model.*;
+import com.flotting.api.user.repository.PersonalManagerRequesterRepository;
 import com.flotting.api.user.repository.UserDetailRepository;
 import com.flotting.api.user.repository.UserSimpleRepository;
 import com.flotting.api.util.service.ExcelService;
@@ -28,6 +30,7 @@ public class UserService {
 
     private final UserSimpleRepository userSimpleRepository;
     private final UserDetailRepository userDetailRepository;
+    private final PersonalManagerRequesterRepository personalManagerRequesterRepository;
 
     private final PasswordEncoder passwordEncoder;
     private final ExcelService excelService;
@@ -204,5 +207,20 @@ public class UserService {
             return;
         }
         excelService.downloadExcel(responseDtos, response);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PersonalRequesterResponseDto> getPersonalRequesterList(Pageable pageable) {
+        List<PersonalManagerRequesterEntity> result = personalManagerRequesterRepository.findAllByOrderByCreatedAtDesc(pageable).getContent();
+        return result.stream()
+                .map(PersonalRequesterResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public PersonalRequesterResponseDto getPersonalRequester(Long requesterId) {
+        UserDetailEntity detailUser = getDetailUser(requesterId);
+        PersonalManagerRequesterEntity result = personalManagerRequesterRepository.findByRequester(detailUser);
+        return new PersonalRequesterResponseDto(result);
     }
 }
