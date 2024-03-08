@@ -1,7 +1,32 @@
 <script setup>
-import { ref, watch } from "vue";
+import { onBeforeMount, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
+const props = defineProps({
+    isKeep: {
+        type: Boolean,
+        default: true
+    }
+});
 const emit = defineEmits(["search"]);
+const router = useRouter();
+const route = useRoute();
+
+onBeforeMount(() => {
+    if (!props.isKeep) {
+        return;
+    }
+    const path = route.path;
+    const params = localStorage.getItem(path);
+    if (!!params) {
+        const paramsObj = JSON.parse(params);
+        Object.keys(paramsObj).forEach(key => {
+            searchParams.value[key] = paramsObj[key];
+        });
+        height.value = paramsObj.height;
+        age.value = paramsObj.age;
+    }
+});
 
 const searchParams = ref({
     gender: null,
@@ -15,7 +40,6 @@ const searchParams = ref({
     smoked: null,
     searchDate: [null, null]
 });
-
 const height = ref([150, 200]);
 const age = ref([20, 45]);
 
@@ -49,6 +73,7 @@ const jobs = ref([
 ]);
 
 function search(param) {
+    !!props.isKeep && localStorage.setItem(route.path, JSON.stringify(param));
     emit("search", param);
 }
 
