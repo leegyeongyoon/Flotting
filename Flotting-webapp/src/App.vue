@@ -4,14 +4,10 @@
     </v-app>
 </template>
 
-<script>
-export default {
-    name: "App"
-};
-</script>
-<style scoped>
+<script setup></script>
+<style>
 .app {
     max-width: 1000px;
-    max-height: 1500px;
+    font-family: "Inter", sans-serif;
 }
 </style>
