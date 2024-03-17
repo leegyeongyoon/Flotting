@@ -1,11 +1,10 @@
 <template>
     <v-main class="pt-0 h-100">
         <main-header />
-        <router-view v-slot="{ Component, route }">
-            <transition :name="route.meta.transition || 'none'">
-                <component :is="Component" />
-            </transition>
+        <router-view v-slot="{ Component }">
+            <component :is="Component" />
         </router-view>
+        <main-navigation />
     </v-main>
 </template>
 
