@@ -14,4 +14,11 @@ public enum GradeEnum {
         return GradeEnum.valueOf(name);
     }
 
+    public static GradeEnum getUpperGrade(GradeEnum grade) {
+        if(GradeEnum.G.equals(grade)) {
+            return GradeEnum.P;
+        } else  {
+            return GradeEnum.D;
+        }
+    }
 }

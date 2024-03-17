@@ -163,7 +163,7 @@ public class UserDetailEntity extends BaseEntity {
      */
     private Integer faceScore;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "userDetailEntity")
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "userDetailEntity", cascade = CascadeType.ALL)
     private UserSimpleEntity userSimpleEntity;
 
     private String rejectedReason;
@@ -230,6 +230,10 @@ public class UserDetailEntity extends BaseEntity {
     public void setTotalScore(int score) {
 
         this.totalScore = score;
+    }
+
+    public void setSimpleUser(UserSimpleEntity simpleUser) {
+        this.userSimpleEntity = simpleUser;
     }
 
     public int getHeightScore(GenderEnum gender) {

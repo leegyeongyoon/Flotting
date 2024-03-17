@@ -1,8 +1,10 @@
 package com.flotting.api.history.service;
 
+import com.flotting.api.history.entity.AutoRecommendHistory;
 import com.flotting.api.user.SampleDataMaker;
-import com.flotting.api.user.model.UserDetailResponseDto;
-import com.flotting.api.user.repository.UserDetailRepository;
+import com.flotting.api.user.model.UserSimpleResponseDto;
+import com.flotting.api.user.service.UserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +18,8 @@ class AutoRecommendServiceTest extends SampleDataMaker {
 
     @Autowired
     private AutoRecommendService autoRecommendService;
-
     @Autowired
-    private UserDetailRepository userDetailRepository;
+    private UserService userService;
 
     @Test
     @Transactional
@@ -27,11 +28,15 @@ class AutoRecommendServiceTest extends SampleDataMaker {
         makeUserData();
 
         //when
-        List<UserDetailResponseDto> allUsers = userDetailRepository.findAllDetailUsers(Pageable.unpaged());
-        UserDetailResponseDto firstUser = allUsers.get(0);
-        autoRecommendService.createAutoRecommend(firstUser.getSeq());
+        //TODO 자동매칭알고리즘 테스트
+        List<UserSimpleResponseDto> simpleUserInfos = userService.getSimpleUserInfos(Pageable.ofSize(20));
+        UserSimpleResponseDto firstUser = simpleUserInfos.get(0);
+        autoRecommendService.createAutoRecommend(firstUser.getUserNo());
+        List<AutoRecommendHistory> result = autoRecommendService.getAll();
 
         //then
+        Assertions.assertEquals(result.get(0).getReceiver().getUserNo(), firstUser.getUserNo());
+        Assertions.assertEquals(result.get(1).getReceiver().getUserNo(), firstUser.getUserNo());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.flotting.api.user.repository.querydsl;
 
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.model.UserFilterRequestDto;
 import com.flotting.api.user.model.UserDetailResponseDto;
 import com.flotting.api.user.model.UserResponseDto;
@@ -24,6 +25,7 @@ public interface UserDetailQueryDsl {
 
     Set<UserResponseDto> findUsersByScoreAndPreference(GenderEnum gender, int totalScore, PreferenceEnum preference, List<String> preferenceValue);
     Set<UserResponseDto> findUsersByPreference(GenderEnum gender, int score, PreferenceEnum preference, List<String> preferenceValue);
+    List<UserDetailResponseDto> findUsersByGradeAndSimpleProfileIdNotInOrderByAgeDiffAsc(GradeEnum gradeEnum, List<Long> ids, UserSimpleEntity targetUser);
 
     default BooleanBuilder nullSafeBuilder(Supplier<BooleanExpression> f) {
         try {

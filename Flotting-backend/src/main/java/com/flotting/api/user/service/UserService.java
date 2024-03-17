@@ -105,10 +105,11 @@ public class UserService {
     @Transactional
     public UserDetailResponseDto saveDetailUserInfo(Long targetUserId, UserDetailRequestDto requestDto) {
         UserDetailEntity userDetailEntity = new UserDetailEntity(requestDto);
+        UserDetailEntity savedUser = userDetailRepository.save(userDetailEntity);
         UserSimpleEntity simpleUser = getSimpleUser(targetUserId);
 
         simpleUser.setDetailUser(userDetailEntity);
-        UserDetailEntity savedUser = userDetailRepository.save(userDetailEntity);
+        userDetailEntity.setSimpleUser(simpleUser);
 
         log.info("savedEntity user : {}", savedUser);
         return new UserDetailResponseDto(savedUser);
@@ -222,5 +223,10 @@ public class UserService {
         UserDetailEntity detailUser = getDetailUser(requesterId);
         PersonalManagerRequesterEntity result = personalManagerRequesterRepository.findByRequester(detailUser);
         return new PersonalRequesterResponseDto(result);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDetailResponseDto> getUsersByGradeAndSimpleProfileIdsNotInLimitTwo(GradeEnum gradeEnum, List<Long> simpleProfileIds, UserSimpleEntity targetUser) {
+        return userDetailRepository.findUsersByGradeAndSimpleProfileIdNotInOrderByAgeDiffAsc(gradeEnum, simpleProfileIds, targetUser);
     }
 }

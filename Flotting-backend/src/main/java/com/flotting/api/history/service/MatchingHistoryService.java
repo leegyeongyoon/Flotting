@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +42,19 @@ public class MatchingHistoryService {
     @Transactional
     public void saveMatchingHistory(MatchingHistory matchingHistory) {
         matchingHistoryRepository.save(matchingHistory);
+    }
+
+    @Transactional(readOnly = true)
+    public Set<Long> getRecommendedUsers(Long targetUserId) {
+        Set<Long> result = new HashSet<>();
+        result.add(targetUserId);
+        List<MatchingHistory> datas = matchingHistoryRepository.findByRequester_UserNoOrReceiver_UserNo(targetUserId, targetUserId);
+        datas.forEach(data -> {
+            result.add(data.getRequester().getUserNo());
+            result.add(data.getReceiver().getUserNo());
+        });
+        result.remove(targetUserId);
+        log.info("getRecommendedUsers! targetUser : {} RecommendedUsers : {}", targetUserId, result.toString());
+        return result;
     }
 }
