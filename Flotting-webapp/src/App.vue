@@ -1,13 +1,14 @@
+<script setup></script>
+
 <template>
-    <v-app class="app mx-auto">
+    <v-app class="app">
         <router-view />
     </v-app>
 </template>
 
-<script setup></script>
 <style>
 .app {
-    max-width: 1000px;
+    //max-width: 1000px;
     font-family: "Inter", sans-serif;
 }
 </style>
