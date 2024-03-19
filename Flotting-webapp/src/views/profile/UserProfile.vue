@@ -4,6 +4,7 @@ import CarouselLeft from "@/components/icon/CarouselLeft.vue";
 import CarouselRight from "@/components/icon/CarouselRight.vue";
 import HeartIcon from "@/components/icon/HeartIcon.vue";
 import PassIcon from "@/components/icon/PassIcon.vue";
+import ProfileImage from "@/components/image/ProfileImage.vue";
 </script>
 
 <template>
@@ -14,29 +15,24 @@ import PassIcon from "@/components/icon/PassIcon.vue";
                 <v-row>
                     <v-col cols="12">
                         <v-carousel height="auto" hide-delimiters style="box-shadow: 4px 4px 10px 0px #00000040;">
-                            <template v-slot:prev="{ props }">
+                            <template #prev="{ props }">
                                 <carousel-left @click="props.onClick"></carousel-left>
                             </template>
-                            <template v-slot:next="{ props }">
+                            <template #next="{ props }">
                                 <carousel-right @click="props.onClick"></carousel-right>
                             </template>
                             <v-carousel-item>
-                                <div
-                                    class="w-100"
-                                    style="aspect-ratio: 1; background: #F1F1F1; background-image: url('https://i.namu.wiki/i/VVHm5cCXt7SrQIQLbIc9TKDU7XQmDSnVFL9L3pJNsMGHzCtCe62jPNNpWHvt-1bPd7N-2FAap95kW1tDrNJC72QOCDXTSGtF7fxgEGrse1ru_xupMj7NSzbUEhEQU9AUKQI_QyH1HaoEDHpFOzhK_A.webp'); background-size: cover; background-position: 50%;"
-                                ></div>
+                                <profile-image
+                                    src="https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp"
+                                />
                             </v-carousel-item>
                             <v-carousel-item>
-                                <div
-                                    class="w-100"
-                                    style="aspect-ratio: 1; background: #F1F1F1; background-image: url('https://i.namu.wiki/i/VE44Pr9Xrqrinf43GS7Yu945HyT3XyKWhmisPJcZ6qaCqV9J4oLnpUOHSrY-rjBh8j6ZI-3KtYkNf9x8sBe0Ew.webp'); background-size: cover; background-position: 50%;"
-                                ></div>
+                                <profile-image
+                                    src="https://i.namu.wiki/i/VE44Pr9Xrqrinf43GS7Yu945HyT3XyKWhmisPJcZ6qaCqV9J4oLnpUOHSrY-rjBh8j6ZI-3KtYkNf9x8sBe0Ew.webp"
+                                />
                             </v-carousel-item>
                             <v-carousel-item>
-                                <div
-                                    class="w-100"
-                                    style="aspect-ratio: 1; background: #F1F1F1; background-image: url('https://cdn.k-trendynews.com/news/photo/202312/162732_242532_2228.jpg'); background-size: cover; background-position: 50%;"
-                                ></div>
+                                <profile-image src="https://cdn.k-trendynews.com/news/photo/202312/162732_242532_2228.jpg" />
                             </v-carousel-item>
                         </v-carousel>
                     </v-col>
