@@ -17,8 +17,8 @@
             <div class="d-flex flex-column" style="gap: 7px;">
                 <div class="d-flex">
                     <div
-                        class="font-weight-bold text-center"
-                        style="width: 124px; height: 24px; border-radius: 16px; box-shadow: 0px 4px 4px 0px #00000040; background: #60E0E0; color:#FFFFFF;"
+                        class="d-flex justify-center align-center"
+                        style="width: 124px; height: 24px; border-radius: 16px; box-shadow: 0px 4px 4px 0px #00000040; background: #60E0E0; color:#FFFFFF; font-size: 14px; line-height: 17px; text-align: center; font-weight: 700;"
                     >
                         내가 받은 플러팅
                     </div>
@@ -59,8 +59,8 @@
             <div class="d-flex flex-column" style="gap: 7px;">
                 <div class="d-flex">
                     <div
-                        class="font-weight-bold text-center"
-                        style="width: 124px; height: 24px; border-radius: 16px; box-shadow: 0px 4px 4px 0px #00000040; background: #60E0E0; color:#FFFFFF;"
+                        class="d-flex justify-center align-center"
+                        style="width: 124px; height: 24px; border-radius: 16px; box-shadow: 0px 4px 4px 0px #00000040; background: #60E0E0; color:#FFFFFF;  font-size: 14px; line-height: 17px; text-align: center; font-weight: 700;"
                     >
                         내가 보낸 플러팅
                     </div>

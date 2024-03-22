@@ -1,6 +1,6 @@
 <template>
     <div class="position-fixed w-100" style="bottom: 0; height: 80px; background-color: #60e0e0; z-index: 1000;">
-        <div class="d-flex justify-space-between align-center mx-auto h-100 ga-0" style="max-width: 1024px; min-width: 360px;">
+        <div class="d-flex justify-space-between align-center mx-auto h-100 ga-0" style="max-width: 390px; min-width: 360px;">
             <v-btn height="100%" style="width: calc(50% - 1px); border-radius: 0; box-shadow: none;" color="#60e0e0" href="/dashboard">
                 <div class="d-flex flex-column justify-center align-center" style="gap: 4px;">
                     <account-icon width="39" height="39" />

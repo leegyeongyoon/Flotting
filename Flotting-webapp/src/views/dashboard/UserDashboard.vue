@@ -46,7 +46,7 @@ const list = ref([]);
                 class="font-weight-bold text-white text-center"
                 style="box-shadow: 0px 4px 4px 0px #00000040; background: #60E0E0; border-radius: 16px; font-size:16px; letter-spacing: 0;"
             >
-                새로운 인연 소개받기
+                새로운 인연 소개받기 🥰
             </v-btn>
         </div>
     </div>
