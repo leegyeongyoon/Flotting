@@ -41,10 +41,6 @@ const routes = [
                 component: SettingMain
             },
             {
-                path: "setting/my-profile",
-                component: SettingMyProfile
-            },
-            {
                 path: "setting/inquire",
                 component: SettingInquire
             },
@@ -77,6 +73,10 @@ const routes = [
     {
         path: "/profile",
         component: UserProfile
+    },
+    {
+        path: "/setting/my-profile",
+        component: SettingMyProfile
     },
     {
         path: "/test",

@@ -1,9 +1,5 @@
 <script setup></script>
 
-<template>
-    <v-main class="w-100 h-100 pb-0">
-        설정 - 공지사항
-    </v-main>
-</template>
+<template>공지사항</template>
 
 <style scoped></style>
