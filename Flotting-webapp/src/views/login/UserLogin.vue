@@ -7,11 +7,13 @@
 
         <v-text-field
             class="bg-grey-lighten-5"
+            type="number"
             density="compact"
-            placeholder="Email address"
-            prepend-inner-icon="mdi-email-outline"
+            placeholder="PhoneNumber"
+            prepend-inner-icon="mdi-cellphone"
             variant="outlined"
             hide-details="auto"
+            v-model="accountInfo.phoneNumber"
         ></v-text-field>
 
         <div class="text-subtitle-1 text-grey-lighten-5 d-flex align-center justify-space-between pt-3">
@@ -32,19 +34,40 @@
             variant="outlined"
             hide-details="auto"
             @click:append-inner="visible = !visible"
+            v-model="accountInfo.password"
         ></v-text-field>
 
-        <v-btn block class="mt-5 mb-8 bg-grey-lighten-4" size="large">
+        <v-btn block class="mt-5 mb-8 bg-grey-lighten-4" size="large" @click="userLogin">
             Log In
         </v-btn>
 
         <v-card-text class="text-center">
-            <a class="text-grey-lighten-5 text-decoration-none" href="#" rel="noopener noreferrer" target="_blank">
+            <a class="text-grey-lighten-5 text-decoration-none" rel="noopener noreferrer" target="_blank">
                 Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
             </a>
         </v-card-text>
     </v-card>
 </template>
 <script setup>
+import { fetchApiResource } from "@/axios/commonApi";
+import { ref } from "vue";
+
+import { userInfoStore } from "@/store/user/userInfoStore";
+
+const userInfo = userInfoStore();
 const visible = true;
+
+const accountInfo = ref({
+    phoneNumber: "",
+    password: ""
+});
+const userLogin = async () => {
+    try {
+        const responseUserInfo = await fetchApiResource("user/login", accountInfo.value);
+        userInfo.setUserInfo(responseUserInfo.data);
+        alert("로그인 성공");
+    } catch (error) {
+        console.log(error);
+    }
+};
 </script>

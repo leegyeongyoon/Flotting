@@ -19,26 +19,19 @@ import java.util.Collection;
 public class UserProfileEntity implements UserDetails {
 
     @Id
-    @Column(name="USER_NO" , columnDefinition = "INT COMMENT '유저 번호'")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userNo;
 
-    @Column(name="USER_NAME", columnDefinition = "varchar(30) COMMENT '유저 이름'")
     private String userName;
 
-    @Column(name="USER_STATUS", columnDefinition = "varchar(30) COMMENT '유저 상태'")
     private String userStatus;
 
-    @Column(name="PHONE_NUMBER", columnDefinition = "INT COMMENT '휴대폰 번호'")
     private Long phoneNumber;
 
-    @Column(name="EMAIL", columnDefinition = "varchar(30) COMMENT '이메일'")
     private String email;
 
-    @Column(name="AGE", columnDefinition = "INT COMMENT '나이'")
     private Long age;
 
-    @Column(name="JOB", columnDefinition = "varchar(30) COMMENT '직업'")
     private String job;
 
     @Override
