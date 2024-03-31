@@ -18,13 +18,13 @@ const list = ref([]);
             </div>
         </div>
         <div class="d-flex justify-center w-100">
-            <user-profile-image-card href="/profile" />
+            <user-profile-image-card to="/profile" />
         </div>
         <div class="d-flex justify-center w-100">
-            <user-profile-image-card href="/profile" />
+            <user-profile-image-card to="/profile" />
         </div>
         <div class="d-flex justify-center w-100">
-            <user-profile-image-card href="/profile" />
+            <user-profile-image-card to="/profile" />
         </div>
         <div class="d-flex justify-center w-100">
             <v-card width="100%" style="height: 567px; box-shadow: 4px 4px 10px 0px #60E0E0; border-radius: 16px;">
@@ -48,6 +48,7 @@ const list = ref([]);
             >
                 새로운 인연 소개받기 🥰
             </v-btn>
+            <!--           카카오톡 링크 연결-->
         </div>
     </div>
 </template>

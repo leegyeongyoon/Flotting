@@ -27,7 +27,7 @@
                     <div class="w-100" style="height: 3px; background: #F1F1F1; border-radius: 16px;"></div>
                 </div>
                 <div class="d-flex w-auto overflow-x-auto pr-6" style="gap: 5px;">
-                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " href="/profile">
+                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " to="/profile">
                         <div
                             class="w-100 d-flex flex-column justify-end align-start pl-6 pb-3 font-weight-bold"
                             style="aspect-ratio: 1; background-color: #F1F1F1; background-size: cover;  background-position: 50%; background-image: url('https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp'); font-size: 10px; text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white; "
@@ -36,7 +36,7 @@
                             <span>가수, 서울 강남구</span>
                         </div>
                     </v-card>
-                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " href="/profile">
+                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " to="/profile">
                         <div
                             class="w-100 d-flex flex-column justify-end align-start pl-6 pb-3 font-weight-bold"
                             style="aspect-ratio: 1; background-color: #F1F1F1; background-size: cover;  background-position: 50%; background-image: url('https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp'); font-size: 10px; text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white; "
@@ -45,7 +45,7 @@
                             <span>가수, 서울 강남구</span>
                         </div>
                     </v-card>
-                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " href="/profile">
+                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " to="/profile">
                         <div
                             class="w-100 d-flex flex-column justify-end align-start pl-6 pb-3 font-weight-bold"
                             style="aspect-ratio: 1; background-color: #F1F1F1; background-size: cover;  background-position: 50%; background-image: url('https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp'); font-size: 10px; text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white; "
@@ -69,7 +69,7 @@
                     <div class="w-100" style="height: 3px; background: #F1F1F1; border-radius: 16px;"></div>
                 </div>
                 <div class="d-flex w-auto overflow-x-auto pr-6" style="gap: 5px;">
-                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " href="/profile">
+                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " to="/profile">
                         <div
                             class="w-100 d-flex flex-column justify-end align-start pl-6 pb-3 font-weight-bold"
                             style="aspect-ratio: 1; background-color: #F1F1F1; background-size: cover;  background-position: 50%; background-image: url('https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp'); font-size: 10px; text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white; "
@@ -78,7 +78,7 @@
                             <span>가수, 서울 강남구</span>
                         </div>
                     </v-card>
-                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " href="/profile">
+                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " to="/profile">
                         <div
                             class="w-100 d-flex flex-column justify-end align-start pl-6 pb-3 font-weight-bold"
                             style="aspect-ratio: 1; background-color: #F1F1F1; background-size: cover;  background-position: 50%; background-image: url('https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp'); font-size: 10px; text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white; "
@@ -87,7 +87,7 @@
                             <span>가수, 서울 강남구</span>
                         </div>
                     </v-card>
-                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " href="/profile">
+                    <v-card style="border-radius: 16px; max-width: 135px; min-width: 135px; aspect-ratio: 1; " to="/profile">
                         <div
                             class="w-100 d-flex flex-column justify-end align-start pl-6 pb-3 font-weight-bold"
                             style="aspect-ratio: 1; background-color: #F1F1F1; background-size: cover;  background-position: 50%; background-image: url('https://i.namu.wiki/i/RmPNdn0sjKx-SYRoeRffcS5pc1rZXK-uA6PQqqU_kLFrqdMVdD3vM9HeF4c_1DLloZ1qu8KZLDwRwO8y-3vNriadzKfcXOeWaQFwwLC2Bn_HxoX1E-clw78tDqSLGLb37UHelCwkxGLeqKIpHvqPtA.webp'); font-size: 10px; text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white; "

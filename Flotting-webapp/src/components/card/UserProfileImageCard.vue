@@ -3,7 +3,7 @@ import { ref } from "vue";
 import ProfileImage from "@/components/image/ProfileImage.vue";
 
 defineProps({
-    href: {
+    to: {
         type: String,
         default: "#"
     },
@@ -20,7 +20,7 @@ const testUserImageUrl = ref(
 </script>
 
 <template>
-    <v-card width="100%" style="box-shadow: 4px 4px 10px 0px #60E0E0; border-radius: 16px;" :href="href">
+    <v-card width="100%" style="box-shadow: 4px 4px 10px 0px #60E0E0; border-radius: 16px;" :to="to">
         <div class="w-100 pa-4 d-flex flex-column ga-4 justify-center align-center">
             <v-card style="border-radius: 16px; width: 98px;">
                 <div

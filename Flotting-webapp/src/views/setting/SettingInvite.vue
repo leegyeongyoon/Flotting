@@ -1,4 +1,11 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const copy = ref(null);
+const onClickedCopyButton = () => {
+    navigator.clipboard.writeText("test");
+};
+</script>
 
 <template>
     <div class="d-flex flex-column justify-center align-center" style="width:100%; padding: 27px 24px; gap: 24px;">
@@ -22,6 +29,7 @@
                 <v-btn
                     color="#60E0E0"
                     style="width: 172px; height: 44px; border: 1px solid #60E0E0; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 24px;"
+                    @click="onClickedCopyButton"
                 >
                     <span style="font-weight: 700; font-size: 20px; line-height: 24px; color: #FFFFFF;">링크 복사하기</span>
                 </v-btn>
