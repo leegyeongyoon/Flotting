@@ -1,0 +1,166 @@
+<script setup>
+import MainHeader from "@/components/layout/MainHeader.vue";
+import { ref } from "vue";
+import router from "@/router";
+const gender = ref("");
+const height = ref(150);
+const location = ref("");
+const appliedPath = ref("");
+const rules = ref({
+    required: value => !!value || "필수 값 입니다.",
+    min: value => String(value).length > 70 || "70 글자 이상"
+});
+const onClicked = () => {
+    router.push("/signup/hobby");
+};
+</script>
+
+<template>
+    <div class="w-100 h-100">
+        <main-header start="" end="" :title="false" />
+        <main class="w-100 h-100" style="padding-top: 60px;">
+            <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
+                <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
+                    <span style="font-size: 28px; font-weight: 800; line-height: 34px; text-align: center; padding-bottom: 16px;"
+                        >프로필 등록 진행 현황</span
+                    >
+                    <div class="w-100" style="margin-bottom: 60px;">진행률</div>
+                    <div class="w-100 d-flex flex-column ga-3 page-guide">
+                        <span class="text-none page-title">소중한 나의 세계관을 보여주세요 !</span>
+                        <div class="d-flex flex-column ga-1">
+                            <span class="text-none page-sub">카테고리 별로 질문이 2가지씩 준비되어있어요.</span>
+                            <span class="text-none page-sub">본인이 답변하고 싶은 질문을 선택하여 답변해주세요 :)</span>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column w-100 ga-6 mb-8">
+                        <div class="d-flex flex-column ga-3">
+                            <span class="text-none title-text">(1) 나의 커리어는?</span>
+                            <div class="d-flex flex-column ga-1">
+                                <span class="text-none sub-title">- 지금 하고 있는 일은 어떤 일이며, 선택하신 이유를 소개해주세요</span>
+                                <span class="text-none sub-title">- 향후 커리어 성장 목표를 소개해주세요</span>
+                            </div>
+                            <v-textarea
+                                class="text-none textarea-text"
+                                rows="5"
+                                auto-grow
+                                variant="plain"
+                                placeholder="최소  70자(약 3줄) 이상"
+                                :rules="[rules.required, rules.min]"
+                            />
+                        </div>
+                        <div class="d-flex flex-column ga-3">
+                            <span class="text-none title-text">(2) 나의 취미는?</span>
+                            <div class="d-flex flex-column ga-1">
+                                <span class="text-none sub-title">- 나의 취미와 관련된 스토리를 소개해주세요</span>
+                                <span class="text-none sub-title">- 어떤 취미를 즐기시는지, 그 취미를 좋아하는 이유를 소개해주세요</span>
+                            </div>
+                            <v-textarea
+                                class="text-none textarea-text"
+                                rows="5"
+                                auto-grow
+                                variant="plain"
+                                placeholder="최소  70자(약 3줄) 이상"
+                                :rules="[rules.required, rules.min]"
+                            />
+                        </div>
+                        <div class="d-flex flex-column ga-3">
+                            <span class="text-none title-text">(3) 나의 매력은 ?</span>
+                            <div class="d-flex flex-column ga-1">
+                                <span class="text-none sub-title">- 연인으로서 나의 매력을 소개해주세요</span>
+                                <span class="text-none sub-title">- 연인과 해보고 싶은 데이트, 추구하는 연애가치관을 소개해주세요</span>
+                            </div>
+                            <v-textarea
+                                class="text-none textarea-text"
+                                rows="5"
+                                auto-grow
+                                variant="plain"
+                                placeholder="최소  70자(약 3줄) 이상"
+                                :rules="[rules.required, rules.min]"
+                            />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column text-none security-text mb-9">
+                        <span>수집된 개인정보는</span>
+                        <span>매칭 외 다른 용도로 활용되지 않습니다.</span>
+                    </div>
+                    <div>
+                        <v-btn class="text-none bottom-btn" @click="onClicked">취향 등록하러 가기</v-btn>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</template>
+
+<style scoped>
+.page-guide {
+    box-shadow: 4px 4px 10px 0px #60e0e0;
+    border-radius: 16px;
+    padding: 18px 8px;
+    margin-bottom: 30px;
+}
+.page-title {
+    letter-spacing: 0;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: center;
+}
+.page-sub {
+    letter-spacing: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    text-align: center;
+}
+.title-text {
+    letter-spacing: 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    text-align: left;
+}
+.textarea-text {
+    border: 2px solid #b6b6b6;
+    border-radius: 12px;
+    letter-spacing: 0;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: left;
+    padding: 0 12px 8px 12px;
+}
+.sub-title {
+    letter-spacing: 0;
+    color: #35a8aa;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 15px;
+    text-align: left;
+}
+.security-text {
+    color: #2f9c9e;
+    letter-spacing: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19px;
+    text-align: center;
+}
+
+.bottom-btn {
+    width: 316px;
+    height: 58px;
+    padding: 17px 49px;
+    border-radius: 16px;
+    border: 1px solid #dfdfdf;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    text-align: center;
+    color: #ffffff;
+    background: #60e0e0;
+    letter-spacing: 0;
+    margin-bottom: 30px;
+}
+</style>

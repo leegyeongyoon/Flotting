@@ -58,6 +58,7 @@ import MainHeader from "@/components/layout/MainHeader.vue";
                     <div>
                         <v-btn
                             style="height: fit-content; border: 1px solid #3B3B3D; border-radius: 16px; box-shadow: 0px 4px 4px 0px #00000040; color: #3B3B3D; font-size: 20px; font-weight: 700; line-height: 24.2px; padding: 8px 26px; letter-spacing: 0;"
+                            href="/signup/info"
                             >확인했습니다.</v-btn
                         >
                     </div>

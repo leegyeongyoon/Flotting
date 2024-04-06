@@ -16,8 +16,10 @@ import AlarmMain from "@/views/alarm/AlarmMain.vue";
 import StoreMain from "@/views/store/StoreMain.vue";
 import TestMain from "@/views/test/TestMain.vue";
 import SettingMyProfile from "@/views/setting/SettingMyProfile.vue";
-import SingupMain from "@/views/signup/SingupMain.vue";
 import SignupGuide from "@/views/signup/SignupGuide.vue";
+import SignupInfo from "@/views/signup/SignupInfo.vue";
+import SignupWorld from "@/views/signup/SignupWorld.vue";
+import SignupHobby from "@/views/signup/SignupHobby.vue";
 
 const routes = [
     { path: "/login", component: UserLogin },
@@ -81,12 +83,20 @@ const routes = [
         component: SettingMyProfile
     },
     {
-        path: "/signup",
-        component: SingupMain
-    },
-    {
         path: "/signup/guide",
         component: SignupGuide
+    },
+    {
+        path: "/signup/info",
+        component: SignupInfo
+    },
+    {
+        path: "/signup/world",
+        component: SignupWorld
+    },
+    {
+        path: "/signup/hobby",
+        component: SignupHobby
     },
     {
         path: "/test",
