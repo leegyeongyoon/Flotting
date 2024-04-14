@@ -54,7 +54,7 @@ async function reject(event) {
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col class="ddeflex flex-column">
+                    <v-col class="d-flex flex-column">
                         <v-sheet>
                             <v-label class="mr-3">회원등급</v-label>
                             <v-btn-toggle v-model="grade" variant="outlined" divided>
