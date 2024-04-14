@@ -1,46 +1,56 @@
-<script>
-import UserWeekendList from "@/views/dashboard/list/UserWeekendList.vue";
-import UserCurrentList from "@/views/dashboard/list/UserCurrentList.vue";
+<script setup>
+import { ref } from "vue";
+import UserProfileImageCard from "@/components/card/UserProfileImageCard.vue";
 
-export default {
-    name: "UserDashboard",
-    components: {
-        UserWeekendList,
-        UserCurrentList
-    },
-    data() {
-        return {
-            tab: null
-        };
-    }
-};
+const tab = ref(null);
+
+const list = ref([]);
 </script>
 
 <template>
-    <v-main class="fill-height w-100">
-        <v-tabs v-model="tab" class="bg-grey-lighten-5" align-tabs="center" grow>
-            <v-tab value="one">이번주 프로필</v-tab>
-            <v-tab value="two">플러팅 현황</v-tab>
-            <v-tab value="three">
-                매니저 전담 소개
-            </v-tab>
-        </v-tabs>
-        <v-main class="pa-0 fill-height">
-            <v-window class="fill-height" v-model="tab">
-                <v-window-item class="fill-height" value="one">
-                    <user-weekend-list />
-                </v-window-item>
-
-                <v-window-item class="h-100" value="two">
-                    <user-current-list />
-                </v-window-item>
-
-                <v-window-item class="h-100" value="three">
-                    Three
-                </v-window-item>
-            </v-window>
-        </v-main>
-    </v-main>
+    <div class="w-100 px-6 py-8 d-flex flex-column" style="gap: 24px;">
+        <div class="d-flex justify-center w-100">
+            <div
+                class="text-white font-weight-bold d-flex justify-center align-center"
+                style="width: 268px; height: 63px; background-color: #60E0E0B2; box-shadow: 4px 4px 10px 0px #60E0E0 inset; border-radius: 16px; font-size: 25px;"
+            >
+                이번주 프로필
+            </div>
+        </div>
+        <div class="d-flex justify-center w-100">
+            <user-profile-image-card to="/profile" />
+        </div>
+        <div class="d-flex justify-center w-100">
+            <user-profile-image-card to="/profile" />
+        </div>
+        <div class="d-flex justify-center w-100">
+            <user-profile-image-card to="/profile" />
+        </div>
+        <div class="d-flex justify-center w-100">
+            <v-card width="100%" style="height: 567px; box-shadow: 4px 4px 10px 0px #60E0E0; border-radius: 16px;">
+                <div class="w-100 h-100 d-flex flex-column justify-center align-self-center">
+                    <span class="text-center font-weight-bold" style="font-size: 20px; letter-spacing: 0;">이번 주 모든 프로필을</span>
+                    <span class="text-center font-weight-bold" style="font-size: 20px; letter-spacing: 0;">확인하셨습니다.</span>
+                    <br />
+                    <span class="text-center font-weight-bold" style="font-size: 20px; letter-spacing: 0;"
+                        >매주 <span style="color: #60E0E0;">월요일 19시</span>에</span
+                    >
+                    <span class="text-center font-weight-bold" style="font-size: 20px; letter-spacing: 0;">새로운 인연을 소개해드려요 !</span>
+                </div>
+            </v-card>
+        </div>
+        <div class="d-flex justify-center w-100">
+            <v-btn
+                width="281"
+                height="47"
+                class="font-weight-bold text-white text-center"
+                style="box-shadow: 0px 4px 4px 0px #00000040; background: #60E0E0; border-radius: 16px; font-size:16px; letter-spacing: 0;"
+            >
+                새로운 인연 소개받기 🥰
+            </v-btn>
+            <!--           카카오톡 링크 연결-->
+        </div>
+    </div>
 </template>
 
 <style scoped></style>

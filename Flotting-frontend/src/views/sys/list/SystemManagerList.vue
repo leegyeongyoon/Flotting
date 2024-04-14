@@ -94,7 +94,7 @@ function clickRegister() {
                 hover
                 show-select
             >
-                <template #item.status="{ item }">
+                <template #item="{ item }">
                     <v-btn @click="() => clickStatus(item.idx, item.status)">{{ item.status }}</v-btn>
                 </template>
             </v-data-table>

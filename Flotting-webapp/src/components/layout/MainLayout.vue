@@ -1,20 +1,20 @@
+<script setup>
+import MainHeader from "@/components/layout/MainHeader.vue";
+import MainNavigation from "@/components/layout/MainNavigation.vue";
+</script>
+
 <template>
-    <div class="h-100">
+    <div class="w-100 h-100">
         <main-header />
-        <v-main class="pt-0 h-100">
-            <router-view />
-        </v-main>
+        <main class="w-100 h-100" style="padding-top: 60px; padding-bottom: 80px;">
+            <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
+                <router-view v-slot="{ Component }">
+                    <component :is="Component" />
+                </router-view>
+            </div>
+        </main>
         <main-navigation />
     </div>
 </template>
-
-<script>
-import MainHeader from "@/components/layout/MainHeader";
-import MainNavigation from "@/components/layout/MainNavigation";
-export default {
-    name: "MainLayout",
-    components: { MainNavigation, MainHeader }
-};
-</script>
 
 <style scoped></style>

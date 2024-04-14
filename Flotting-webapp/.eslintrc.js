@@ -13,7 +13,8 @@ module.exports = {
         $: true,
         jQuery: true
     },
-    extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier", "eslint-config-prettier"],
+    extends: ["plugin:vue/base", "plugin:vue/vue3-essential", "plugin:vue/vue3-recommended", "@vue/prettier", "eslint-config-prettier"],
+    // extends: ["plugin:vue/essential", "eslint:recommended", "@vue/prettier", "eslint-config-prettier"],
     plugins: ["prettier"],
     ignorePatterns: ["vuetify.js", "webfontloader.js"],
     rules: {
