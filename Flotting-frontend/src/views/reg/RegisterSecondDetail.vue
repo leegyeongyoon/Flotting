@@ -1,11 +1,9 @@
 <script setup>
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import UserInfoCard from "@/components/card/UserInformationCard.vue";
-import ApprovalRejectCard from "@/components/card/ApprovalRejectCard.vue";
 import RegisterSecondApprovalRejectCard from "@/views/reg/card/RegisterSecondApprovalRejectCard.vue";
 
-const route = useRoute();
 const router = useRouter();
 
 const breadcrumbs = ref([
@@ -22,13 +20,14 @@ const breadcrumbs = ref([
     }
 ]);
 
-function clickListBtn() {
-    router.push("/reg/second");
-}
+const clickListBtn = () => router.push("/reg/second");
+
+const managerComment = ref("");
+const rejectionReason = ref("");
 </script>
 
 <template>
-    <div>
+    <v-container>
         <v-row>
             <v-col>
                 <v-breadcrumbs :items="breadcrumbs" class="pa-0">
@@ -42,15 +41,33 @@ function clickListBtn() {
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="6" sm="6">
+            <v-col cols="8" sm="8">
                 <user-info-card />
             </v-col>
-            <v-col cols="6" sm="6">
-                <!--                <approval-reject-card @approve="approve" @reject="reject" />-->
+            <v-col cols="4" sm="4" class="col-gap">
+                <v-card>
+                    <v-card-title class="text-md-h6">매니저 코멘트 입력</v-card-title>
+                    <v-card-text>
+                        <v-textarea v-model="managerComment" label="comment" rows="4" auto-grow></v-textarea>
+                    </v-card-text>
+                </v-card>
+                <v-card>
+                    <v-card-title class="text-md-h6">반려 사유 입력</v-card-title>
+                    <v-card-text>
+                        <v-textarea v-model="rejectionReason" label="comment" rows="4" auto-grow></v-textarea>
+                    </v-card-text>
+                </v-card>
+                <!-- <approval-reject-card @approve="approve" @reject="reject" />-->
                 <register-second-approval-reject-card />
             </v-col>
         </v-row>
-    </div>
+    </v-container>
 </template>
 
-<style scoped></style>
+<style scoped>
+.col-gap {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+</style>
