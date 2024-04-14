@@ -2,32 +2,78 @@
 import MainHeader from "@/components/layout/MainHeader.vue";
 import { ref } from "vue";
 import router from "@/router";
+import SignupProgress from "@/views/signup/components/SignupProgress.vue";
+import SignupRadio from "@/views/signup/components/SignupRadio.vue";
 
-const rules = ref({
-    required: value => !!value || "필수 값 입니다.",
-    min: value => String(value).length > 70 || "70 글자 이상"
-});
 const nickname = ref("");
 const job = ref("");
 const detailJob = ref("");
 const education = ref("");
 const smoking = ref("");
 const drinking = ref("");
+const mbti = ref("");
 const onClicked = () => {
-    router.push("/signup/hobby");
+    router.push("/signup/photo");
 };
+
+const educations = ref([
+    {
+        value: "1",
+        title: "고등학교 졸업"
+    },
+    {
+        value: "2",
+        title: "전문대 재학"
+    },
+    {
+        value: "3",
+        title: "전문대 졸업"
+    },
+    {
+        value: "4",
+        title: "대학교 재학"
+    },
+    {
+        value: "5",
+        title: "대학교 졸업"
+    },
+    {
+        value: "6",
+        title: "대학원 재학"
+    },
+    {
+        value: "7",
+        title: "대학원 졸업"
+    },
+    {
+        value: "8",
+        title: "박사과정 진행"
+    },
+    {
+        value: "9",
+        title: "박사과정 수료"
+    }
+]);
+
+const smokings = ref([
+    {
+        value: "N",
+        title: "N"
+    },
+    {
+        value: "Y",
+        title: "Y"
+    }
+]);
 </script>
 
 <template>
     <div class="w-100 h-100">
-        <main-header start="" end="" :title="false" />
+        <main-header start="back" end="" :title="false" />
         <main class="w-100 h-100" style="padding-top: 60px;">
             <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
                 <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
-                    <span style="font-size: 28px; font-weight: 800; line-height: 34px; text-align: center; padding-bottom: 16px;"
-                        >프로필 등록 진행 현황</span
-                    >
-                    <div class="w-100" style="margin-bottom: 60px;">진행률</div>
+                    <signup-progress :idx="3" />
                     <div class="w-100 d-flex flex-column ga-3 page-guide">
                         <span class="page-title">소중한 나를 소개해주세요 !</span>
                         <div class="d-flex flex-column ga-1">
@@ -36,8 +82,9 @@ const onClicked = () => {
                         </div>
                     </div>
                     <div class="d-flex flex-column w-100 ga-6 mb-8">
-                        <div class="d-flex flex-column ga-3">
+                        <div class="d-flex flex-column ga-2">
                             <span class="title-text">(1) 닉네임</span>
+                            <span class="sub-title">- 프로필에는 닉네임만 보여집니다.</span>
                             <v-text-field
                                 v-model="nickname"
                                 class="input-text"
@@ -48,8 +95,9 @@ const onClicked = () => {
                                 :clearable="true"
                             ></v-text-field>
                         </div>
-                        <div class="d-flex flex-column ga-3">
+                        <div class="d-flex flex-column ga-2">
                             <span class="title-text">(2) 직업</span>
+                            <span class="sub-title">- 대학생 / 대학원생의 경우 학생으로 선택해주세요</span>
                             <div class="d-flex flex-column ga-2">
                                 <div class="d-flex ga-2">
                                     <div
@@ -175,101 +223,30 @@ const onClicked = () => {
                         </div>
                         <div class="d-flex flex-column ga-3">
                             <span class="title-text">(4) 학력</span>
-                            <div class="d-flex flex-column ga-2">
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio"
-                                        :class="education === '1' && 'radio-clicked'"
-                                        @click="education === '1' ? (education = '') : (education = '1')"
-                                    >
-                                        <span>고등학교 졸업</span>
-                                    </div>
-                                    <div
-                                        class="radio"
-                                        :class="education === '2' && 'radio-clicked'"
-                                        @click="education === '2' ? (education = '') : (education = '2')"
-                                    >
-                                        <span>전문대 재학</span>
-                                    </div>
-                                    <div
-                                        class="radio"
-                                        :class="education === '3' && 'radio-clicked'"
-                                        @click="education === '3' ? (education = '') : (education = '3')"
-                                    >
-                                        <span>전문대 졸업</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio"
-                                        :class="education === '4' && 'radio-clicked'"
-                                        @click="education === '4' ? (education = '') : (education = '4')"
-                                    >
-                                        <span>대학교 재학</span>
-                                    </div>
-                                    <div
-                                        class="radio"
-                                        :class="education === '5' && 'radio-clicked'"
-                                        @click="education === '5' ? (education = '') : (education = '5')"
-                                    >
-                                        <span>대학교 졸업</span>
-                                    </div>
-                                    <div
-                                        class="radio"
-                                        :class="education === '6' && 'radio-clicked'"
-                                        @click="education === '6' ? (education = '') : (education = '6')"
-                                    >
-                                        <span>대학원 재학</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio"
-                                        :class="education === '7' && 'radio-clicked'"
-                                        @click="education === '7' ? (education = '') : (education = '7')"
-                                    >
-                                        <span>대학원 졸업</span>
-                                    </div>
-                                    <div
-                                        class="radio"
-                                        :class="education === '8' && 'radio-clicked'"
-                                        @click="education === '8' ? (education = '') : (education = '8')"
-                                    >
-                                        <span>박사과정 진행</span>
-                                    </div>
-                                    <div
-                                        class="radio"
-                                        :class="education === '9' && 'radio-clicked'"
-                                        @click="education === '9' ? (education = '') : (education = '9')"
-                                    >
-                                        <span>박사과정 수료</span>
-                                    </div>
-                                </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
+                                <signup-radio
+                                    v-for="({ value, title }, i) in educations"
+                                    :key="`edu_${i}`"
+                                    :group-value="education"
+                                    :value="value"
+                                    :title="title"
+                                />
                             </div>
                         </div>
                         <div class="d-flex flex-column ga-3">
                             <span class="title-text">(5) 흡연 여부</span>
-                            <div class="d-flex flex-column ga-2">
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio"
-                                        :class="smoking === 'N' && 'radio-clicked'"
-                                        @click="smoking === 'N' ? (smoking = '') : (smoking = 'N')"
-                                    >
-                                        <span>N</span>
-                                    </div>
-                                    <div
-                                        class="radio"
-                                        :class="smoking === 'Y' && 'radio-clicked'"
-                                        @click="smoking === 'Y' ? (smoking = '') : (smoking = 'Y')"
-                                    >
-                                        <span>Y</span>
-                                    </div>
-                                </div>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
+                                <signup-radio
+                                    v-for="({ value, title }, i) in smokings"
+                                    :key="`smo_${i}`"
+                                    :group-value="smoking"
+                                    :value="value"
+                                    :title="title"
+                                />
                             </div>
                         </div>
                         <div class="d-flex flex-column ga-3">
-                            <span class="title-text">(5) 음주 여부</span>
+                            <span class="title-text">(6) 음주 여부</span>
                             <div class="d-flex flex-column ga-2">
                                 <div class="d-flex ga-2">
                                     <div
@@ -308,6 +285,9 @@ const onClicked = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="d-flex flex-column ga-3">
+                            <span class="title-text">(7) MBTI</span>
                         </div>
                     </div>
                     <div class="d-flex flex-column security-text mb-9">

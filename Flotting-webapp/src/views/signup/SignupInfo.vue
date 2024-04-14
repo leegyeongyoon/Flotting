@@ -2,6 +2,7 @@
 import MainHeader from "@/components/layout/MainHeader.vue";
 import { ref } from "vue";
 import router from "@/router";
+import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 const gender = ref("");
 const height = ref(150);
 const location = ref("");
@@ -13,14 +14,11 @@ const clickNext = () => {
 
 <template>
     <div class="w-100 h-100">
-        <main-header start="" end="" :title="false" />
+        <main-header start="back" end="" :title="false" />
         <main class="w-100 h-100" style="padding-top: 60px;">
             <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
                 <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
-                    <span style="font-size: 28px; font-weight: 800; line-height: 34px; text-align: center; padding-bottom: 16px;"
-                        >프로필 등록 진행 현황</span
-                    >
-                    <div class="w-100" style="margin-bottom: 60px;">진행률</div>
+                    <signup-progress :idx="1" />
                     <div class="d-flex flex-column w-100 ga-6 mb-8">
                         <div class="d-flex flex-column ga-3">
                             <span class="text-none title-text">(1) 본인 성함</span>

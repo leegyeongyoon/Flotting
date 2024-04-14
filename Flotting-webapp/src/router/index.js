@@ -20,6 +20,8 @@ import SignupGuide from "@/views/signup/SignupGuide.vue";
 import SignupInfo from "@/views/signup/SignupInfo.vue";
 import SignupWorld from "@/views/signup/SignupWorld.vue";
 import SignupHobby from "@/views/signup/SignupHobby.vue";
+import SignupPhoto from "@/views/signup/SignupPhoto.vue";
+import SignupEnd from "@/views/signup/SignupEnd.vue";
 
 const routes = [
     { path: "/login", component: UserLogin },
@@ -97,6 +99,14 @@ const routes = [
     {
         path: "/signup/hobby",
         component: SignupHobby
+    },
+    {
+        path: "/signup/photo",
+        component: SignupPhoto
+    },
+    {
+        path: "/signup/end",
+        component: SignupEnd
     },
     {
         path: "/test",
