@@ -8,7 +8,7 @@ public enum MatchingProcessEnum {
      * 거절되면 그 즉시 회수하도록
      * TODO 매일 배치가 돌아서 수요일에 진행중인것은 다 회수하도록 + 매칭권 +1 하도록
      */
-    SUCCESS("수락"), INPROGRESS("진행중"), FAIL("거절");
+    SUCCESS("수락"), INPROGRESS("진행중"), FAIL("거절"), DELETE("삭제");
 
     private String value;
 

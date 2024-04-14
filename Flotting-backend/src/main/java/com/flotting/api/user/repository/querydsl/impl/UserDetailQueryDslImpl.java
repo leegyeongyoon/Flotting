@@ -1,6 +1,7 @@
 package com.flotting.api.user.repository.querydsl.impl;
 
 
+import com.flotting.api.user.entity.UserSimpleEntity;
 import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.QUserResponseDto;
 import com.flotting.api.user.model.UserDetailResponseDto;
@@ -80,6 +81,7 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Set<UserResponseDto> findUsersByScoreAndPreference(GenderEnum gender, int totalScore, PreferenceEnum preference, List<String> preferenceValue) {
         Set<UserResponseDto> result = jpaQueryFactory
                 .select(new QUserResponseDto(userSimpleEntity.userNo, userSimpleEntity.age, userSimpleEntity.job, userSimpleEntity.userStatus, userSimpleEntity.phoneNumber,
@@ -101,6 +103,7 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Set<UserResponseDto> findUsersByPreference(GenderEnum gender, int score, PreferenceEnum preference, List<String> preferenceValue) {
         Set<UserResponseDto> result = jpaQueryFactory
                 .select(new QUserResponseDto(userSimpleEntity.userNo, userSimpleEntity.age, userSimpleEntity.job, userSimpleEntity.userStatus, userSimpleEntity.phoneNumber,
@@ -119,6 +122,34 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
                 .fetch()
                 .stream().collect(Collectors.toSet());
         return result;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserDetailResponseDto> findUsersByGradeAndSimpleProfileIdNotInOrderByAgeDiffAsc(GradeEnum grade, List<Long> ids, UserSimpleEntity targetUser, int limit) {
+        return jpaQueryFactory
+                .selectFrom(userDetailEntity)
+                .where(userDetailEntity.grade.eq(grade)
+                        .and(userDetailEntity.userSimpleEntity.userNo.notIn(ids))
+                        .and(userDetailEntity.gender.ne(targetUser.getUserDetailEntity().getGender())))
+                .orderBy(userDetailEntity.userSimpleEntity.age.subtract(targetUser.getAge()).abs().asc())
+                .limit(limit)
+                .fetch()
+                .stream().map(UserDetailResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDetailResponseDto> findUsersBySimpleProfileIdNotInOrderByAgeDiffAsc(List<Long> ids, UserSimpleEntity targetUser, int limit) {
+        return jpaQueryFactory
+                .selectFrom(userDetailEntity)
+                .where((userDetailEntity.userSimpleEntity.userNo.notIn(ids))
+                        .and(userDetailEntity.gender.ne(targetUser.getUserDetailEntity().getGender())))
+                .orderBy(userDetailEntity.grade.desc(), userDetailEntity.userSimpleEntity.age.subtract(targetUser.getAge()).abs().asc())
+                .limit(limit)
+                .fetch()
+                .stream().map(UserDetailResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     private BooleanBuilder preferenceEq(PreferenceEnum preferenceEnum, List<String> value) {
@@ -185,6 +216,5 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
     private BooleanBuilder jobIn(List<JobEnum> jobEnum) {
         return nullSafeBuilder(() -> userSimpleEntity.job.in(jobEnum));
     }
-
 
 }

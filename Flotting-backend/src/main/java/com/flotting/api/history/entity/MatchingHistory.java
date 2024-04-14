@@ -59,7 +59,7 @@ public class MatchingHistory {
     private MatchingTicketPurchaseHistory matchingTicketPurchaseHistory;
 
     public void withdraw() {
-        this.matchingProcess = MatchingProcessEnum.FAIL;
+        this.matchingProcess = MatchingProcessEnum.DELETE;
         this.matchingTicketPurchaseHistory.withdraw();
     }
 

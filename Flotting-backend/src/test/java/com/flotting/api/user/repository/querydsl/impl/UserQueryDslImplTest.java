@@ -94,7 +94,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         List<UserResponseDto> userResponseDtos = makeUserData();
 
         //when
-        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos(Pageable.unpaged());
+        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos(Pageable.unpaged(), "all");
 
         //then
         Assertions.assertThat(detailUsers.size()).isEqualTo(6);

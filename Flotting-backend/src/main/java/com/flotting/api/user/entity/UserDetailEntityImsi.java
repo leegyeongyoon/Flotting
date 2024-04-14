@@ -21,8 +21,7 @@ import java.util.List;
         indexes = @Index(name = "gradeIndex", columnList = "grade"))
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class UserDetailEntity extends BaseEntity {
-
+public class UserDetailEntityImsi extends BaseEntity {
 
     /**
      * 신장
@@ -139,12 +138,13 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 프로필 등급
      */
+    @Enumerated(value = EnumType.STRING)
     private GradeEnum grade;
 
     /**
      * 프로필 승인 매니저
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "manager_id")
     private ManagerProfileEntity manager;
 
@@ -174,7 +174,7 @@ public class UserDetailEntity extends BaseEntity {
     private LocalDate approvedAt;
 
     @Builder
-    public UserDetailEntity(UserDetailRequestDto requestDto) {
+    public UserDetailEntityImsi(UserDetailRequestDto requestDto) {
         this.appliedPath = AppliedPathEnum.of(requestDto.getAppliedPath());
         this.body = BodyEnum.of(requestDto.getBody());
         this.detailJob = requestDto.getDetailJob();
@@ -197,7 +197,7 @@ public class UserDetailEntity extends BaseEntity {
         this.approvedAt = requestDto.getApprovedAt();
     }
 
-    public UserDetailEntity updateInfo(UserDetailRequestDto requestDto) {
+    public UserDetailEntityImsi updateInfo(UserDetailRequestDto requestDto) {
         this.appliedPath = AppliedPathEnum.of(requestDto.getAppliedPath());
         this.body = BodyEnum.of(requestDto.getBody());
         this.detailJob = requestDto.getDetailJob();
@@ -220,13 +220,13 @@ public class UserDetailEntity extends BaseEntity {
         return this;
     }
 
-    public UserDetailEntity approveProfile(ManagerProfileEntity manager) {
+    public UserDetailEntityImsi approveProfile(ManagerProfileEntity manager) {
         this.isApproved = true;
         this.manager = manager;
         return this;
     }
 
-    public UserDetailEntity rejectProfile(ManagerProfileEntity manager, String reason) {
+    public UserDetailEntityImsi rejectProfile(ManagerProfileEntity manager, String reason) {
         this.isApproved = false;
         this.rejectedReason = reason;
         this.manager = manager;

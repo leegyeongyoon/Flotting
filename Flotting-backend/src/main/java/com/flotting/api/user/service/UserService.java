@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,12 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final ExcelService excelService;
+
+    @Transactional(readOnly = true)
+    public UserSimpleEntity getUserByPhoneNumber(String phoneNumber) {
+        return userSimpleRepository.findByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with phoneNumber: " + phoneNumber));
+    }
 
     /**
      * user등급별 조회
@@ -105,10 +112,11 @@ public class UserService {
     @Transactional
     public UserDetailResponseDto saveDetailUserInfo(Long targetUserId, UserDetailRequestDto requestDto) {
         UserDetailEntity userDetailEntity = new UserDetailEntity(requestDto);
+        UserDetailEntity savedUser = userDetailRepository.save(userDetailEntity);
         UserSimpleEntity simpleUser = getSimpleUser(targetUserId);
 
         simpleUser.setDetailUser(userDetailEntity);
-        UserDetailEntity savedUser = userDetailRepository.save(userDetailEntity);
+        userDetailEntity.setSimpleUser(simpleUser);
 
         log.info("savedEntity user : {}", savedUser);
         return new UserDetailResponseDto(savedUser);
@@ -222,5 +230,15 @@ public class UserService {
         UserDetailEntity detailUser = getDetailUser(requesterId);
         PersonalManagerRequesterEntity result = personalManagerRequesterRepository.findByRequester(detailUser);
         return new PersonalRequesterResponseDto(result);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDetailResponseDto> getUsersByGradeAndSimpleProfileIdsNotInLimit(GradeEnum gradeEnum, List<Long> simpleProfileIds, UserSimpleEntity targetUser, int limit) {
+        return userDetailRepository.findUsersByGradeAndSimpleProfileIdNotInOrderByAgeDiffAsc(gradeEnum, simpleProfileIds, targetUser, limit);
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDetailResponseDto> getUsersBySimpleProfileIdsNotInLimit(List<Long> simpleProfileIds, UserSimpleEntity targetUser, int limit) {
+        return userDetailRepository.findUsersBySimpleProfileIdNotInOrderByAgeDiffAsc(simpleProfileIds, targetUser, limit);
     }
 }

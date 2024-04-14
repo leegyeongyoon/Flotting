@@ -2,11 +2,10 @@ package com.flotting.api.util;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
-@Entity
+@MappedSuperclass
 @Getter
 public class BaseEntity {
 

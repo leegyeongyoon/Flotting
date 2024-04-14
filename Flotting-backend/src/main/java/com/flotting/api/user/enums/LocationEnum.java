@@ -1,5 +1,7 @@
 package com.flotting.api.user.enums;
 
+import java.util.Arrays;
+
 public enum LocationEnum {
 
     //서울 북부, 서울 남부, 서울 남부, 서울 동부, 경기 서부, 경기 남부, 경기 동부, 경기 북부
@@ -18,4 +20,10 @@ public enum LocationEnum {
         return LocationEnum.valueOf(value);
     }
 
+    public static LocationEnum byValue(String data) {
+        return Arrays.stream(values())
+                .filter(value -> value.name.equals(data))
+                .findAny()
+                .orElse(null);
+    }
 }
