@@ -2,6 +2,7 @@ package com.flotting.api.user.model;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -56,13 +57,15 @@ public class UserDetailRequestDto {
 
     private List<String> preferenceValue;
 
+    private LocalDate approvedAt;
+
     @Builder
     public UserDetailRequestDto(String path, String body, String detailJob, String charm,
                                 String drinking, String education, String email, String grade,
                                 Integer height, String hobby, String URI, String location,
                                 String loveValues, String nickName, String preference, String preferenceDetail,
                                 String gender, Boolean smoking, String recommendUserName,
-                                List<String> preferenceValue, Integer totalScore, Integer faceScore) {
+                                List<String> preferenceValue, Integer totalScore, Integer faceScore, LocalDate approvedAt) {
         this.appliedPath = path;
         this.body = body;
         this.detailJob = detailJob;
@@ -85,5 +88,6 @@ public class UserDetailRequestDto {
         this.preferenceValue = preferenceValue;
         this.totalScore = totalScore;
         this.faceScore = faceScore;
+        this.approvedAt = approvedAt;
     }
 }

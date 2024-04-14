@@ -25,7 +25,8 @@ public interface UserDetailQueryDsl {
 
     Set<UserResponseDto> findUsersByScoreAndPreference(GenderEnum gender, int totalScore, PreferenceEnum preference, List<String> preferenceValue);
     Set<UserResponseDto> findUsersByPreference(GenderEnum gender, int score, PreferenceEnum preference, List<String> preferenceValue);
-    List<UserDetailResponseDto> findUsersByGradeAndSimpleProfileIdNotInOrderByAgeDiffAsc(GradeEnum gradeEnum, List<Long> ids, UserSimpleEntity targetUser);
+    List<UserDetailResponseDto> findUsersByGradeAndSimpleProfileIdNotInOrderByAgeDiffAsc(GradeEnum gradeEnum, List<Long> ids, UserSimpleEntity targetUser, int limit);
+    List<UserDetailResponseDto> findUsersBySimpleProfileIdNotInOrderByAgeDiffAsc(List<Long> ids, UserSimpleEntity targetUser, int limit);
 
     default BooleanBuilder nullSafeBuilder(Supplier<BooleanExpression> f) {
         try {

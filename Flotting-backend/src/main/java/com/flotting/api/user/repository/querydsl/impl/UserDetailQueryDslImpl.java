@@ -126,14 +126,27 @@ public class UserDetailQueryDslImpl implements UserDetailQueryDsl {
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserDetailResponseDto> findUsersByGradeAndSimpleProfileIdNotInOrderByAgeDiffAsc(GradeEnum grade, List<Long> ids, UserSimpleEntity targetUser) {
+    public List<UserDetailResponseDto> findUsersByGradeAndSimpleProfileIdNotInOrderByAgeDiffAsc(GradeEnum grade, List<Long> ids, UserSimpleEntity targetUser, int limit) {
         return jpaQueryFactory
                 .selectFrom(userDetailEntity)
                 .where(userDetailEntity.grade.eq(grade)
                         .and(userDetailEntity.userSimpleEntity.userNo.notIn(ids))
                         .and(userDetailEntity.gender.ne(targetUser.getUserDetailEntity().getGender())))
                 .orderBy(userDetailEntity.userSimpleEntity.age.subtract(targetUser.getAge()).abs().asc())
-                .limit(2)
+                .limit(limit)
+                .fetch()
+                .stream().map(UserDetailResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDetailResponseDto> findUsersBySimpleProfileIdNotInOrderByAgeDiffAsc(List<Long> ids, UserSimpleEntity targetUser, int limit) {
+        return jpaQueryFactory
+                .selectFrom(userDetailEntity)
+                .where((userDetailEntity.userSimpleEntity.userNo.notIn(ids))
+                        .and(userDetailEntity.gender.ne(targetUser.getUserDetailEntity().getGender())))
+                .orderBy(userDetailEntity.grade.desc(), userDetailEntity.userSimpleEntity.age.subtract(targetUser.getAge()).abs().asc())
+                .limit(limit)
                 .fetch()
                 .stream().map(UserDetailResponseDto::new)
                 .collect(Collectors.toList());

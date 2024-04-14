@@ -1,10 +1,10 @@
-package com.flotting.api.user;
+package com.flotting.api.history.service;
 
 import com.flotting.api.user.enums.*;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-@SpringBootTest
+@Component
 public class SampleDataMaker {
 
     @Autowired
@@ -122,30 +122,30 @@ public class SampleDataMaker {
                 UserSimpleResponseDto userSimpleResponseDto = userService.saveSimpleUserInfo( simpleRequestDto);
 
                 UserDetailRequestDto detailRequestDto = UserDetailRequestDto.builder()
-                    .height(Integer.parseInt(array[2]))
-                    .smoking("Y".equals(array[20]) ? true : false)
-                    .body(BodyEnum.RELIABLE.name())
-                    .charm(array[10])
-                    .detailJob(array[18])
-                    .drinking(DrinkingEnum.byValue(array[21]).name())
-                    .education(EducationEnum.byValue(array[19]).name())
-                    .email(array[16])
-                    .grade(GradeEnum.byValue(array[22]).name())
-                    .hobby(array[12])
-                    .location(LocationEnum.byValue(array[4]).name())
-                    .loveValues(array[9])
-                    .nickName(array[16])
-                    .path(AppliedPathEnum.byValue(array[7]).name())
-                    .gender("여성".equals(array[3]) ? GenderEnum.F.name() : GenderEnum.M.name())
-                    .preference(PreferenceEnum.AGE.name())
-                    .preferenceDetail("")
-                    .recommendUserName(array[8])
-                    .URI("")
-                    .preferenceValue(Arrays.asList(""))
-                    .totalScore(180)
-                    .faceScore(80)
-                    .approvedAt(LocalDate.parse(array[23], DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-                    .build();
+                        .height(Integer.parseInt(array[2]))
+                        .smoking("Y".equals(array[20]) ? true : false)
+                        .body(BodyEnum.RELIABLE.name())
+                        .charm(array[10])
+                        .detailJob(array[18])
+                        .drinking(DrinkingEnum.byValue(array[21]).name())
+                        .education(EducationEnum.byValue(array[19]).name())
+                        .email(array[16])
+                        .grade(GradeEnum.byValue(array[22]).name())
+                        .hobby(array[12])
+                        .location(LocationEnum.byValue(array[4]).name())
+                        .loveValues(array[9])
+                        .nickName(array[16])
+                        .path(AppliedPathEnum.byValue(array[7]).name())
+                        .gender("여성".equals(array[3]) ? GenderEnum.F.name() : GenderEnum.M.name())
+                        .preference(PreferenceEnum.AGE.name())
+                        .preferenceDetail("")
+                        .recommendUserName(array[8])
+                        .URI("")
+                        .preferenceValue(Arrays.asList(""))
+                        .totalScore(180)
+                        .faceScore(80)
+                        .approvedAt(LocalDate.parse(array[23], DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                        .build();
                 UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(userSimpleResponseDto.getUserNo(), detailRequestDto);
                 result.add(new UserResponseDto(userSimpleResponseDto, userDetailResponseDto));
             }

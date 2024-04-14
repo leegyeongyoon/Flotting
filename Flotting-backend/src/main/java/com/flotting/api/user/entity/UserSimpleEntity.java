@@ -1,11 +1,11 @@
 package com.flotting.api.user.entity;
 
-import com.flotting.api.user.model.UserSimpleRequestDto;
 import com.flotting.api.user.enums.GenderEnum;
 import com.flotting.api.user.enums.JobEnum;
 import com.flotting.api.user.enums.UserStatusEnum;
+import com.flotting.api.user.model.UserSimpleRequestDto;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,7 +21,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "user_simple_profile")
 @ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
+@NoArgsConstructor
 @Getter
 public class UserSimpleEntity implements UserDetails {
 
@@ -57,7 +58,7 @@ public class UserSimpleEntity implements UserDetails {
     /**
      * 전화번호
      */
-    @Column(unique = true)
+    @Column
     private String phoneNumber;
 
     /**
@@ -74,7 +75,7 @@ public class UserSimpleEntity implements UserDetails {
     /**
      * 2차 프로필 id
      */
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_detail_entity")
     private UserDetailEntity userDetailEntity;
 

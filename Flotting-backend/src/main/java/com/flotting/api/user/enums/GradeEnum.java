@@ -1,8 +1,10 @@
 package com.flotting.api.user.enums;
 
+import java.util.Arrays;
+
 public enum GradeEnum {
 
-    D("D"), P("P"), G("G");
+    G("G"), P("P"), D("D");
 
     private String name;
 
@@ -21,4 +23,12 @@ public enum GradeEnum {
             return GradeEnum.D;
         }
     }
+
+    public static GradeEnum byValue(String data) {
+        return Arrays.stream(values())
+                .filter(value -> value.name.equals(data))
+                .findAny()
+                .orElse(null);
+    }
+
 }

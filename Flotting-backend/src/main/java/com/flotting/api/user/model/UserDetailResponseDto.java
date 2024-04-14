@@ -5,10 +5,15 @@ import com.flotting.api.user.entity.UserDetailEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
+import java.time.LocalDate;
+import java.util.Objects;
 
 @Setter
 @Getter
 @Schema(description = "2차 프로필 사용자 정보")
+@ToString
 public class UserDetailResponseDto {
 
     @Schema(description = "id")
@@ -77,6 +82,9 @@ public class UserDetailResponseDto {
     @Schema(description = "프로필 승인한 매니저")
     private ManagerProfileDto manager;
 
+    @Schema(description = "프로필 승인일자")
+    private LocalDate approvedAt;
+
     public UserDetailResponseDto(UserDetailEntity user) {
         this.seq = user.getSeq();
         this.appliedPath = user.getAppliedPath().name();
@@ -99,6 +107,25 @@ public class UserDetailResponseDto {
         this.smoking = user.getSmoking();
         this.recommendUserName = user.getRecommendUserName();
         this.manager = new ManagerProfileDto(user.getManager());
+        this.approvedAt = user.getApprovedAt();
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if(this == null || object == null) {
+            return false;
+        }
+        if(!(object instanceof UserDetailResponseDto)) {
+            return false;
+        }
+        if(this.seq == ((UserDetailResponseDto) object).getSeq()) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.seq);
+    }
 }

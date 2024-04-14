@@ -6,6 +6,8 @@ import com.querydsl.core.annotations.QueryProjection;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -94,6 +96,9 @@ public class UserResponseDto implements ExcelDownloadable {
     @Schema(description = "2차 프로필 id")
     private Long detailProfileId;
 
+    @Schema(description = "승인일자")
+    private LocalDate approvedAt;
+
     public UserResponseDto(UserSimpleResponseDto simpleInfo, UserDetailResponseDto detailInfo) {
         this.userNo = simpleInfo.getUserNo();
         this.age = simpleInfo.getAge();
@@ -120,6 +125,7 @@ public class UserResponseDto implements ExcelDownloadable {
         this.smoking = detailInfo.getSmoking();
         this.recommendUserName = detailInfo.getRecommendUserName();
         this.detailProfileId = detailInfo.getSeq();
+        this.approvedAt = detailInfo.getApprovedAt();
     }
 
     @QueryProjection
