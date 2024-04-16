@@ -3,6 +3,7 @@ import MainHeader from "@/components/layout/MainHeader.vue";
 import { ref } from "vue";
 import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
+
 const gender = ref("");
 const height = ref(150);
 const location = ref("");
@@ -21,7 +22,7 @@ const onClicked = () => {
         <main-header start="back" end="" :title="false" />
         <main class="w-100 h-100" style="padding-top: 60px;">
             <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
-                <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
+                <div class="w-100 d-flex flex-column justify-center align-center" style="padding: 29px 18px;">
                     <signup-progress :idx="2" />
                     <div class="w-100 d-flex flex-column ga-3 page-guide">
                         <span class="text-none page-title">소중한 나의 세계관을 보여주세요 !</span>
@@ -133,7 +134,7 @@ const onClicked = () => {
 .bottom-btn {
     width: 316px;
     height: 58px;
-    padding: 17px 49px;
+    padding-inline: 49px;
     border-radius: 16px;
     border: 1px solid #dfdfdf;
     box-shadow: 0px 4px 4px 0px #00000040;

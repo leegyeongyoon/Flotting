@@ -3,11 +3,13 @@ import MainHeader from "@/components/layout/MainHeader.vue";
 import { ref } from "vue";
 import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
+
 const gender = ref("");
 const height = ref(150);
 const location = ref("");
 const appliedPath = ref("");
-const clickNext = () => {
+
+const onClickedDone = () => {
     router.push("/signup/world");
 };
 </script>
@@ -17,29 +19,37 @@ const clickNext = () => {
         <main-header start="back" end="" :title="false" />
         <main class="w-100 h-100" style="padding-top: 60px;">
             <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
-                <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
+                <div class="w-100 d-flex flex-column justify-center align-center" style="padding: 29px 18px;">
                     <signup-progress :idx="1" />
                     <div class="d-flex flex-column w-100 ga-6 mb-8">
-                        <div class="d-flex flex-column ga-3">
+                        <div class="d-flex flex-column">
                             <span class="text-none title-text">(1) 본인 성함</span>
                             <v-text-field
                                 class="text-none input-text"
-                                density="compact"
                                 placeholder="예시 ) 최연아"
-                                variant="plain"
-                                hide-details
+                                variant="underlined"
                                 :clearable="true"
+                                :rules="[
+                                    value => !!value || '필수 값 입니다.',
+                                    value => (!!value && value.length >= 2) || '2 글자 이상',
+                                    value => (!!value && value.length <= 10) || '10 글자 이하'
+                                ]"
+                                counter="10"
                             ></v-text-field>
                         </div>
-                        <div class="d-flex flex-column ga-3">
+                        <div class="d-flex flex-column">
                             <span class="text-none title-text">(2) 본인 생년월일 6자리</span>
                             <v-text-field
                                 class="text-none input-text"
-                                density="compact"
-                                placeholder="예시 ) 950830"
-                                variant="plain"
-                                hide-details
+                                placeholder="예시 ) 최연아"
+                                variant="underlined"
                                 :clearable="true"
+                                :rules="[
+                                    value => !!value || '필수 값 입니다.',
+                                    value => (!!value && value.length >= 2) || '2 글자 이상',
+                                    value => (!!value && value.length <= 10) || '10 글자 이하'
+                                ]"
+                                counter="10"
                             ></v-text-field>
                         </div>
                         <div class="d-flex flex-column ga-3">
@@ -249,7 +259,7 @@ const clickNext = () => {
                         <span>매칭 외 다른 용도로 활용되지 않습니다.</span>
                     </div>
                     <div>
-                        <v-btn class="text-none bottom-btn" @click="clickNext">세계관 등록하러 가기</v-btn>
+                        <v-btn class="text-none bottom-btn" @click="onClickedDone">세계관 등록하러 가기</v-btn>
                     </div>
                 </div>
             </div>
@@ -267,14 +277,11 @@ const clickNext = () => {
 }
 .input-text {
     height: fit-content;
-    border: 2px solid #b6b6b6;
-    border-radius: 12px;
     letter-spacing: 0;
     font-size: 16px;
     font-weight: 700;
     line-height: 19px;
     text-align: left;
-    padding: 4px 12px 12px 12px;
 }
 .caution {
     font-size: 12px;
@@ -323,7 +330,7 @@ const clickNext = () => {
 .bottom-btn {
     width: 316px;
     height: 58px;
-    padding: 17px 49px;
+    padding-inline: 49px;
     border-radius: 16px;
     border: 1px solid #dfdfdf;
     box-shadow: 0px 4px 4px 0px #00000040;

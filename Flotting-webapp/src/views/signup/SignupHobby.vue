@@ -6,16 +6,66 @@ import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import SignupRadio from "@/views/signup/components/SignupRadio.vue";
 
 const nickname = ref("");
-const job = ref("");
+
 const detailJob = ref("");
-const education = ref("");
-const smoking = ref("");
-const drinking = ref("");
-const mbti = ref("");
+
 const onClicked = () => {
     router.push("/signup/photo");
 };
 
+const job = ref("");
+const jobOption = ref([
+    {
+        value: "1",
+        title: "대기업"
+    },
+    {
+        value: "2",
+        title: "중견기업"
+    },
+    {
+        value: "3",
+        title: "공기업/공무원"
+    },
+    {
+        value: "4",
+        title: "스타트업"
+    },
+    {
+        value: "5",
+        title: "중소기업"
+    },
+    {
+        value: "6",
+        title: "학생"
+    },
+    {
+        value: "7",
+        title: "전문직\n(회계사 등)"
+    },
+    {
+        value: "8",
+        title: "의료직\n(간호사 등)"
+    },
+    {
+        value: "9",
+        title: "연구기술직"
+    },
+    {
+        value: "10",
+        title: "교육직"
+    },
+    {
+        value: "11",
+        title: "사업가"
+    },
+    {
+        value: "12",
+        title: "기타"
+    }
+]);
+
+const education = ref("");
 const educations = ref([
     {
         value: "1",
@@ -54,7 +104,7 @@ const educations = ref([
         title: "박사과정 수료"
     }
 ]);
-
+const smoking = ref("");
 const smokings = ref([
     {
         value: "N",
@@ -65,6 +115,206 @@ const smokings = ref([
         title: "Y"
     }
 ]);
+
+const drinking = ref("");
+const drinkingOption = ref([
+    {
+        value: "1",
+        title: "자주 마심\n(주 3회 이상)"
+    },
+    {
+        value: "2",
+        title: "가끔 마심\n(주 2회 이상)"
+    },
+    {
+        value: "3",
+        title: "거의 안 마심\n(월 1~2회)"
+    },
+    {
+        value: "4",
+        title: "아예 안 마심\n(월 1회 이하)"
+    }
+]);
+
+const mbti = ref(["", "", "", ""]);
+const mbtis = ref([
+    [
+        {
+            value: "E",
+            title: "E"
+        },
+        {
+            value: "I",
+            title: "I"
+        }
+    ],
+    [
+        {
+            value: "S",
+            title: "S"
+        },
+        {
+            value: "N",
+            title: "N"
+        }
+    ],
+    [
+        {
+            value: "T",
+            title: "T"
+        },
+        {
+            value: "F",
+            title: "F"
+        }
+    ],
+    [
+        {
+            value: "P",
+            title: "P"
+        },
+        {
+            value: "J",
+            title: "J"
+        }
+    ]
+]);
+
+const personality = ref([]);
+const personalityOption = ref([
+    {
+        value: "1",
+        title: "외향적인"
+    },
+    {
+        value: "2",
+        title: "애교있는"
+    },
+    {
+        value: "3",
+        title: "유머있는"
+    },
+    {
+        value: "4",
+        title: "친절한"
+    },
+    {
+        value: "5",
+        title: "차분한"
+    },
+    {
+        value: "6",
+        title: "긍정적인"
+    },
+    {
+        value: "7",
+        title: "지적인"
+    },
+    {
+        value: "8",
+        title: "4차원"
+    },
+    {
+        value: "9",
+        title: "열정적인"
+    },
+    {
+        value: "10",
+        title: "사려깊은"
+    },
+    {
+        value: "11",
+        title: "진지한"
+    },
+    {
+        value: "12",
+        title: "센스있는"
+    }
+]);
+
+const hobby = ref([]);
+const hobbyOption = ref([
+    {
+        value: "1",
+        title: "운동"
+    },
+    {
+        value: "2",
+        title: "자기계발"
+    },
+    {
+        value: "3",
+        title: "독서"
+    },
+    {
+        value: "4",
+        title: "외국어"
+    },
+    {
+        value: "5",
+        title: "카페"
+    },
+    {
+        value: "6",
+        title: "요리"
+    },
+    {
+        value: "7",
+        title: "음악"
+    },
+    {
+        value: "8",
+        title: "악기 연주"
+    },
+    {
+        value: "9",
+        title: "산책"
+    },
+    {
+        value: "10",
+        title: "반려동물"
+    },
+    {
+        value: "11",
+        title: "여행"
+    },
+    {
+        value: "12",
+        title: "패션"
+    },
+    {
+        value: "13",
+        title: "맛집탐방"
+    },
+    {
+        value: "14",
+        title: "영화/넷플릭스"
+    },
+    {
+        value: "15",
+        title: "기타 등등"
+    }
+]);
+
+const dating = ref("");
+const datingOption = ref([
+    {
+        value: "1",
+        title: "시간될 때마다\n최대한 자주 보기"
+    },
+    {
+        value: "2",
+        title: "일주일에\n1~2 번 데이트"
+    },
+    {
+        value: "3",
+        title: "일주일에\n3~4 번 데이트"
+    },
+    {
+        value: "4",
+        title: "데이트 일정은 조율 가능!"
+    }
+]);
 </script>
 
 <template>
@@ -72,7 +322,7 @@ const smokings = ref([
         <main-header start="back" end="" :title="false" />
         <main class="w-100 h-100" style="padding-top: 60px;">
             <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
-                <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
+                <div class="w-100 d-flex flex-column justify-center align-center" style="padding: 29px 18px;">
                     <signup-progress :idx="3" />
                     <div class="w-100 d-flex flex-column ga-3 page-guide">
                         <span class="page-title">소중한 나를 소개해주세요 !</span>
@@ -98,107 +348,15 @@ const smokings = ref([
                         <div class="d-flex flex-column ga-2">
                             <span class="title-text">(2) 직업</span>
                             <span class="sub-title">- 대학생 / 대학원생의 경우 학생으로 선택해주세요</span>
-                            <div class="d-flex flex-column ga-2">
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '1' && 'radio-clicked'"
-                                        @click="job === '1' ? (job = '') : (job = '1')"
-                                    >
-                                        <span>일반</span>
-                                        <span>(금융직)</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '2' && 'radio-clicked'"
-                                        @click="job === '2' ? (job = '') : (job = '2')"
-                                    >
-                                        <span>일반</span>
-                                        <span>(대기업/중견)</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '3' && 'radio-clicked'"
-                                        @click="job === '3' ? (job = '') : (job = '3')"
-                                    >
-                                        <span>일반</span>
-                                        <span>(공기업/공무원)</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '4' && 'radio-clicked'"
-                                        @click="job === '4' ? (job = '') : (job = '4')"
-                                    >
-                                        <span>일반</span>
-                                        <span>(스타트업)</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '5' && 'radio-clicked'"
-                                        @click="job === '5' ? (job = '') : (job = '5')"
-                                    >
-                                        <span>일반</span>
-                                        <span>(중소기업)</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '6' && 'radio-clicked'"
-                                        @click="job === '6' ? (job = '') : (job = '6')"
-                                    >
-                                        <span>일반</span>
-                                        <span>(프리랜서)</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '7' && 'radio-clicked'"
-                                        @click="job === '7' ? (job = '') : (job = '7')"
-                                    >
-                                        <span>전문직</span>
-                                        <span>(회계사 등)</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '8' && 'radio-clicked'"
-                                        @click="job === '8' ? (job = '') : (job = '8')"
-                                    >
-                                        <span>의료직</span>
-                                        <span>(간호사 등)</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '9' && 'radio-clicked'"
-                                        @click="job === '9' ? (job = '') : (job = '9')"
-                                    >
-                                        <span>연구기술직</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '10' && 'radio-clicked'"
-                                        @click="job === '10' ? (job = '') : (job = '10')"
-                                    >
-                                        <span>교육직</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '11' && 'radio-clicked'"
-                                        @click="job === '11' ? (job = '') : (job = '11')"
-                                    >
-                                        <span>사업가</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="job === '12' && 'radio-clicked'"
-                                        @click="job === '12' ? (job = '') : (job = '12')"
-                                    >
-                                        <span>기타</span>
-                                    </div>
-                                </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
+                                <signup-radio
+                                    v-for="({ value, title }, i) in jobOption"
+                                    :key="`job_${i}`"
+                                    :group-value="job"
+                                    :value="value"
+                                    :title="title"
+                                    @click="val => (job = val)"
+                                />
                             </div>
                         </div>
                         <div class="d-flex flex-column ga-3">
@@ -230,6 +388,7 @@ const smokings = ref([
                                     :group-value="education"
                                     :value="value"
                                     :title="title"
+                                    @click="val => (education = val)"
                                 />
                             </div>
                         </div>
@@ -242,52 +401,89 @@ const smokings = ref([
                                     :group-value="smoking"
                                     :value="value"
                                     :title="title"
+                                    @click="val => (smoking = val)"
                                 />
                             </div>
                         </div>
                         <div class="d-flex flex-column ga-3">
                             <span class="title-text">(6) 음주 여부</span>
-                            <div class="d-flex flex-column ga-2">
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="drinking === '1' && 'radio-clicked'"
-                                        @click="drinking === '1' ? (drinking = '') : (drinking = '1')"
-                                    >
-                                        <span>자주 마심</span>
-                                        <span>(주 3회 이상)</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="drinking === '2' && 'radio-clicked'"
-                                        @click="drinking === '2' ? (drinking = '') : (drinking = '2')"
-                                    >
-                                        <span>가끔 마심</span>
-                                        <span>(주 2회 이상)</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex ga-2">
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="drinking === '3' && 'radio-clicked'"
-                                        @click="drinking === '3' ? (drinking = '') : (drinking = '3')"
-                                    >
-                                        <span>거의 안 마심</span>
-                                        <span>(월 1~2회)</span>
-                                    </div>
-                                    <div
-                                        class="radio d-flex flex-column justify-center align-center"
-                                        :class="drinking === '4' && 'radio-clicked'"
-                                        @click="drinking === '4' ? (drinking = '') : (drinking = '4')"
-                                    >
-                                        <span>아예 안 마심</span>
-                                        <span>(월 1회 이하)</span>
-                                    </div>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
+                                <signup-radio
+                                    v-for="({ value, title }, i) in drinkingOption"
+                                    :key="`dri_${i}`"
+                                    :group-value="drinking"
+                                    :value="value"
+                                    :title="title"
+                                    @click="val => (drinking = val)"
+                                />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column ga-2">
+                            <span class="title-text">(7) MBTI</span>
+                            <span class="sub-title">- 잘 기억이 안나거나 모르는 경우 패스할 수 있어요 !</span>
+                            <div class="d-flex justify-center align-center w-100">
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px; width: 80%; margin-inside: auto;">
+                                    <template v-for="(el, i) in mbtis" :key="`mbti_${i}`">
+                                        <signup-radio
+                                            v-for="({ value, title }, j) in el"
+                                            :key="`mbti_${i}_${j}`"
+                                            :group-value="mbti[i]"
+                                            :value="value"
+                                            :title="title"
+                                            @click="val => (mbti[i] = val)"
+                                        />
+                                    </template>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex flex-column ga-3">
-                            <span class="title-text">(7) MBTI</span>
+                        <div class="d-flex flex-column ga-2">
+                            <span class="title-text">(8) 나의 성격을 단어로 표현한다면?</span>
+                            <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
+                                <signup-radio
+                                    v-for="({ value, title }, i) in personalityOption"
+                                    :key="`per_${i}`"
+                                    :group-value="personality"
+                                    :value="value"
+                                    :title="title"
+                                    @click="
+                                        val =>
+                                            personality.includes(val)
+                                                ? (personality = personality.filter(el => el !== val))
+                                                : personality.length < 3 && personality.push(val)
+                                    "
+                                />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column ga-2">
+                            <span class="title-text">(9) 나의 관심사 / 취미를 모두 골라주세요 !</span>
+                            <span class="sub-title">- 최대 3가지를 선택해주세요!</span>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
+                                <signup-radio
+                                    v-for="({ value, title }, i) in hobbyOption"
+                                    :key="`hob_${i}`"
+                                    :group-value="hobby"
+                                    :value="value"
+                                    :title="title"
+                                    @click="
+                                        val => (hobby.includes(val) ? (hobby = hobby.filter(el => el !== val)) : hobby.length < 3 && hobby.push(val))
+                                    "
+                                />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column ga-2">
+                            <span class="title-text">(10) 어떤 데이트를 선호하시나요 ?</span>
+                            <span class="sub-title">- 1가지를 선택해주세요!</span>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-gap: 8px;">
+                                <signup-radio
+                                    v-for="({ value, title }, i) in datingOption"
+                                    :key="`dat_${i}`"
+                                    :group-value="dating"
+                                    :value="value"
+                                    :title="title"
+                                    @click="val => (dating = val)"
+                                />
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex flex-column security-text mb-9">
@@ -380,7 +576,7 @@ const smokings = ref([
 .bottom-btn {
     width: 316px;
     height: 58px;
-    padding: 17px 49px;
+    padding-inline: 49px;
     border-radius: 16px;
     border: 1px solid #dfdfdf;
     box-shadow: 0px 4px 4px 0px #00000040;

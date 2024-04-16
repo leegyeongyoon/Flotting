@@ -2,7 +2,6 @@
 import MainHeader from "@/components/layout/MainHeader.vue";
 import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
-
 const onClicked = () => {
     router.push("/signup/photo");
 };
@@ -14,7 +13,7 @@ const onClicked = () => {
         <main class="w-100 h-100" style="padding-top: 60px;">
             <div class="mx-auto" style="max-width: 390px; min-width: 360px;">
                 <div class="w-100 d-flex flex-column justify-center align-center" style="padding-top: 29px; padding-inline: 18px;">
-                    <signup-progress />
+                    <signup-progress :idx="5" />
                     <div class="w-100 d-flex flex-column ga-3 page-guide">
                         <span class="page-title">프로필 등록이 완료되셨어요 !</span>
                         <div class="d-flex flex-column">
@@ -79,7 +78,7 @@ const onClicked = () => {
 .bottom-btn {
     width: 316px;
     height: 58px;
-    padding: 17px 49px;
+    padding-inline: 49px;
     border-radius: 16px;
     border: 1px solid #dfdfdf;
     box-shadow: 0px 4px 4px 0px #00000040;

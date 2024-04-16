@@ -22,13 +22,19 @@ import SignupWorld from "@/views/signup/SignupWorld.vue";
 import SignupHobby from "@/views/signup/SignupHobby.vue";
 import SignupPhoto from "@/views/signup/SignupPhoto.vue";
 import SignupEnd from "@/views/signup/SignupEnd.vue";
+import LandingMain from "@/views/landing/LandingMain.vue";
+import LandingIntro from "@/views/landing/LandingIntro.vue";
 
 const routes = [
     { path: "/login", component: UserLogin },
     { path: "/signupTest", component: SignupSimple },
     {
         path: "/",
-        component: MainTitle
+        component: LandingMain
+    },
+    {
+        path: "/intro",
+        component: LandingIntro
     },
     {
         path: "/",
@@ -116,7 +122,12 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior(to, from) {
+        if (to.fullPath.includes("signup")) {
+            return { top: 0 };
+        }
+    }
 });
 
 export default router;
