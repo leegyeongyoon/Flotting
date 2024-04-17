@@ -6,32 +6,29 @@ import SignupProgress from "@/views/signup/components/SignupProgress.vue";
 import SignupRadio from "@/views/signup/components/SignupRadio.vue";
 import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 import { storeToRefs } from "pinia";
-import { appliedPathOption, genderOptions, locationOption } from "@/views/signup/enum/options";
+import { appliedPathOptions, genderOptions, locationOptions } from "@/views/signup/enum/options";
 
 const store = signupInfoStore();
 const { name, birth, height, gender, location, detailLocation, appliedPath, recommendUserName } = storeToRefs(store);
 const form = ref();
 const onClickedDone = async () => {
-    console.log({
-        name: name.value,
-        birth: birth.value,
-        height: height.value,
-        gender: gender.value,
-        location: location.value,
-        detailLocation: detailLocation.value,
-        appliedPath: appliedPath.value,
-        recommendUserName: recommendUserName.value
-    });
     const { valid } = await form.value.validate();
 
     const radioValid = gender.value !== "" && location.value !== "" && appliedPath.value !== "";
 
-    if (!valid || !radioValid) alert("1 ~ 6번까지 모든 문항을 입력해주세요!");
+    if (!valid || !radioValid) {
+        alert("1 ~ 6번까지 모든 문항을 입력해주세요!");
+        return;
+    }
+
+    await router.push("/signup/world");
 };
+
+const nameRules = [value => !!value || "필수 값 입니다.", value => value.length >= 2 || "2 글자 이상", value => value.length <= 10 || "10 글자 이하"];
 
 const birthRules = [
     value => !!value || "필수 값 입니다.",
-    value => !/[^0-9]/.test(value) || "숫자만 입력해주세요.",
+    value => /[^0-9]/.test(value) || "숫자만 입력해주세요.",
     value => value.length === 6 || "YYMMDD",
     value => /^(?:\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/.test(value) || "잘못된 형식 입니다."
 ];
@@ -60,11 +57,7 @@ const detailLocationRules = [
                                     placeholder="최연아"
                                     variant="underlined"
                                     :clearable="true"
-                                    :rules="[
-                                        value => !!value || '필수 값 입니다.',
-                                        value => (!!value && value.length >= 2) || '2 글자 이상',
-                                        value => (!!value && value.length <= 10) || '10 글자 이하'
-                                    ]"
+                                    :rules="nameRules"
                                     counter="10"
                                 ></v-text-field>
                             </div>
@@ -113,7 +106,7 @@ const detailLocationRules = [
                                 <span class="text-none title-text">(5-1) 본인 거주지</span>
                                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                                     <signup-radio
-                                        v-for="({ value, title }, i) in locationOption"
+                                        v-for="({ value, title }, i) in locationOptions"
                                         :key="`loc_${i}`"
                                         :group-value="location"
                                         :value="value"
@@ -139,7 +132,7 @@ const detailLocationRules = [
                                 <span class="text-none title-text">(6) 신청 경로</span>
                                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-gap: 8px;">
                                     <signup-radio
-                                        v-for="({ value, title }, i) in appliedPathOption"
+                                        v-for="({ value, title }, i) in appliedPathOptions"
                                         :key="`applied_${i}`"
                                         :group-value="appliedPath"
                                         :value="value"
