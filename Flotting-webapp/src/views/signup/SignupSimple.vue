@@ -7,26 +7,26 @@
             <div class="text-subtitle-1 text-grey-lighten-5">Phone Number</div>
 
             <v-text-field
+                v-model="userData.phoneNumber"
                 type="number"
                 class="bg-grey-lighten-5"
                 density="compact"
                 placeholder="Enter your phone number"
                 variant="outlined"
                 hide-details="auto"
-                v-model="userData.phoneNumber"
             ></v-text-field>
             <div class="text-subtitle-1 text-grey-lighten-5 d-flex align-center justify-space-between pt-3">
                 Password
             </div>
 
             <v-text-field
+                v-model="userData.password"
                 type="password"
                 class="bg-grey-lighten-5"
                 density="compact"
                 placeholder="Enter your password"
                 variant="outlined"
                 hide-details="auto"
-                v-model="userData.password"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-grey-lighten-5 d-flex align-center justify-space-between pt-3">
@@ -34,13 +34,13 @@
             </div>
 
             <v-text-field
+                v-model="userData.name"
                 type="text"
                 class="bg-grey-lighten-5"
                 density="compact"
                 placeholder="Enter your name"
                 variant="outlined"
                 hide-details="auto"
-                v-model="userData.name"
             ></v-text-field>
 
             <div class="text-subtitle-1 text-grey-lighten-5 d-flex align-center justify-space-between pt-3">
@@ -48,25 +48,14 @@
             </div>
 
             <v-text-field
+                v-model="userData.email"
                 :type="'password'"
                 class="bg-grey-lighten-5"
                 density="compact"
                 placeholder="Enter your Email"
                 variant="outlined"
                 hide-details="auto"
-                v-model="userData.email"
             ></v-text-field>
-
-            <div class="text-subtitle-1 text-grey-lighten-5 d-flex align-center justify-space-between pt-3">
-                Email
-            </div>
-            <v-select
-                class="bg-grey-lighten-5"
-                v-model="userData.job"
-                hide-details="auto"
-                :items="['PUBLIC_COMPANY', 'MID_MAJOR_COMPANY', 'PROFESSIONAL', 'BUSNINESS']"
-            ></v-select>
-
             <v-btn block type="submit" variant="outlined" class="mt-5 mb-8 bg-grey-lighten-4" size="large">
                 Sign in
             </v-btn>
@@ -79,6 +68,7 @@
 <script setup>
 import { ref } from "vue";
 import { fetchApiResource } from "@/axios/commonApi";
+import router from "@/router";
 
 const userData = ref({
     email: "",
@@ -86,16 +76,13 @@ const userData = ref({
     password: "",
     phoneNumber: "",
     accessToken: "",
-    job: ""
+    job: "PUBLIC_COMPANY"
 });
 
-const signup = () => {
+const signup = async () => {
     try {
-        console.log(userData.value);
-        const responseUserInfo = fetchApiResource("user/signin", userData.value);
-        // userInfo.setUserInfo(responseUserInfo.data);
-        alert("회읜 가입 성공");
-        console.log(responseUserInfo);
+        await fetchApiResource("user/signin", "POST", userData.value);
+        router.push("/login");
     } catch (error) {
         console.log(error);
     }

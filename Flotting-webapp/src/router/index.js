@@ -22,6 +22,7 @@ import SignupWorld from "@/views/signup/SignupWorld.vue";
 import SignupHobby from "@/views/signup/SignupHobby.vue";
 import SignupPhoto from "@/views/signup/SignupPhoto.vue";
 import SignupEnd from "@/views/signup/SignupEnd.vue";
+import { userInfoStore } from "@/store/user/userInfoStore";
 
 const routes = [
     { path: "/login", component: UserLogin },
@@ -118,5 +119,16 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 });
-
+router.beforeEach((to, from, next) => {
+    const userStore = userInfoStore();
+    if (to.path === "/login" || to.path === "/signupTest" || to.path === "/") {
+        userStore.resetUserAccessToken();
+        next();
+    } else {
+        if (!userStore.getUserAccessToken()) {
+            next("/login");
+        }
+        next();
+    }
+});
 export default router;
