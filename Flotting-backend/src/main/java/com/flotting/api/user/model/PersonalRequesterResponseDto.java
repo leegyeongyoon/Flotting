@@ -16,7 +16,7 @@ public class PersonalRequesterResponseDto {
 
     public PersonalRequesterResponseDto(PersonalManagerRequesterEntity entity) {
         this.managerId = entity.getManager().getSeq();
-        this.requesterId = entity.getRequester().getSeq();
+        this.requesterId = entity.getRequester().getUserNo();
         this.managerLetter = entity.getManagerLetter();
         this.requesterLetter = entity.getRequesterLetter();
     }

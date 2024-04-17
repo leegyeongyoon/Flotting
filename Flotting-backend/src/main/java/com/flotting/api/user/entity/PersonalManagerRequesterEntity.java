@@ -18,7 +18,7 @@ public class PersonalManagerRequesterEntity extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "requester_id")
-    private UserDetailEntity requester;
+    private UserSimpleEntity requester;
 
     @Column(length = 400)
     private String managerLetter;
