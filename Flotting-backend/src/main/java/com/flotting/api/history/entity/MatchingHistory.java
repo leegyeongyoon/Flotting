@@ -52,6 +52,8 @@ public class MatchingHistory {
     /**
      * 매칭 상태
      */
+
+    @Enumerated(value = EnumType.STRING)
     private MatchingProcessEnum matchingProcess;
 
     @OneToOne(fetch = FetchType.LAZY)

@@ -36,8 +36,8 @@ public class MatchingHistoryData implements ExcelDownloadable {
     @Override
     public String[] getCellDatas() {
         String[] cellDatas = {
-                this.targetUserName, this.targetUserGrade, this.targetUserApprovedAt,
-                this.recommendedUserName, this.recommendedUserGrade
+                this.requestUserName, this.requestUserGrade, this.requestUserApprovedAt,
+                this.receivedUserName, this.receivedUserGrade
         };
         return cellDatas;
     }

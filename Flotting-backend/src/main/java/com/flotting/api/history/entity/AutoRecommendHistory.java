@@ -41,6 +41,7 @@ public class AutoRecommendHistory extends BaseEntity {
      * 이번주 소개 프로필에 한번 소개된 사람이면 매
      * 상태 값 관리 필요할 수도 ! 자동 매칭할 때 참고해야함.삭제된 프로필인지 등등
      */
+    @Enumerated(value = EnumType.STRING)
     private AutoRecommendProcessEnum autoRecommendProcessEnum;
 
     @Builder
