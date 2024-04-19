@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -56,27 +58,11 @@ public class UserResponseDto implements ExcelDownloadable {
     @Schema(description = "추천인 이름")
     private String recommendUserName;
 
-    @Schema(description = "선호도1위", allowableValues = {"JOB", "DISTANCE", "AGE", "HEIGHT"})
-    private String preference;
-
-    @Schema(description = "선호 구체적 설명")
-    private String preferenceDetail;
-
-    @Schema(description = "나의 매력")
-    private String charm;
-
-    @Schema(description = "나의 연애관")
-    private String loveValues;
-
     @Schema(description = "취미")
-    private String hobby;
+    private List<String> hobby;
 
     @Schema(description = "닉네임")
     private String nickName;
-
-    @Schema(description = "체형**추후에 단순 문자로 바꿀 필요성(NORMAL -> A) 있음.",
-            allowableValues = {"NORMAL", "SLIM", "VOLUME", "SOLID","CHUBBY", "RELIABLE", "MUSCULAR"})
-    private String body;
 
     @Schema(description = "직장명")
     private String detailJob;
@@ -99,17 +85,40 @@ public class UserResponseDto implements ExcelDownloadable {
     @Schema(description = "승인일자")
     private LocalDate approvedAt;
 
+    @Schema(description = "매니저 코멘트")
+    private String managerComment;
+
+    @Schema(description = "mbti")
+    private String mbti;
+
+    @Schema(description = "내성격")
+    private String character;
+
+    @Schema(description = "선호데이트")
+    private String preferredDate;
+
+    @Schema(description = "라이프스타일")
+    private String lifeStyle;
+
+    @Schema(description = "하고싶은말")
+    private String somethingWantToSay;
+
+    @Schema(description = "생일")
+    private String birthday;
+
+    @Schema(description = "사진경로")
+    private List<String> profileImageURIs;
+
+    @Schema(description = "거절사유")
+    private String rejectedReason;
+
     public UserResponseDto(UserSimpleResponseDto simpleInfo, UserDetailResponseDto detailInfo) {
         this.userNo = simpleInfo.getUserNo();
         this.age = simpleInfo.getAge();
-        this.job= simpleInfo.getJob();
-        this.userStatus = simpleInfo.getUserStatus();
         this.phoneNumber = simpleInfo.getPhoneNumber();
         this.name = simpleInfo.getName();;
         this.appliedPath = detailInfo.getAppliedPath();
-        this.body = detailInfo.getBody();
         this.detailJob = detailInfo.getDetailJob();
-        this.charm = detailInfo.getCharm();
         this.drinking = detailInfo.getDrinking();
         this.education = detailInfo.getEducation();
         this.email = detailInfo.getEmail();
@@ -117,49 +126,59 @@ public class UserResponseDto implements ExcelDownloadable {
         this.height = detailInfo.getHeight();
         this.hobby = detailInfo.getHobby();
         this.location = detailInfo.getLocation();
-        this.loveValues = detailInfo.getLoveValues();
         this.nickName = detailInfo.getNickName();;
-        this.preference = detailInfo.getPreference();;
-        this.preferenceDetail = detailInfo.getPreferenceDetail();
         this.gender = detailInfo.getGender();
         this.smoking = detailInfo.getSmoking();
         this.recommendUserName = detailInfo.getRecommendUserName();
         this.detailProfileId = detailInfo.getSeq();
         this.approvedAt = detailInfo.getApprovedAt();
+        this.birthday = detailInfo.getBirthday();
+        this.managerComment = detailInfo.getManagerComment();
+        this.preferredDate= detailInfo.getPreferredDate();
+        this.lifeStyle = detailInfo.getLifeStyle();
+        this.somethingWantToSay = detailInfo.getSomethingWantToSay();
+        this.rejectedReason = detailInfo.getRejectedReason();
+        this.userStatus = detailInfo.getUserStatus();
+        this.job = detailInfo.getJob().name();
     }
 
     @QueryProjection
-    public UserResponseDto(Long userNo, Integer age, JobEnum job, UserStatusEnum userStatus, String phoneNumber,
-                           String name, AppliedPathEnum appliedPath, BodyEnum body, String detailJob, String charm,
-                           DrinkingEnum drinking, EducationEnum education, String email, GradeEnum grade,
-                           Integer height, String hobby, LocationEnum location,
-                           String loveValues, String nickName, PreferenceEnum preference, String preferenceDetail,
-                           GenderEnum gender, Boolean smoking, String recommendUserName, Long detailProfileId) {
+    public UserResponseDto(Long userNo, String name, Integer age, String phoneNumber, UserStatusEnum userStatus,
+                           JobEnum job, Integer height, GenderEnum gender, LocationEnum location, String email,
+                           AppliedPathEnum appliedPath, String recommendUserName, List<HobbyEnum> hobby, String nickName,
+                           String detailJob, EducationEnum education, Boolean smoking, DrinkingEnum drinking,  GradeEnum grade, Long detailProfileId,
+                           LocalDate approvedAt, String managerComment, String mbti, CharacterEnum character, String preferredDate, String lifeStyle, String somethingWantToSay,
+                           String birthday, List<String> profileImageURIs, String rejectedReason) {
         this.userNo = userNo;
         this.age = age;
-        this.job= job.name();;
+        this.job= job.name();
         this.userStatus = userStatus.name();
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.appliedPath = appliedPath.name();;
-        this.body = body.name();
         this.detailJob = detailJob;
-        this.charm = charm;
         this.drinking = drinking.name();
         this.education = education.name();
         this.email = email;
         this.grade = grade.name();
         this.height = height;
-        this.hobby = hobby;
+        this.hobby = hobby.stream().map(HobbyEnum::name).collect(Collectors.toList());
         this.location = location.name();;
-        this.loveValues = loveValues;
         this.nickName = nickName;
-        this.preference = preference.name();;
-        this.preferenceDetail = preferenceDetail;
         this.gender = gender.name();;
         this.smoking = smoking;
         this.recommendUserName = recommendUserName;
         this.detailProfileId = detailProfileId;
+        this.approvedAt = approvedAt;
+        this.managerComment = managerComment;
+        this.mbti = mbti;
+        this.character = character.name();
+        this.lifeStyle = lifeStyle;
+        this.preferredDate = preferredDate;
+        this.somethingWantToSay = somethingWantToSay;
+        this.birthday = birthday;
+        this.profileImageURIs = profileImageURIs;
+        this.rejectedReason = rejectedReason;
     }
 
 
@@ -174,8 +193,8 @@ public class UserResponseDto implements ExcelDownloadable {
     public String[] getCellDatas() {
         String[] cellDatas = {
                 this.name, String.valueOf(this.age), this.phoneNumber, this.userStatus, this.job, String.valueOf(this.height), this.gender, this.location,
-                this.email, this.appliedPath, this.recommendUserName, this.getPreference(), this.preferenceDetail, this.charm, this.loveValues, this.hobby,
-                this.nickName, this.body, this.detailJob, this.education, String.valueOf(this.smoking), this.drinking, this.grade
+                this.email, this.appliedPath, this.recommendUserName, this.hobby.toString(),
+                this.nickName, this.detailJob, this.education, String.valueOf(this.smoking), this.drinking, this.grade
         };
         return cellDatas;
     }

@@ -36,28 +36,22 @@ public class UserSimpleResponseDto {
     private String phoneNumber;
 
     /**
-     * 계정상태
-     */
-    private String userStatus;
-
-    /**
-     * 공무원&공기업, 중견기업&대기업, 전문직, 사업가
-     */
-    private String job;
-
-    /**
      * 2차프로필 id
      */
     private Long userDetailEntityId;
+
+    /**
+     * email
+     */
+    private String email;
 
     public UserSimpleResponseDto(UserSimpleEntity user) {
         this.userNo = user.getUserNo();
         this.createdAt = user.getCreatedAt();
         this.age = user.getAge();
-        this.job= user.getJob().name();
-        this.userStatus = user.getUserStatus().name();
         this.phoneNumber = user.getPhoneNumber();
         this.name = user.getName();
+        this.email = user.getEmail();
         this.userDetailEntityId = Objects.nonNull(user.getUserDetailEntity()) ? user.getUserDetailEntity().getSeq() : null;
     }
 }

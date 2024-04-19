@@ -13,6 +13,8 @@ public class UserDetailRequestDto {
 
     private Integer height;
 
+    private String birthday;
+
     private String gender;
 
     private String location;
@@ -23,19 +25,15 @@ public class UserDetailRequestDto {
 
     private String recommendUserName;
 
-    private String preference;
+    private String lifeStyle;
 
-    private String preferenceDetail;
+    private String somethingWantToSay;
 
-    private String charm;
-
-    private String loveValues;
-
-    private String hobby;
+    private List<String>  hobby;
 
     private String nickName;
 
-    private String body;
+    private String job;
 
     private String detailJob;
 
@@ -45,31 +43,37 @@ public class UserDetailRequestDto {
 
     private String drinking;
 
+    private String mbti;
+
+    private String character;
+
+    private String preferredDate;
+
     private String identityVerificationURI;
+
+    private List<String> profileImageURIs;
 
     private String grade;
 
     private Long managerId;
 
-    private Integer totalScore;
-
-    private Integer faceScore;
-
-    private List<String> preferenceValue;
-
     private LocalDate approvedAt;
 
+    private String userStatus;
+
+    private String rejectedReason;
+
     @Builder
-    public UserDetailRequestDto(String path, String body, String detailJob, String charm,
+    public UserDetailRequestDto(String path, String detailJob, String lifeStyle, String somethingWantToSay,
                                 String drinking, String education, String email, String grade,
-                                Integer height, String hobby, String URI, String location,
-                                String loveValues, String nickName, String preference, String preferenceDetail,
+                                Integer height, List<String> hobby, String URI, String location,
+                                String character, String nickName, String preferredDate, List<String> profileImageURIs,
                                 String gender, Boolean smoking, String recommendUserName,
-                                List<String> preferenceValue, Integer totalScore, Integer faceScore, LocalDate approvedAt) {
+                                String mbti, LocalDate approvedAt, String userStatus) {
         this.appliedPath = path;
-        this.body = body;
         this.detailJob = detailJob;
-        this.charm = charm;
+        this.lifeStyle = lifeStyle;
+        this.somethingWantToSay = somethingWantToSay;
         this.drinking = drinking;
         this.education =  education;
         this.email = email;
@@ -78,16 +82,15 @@ public class UserDetailRequestDto {
         this.hobby = hobby;
         this.identityVerificationURI = URI;
         this.location = location;
-        this.loveValues = loveValues;
+        this.character = character;
         this.nickName = nickName;
-        this.preference = preference;
-        this.preferenceDetail = preferenceDetail;
         this.gender = gender;
         this.smoking = smoking;
         this.recommendUserName = recommendUserName;
-        this.preferenceValue = preferenceValue;
-        this.totalScore = totalScore;
-        this.faceScore = faceScore;
         this.approvedAt = approvedAt;
+        this.mbti = mbti;
+        this.userStatus = userStatus;
+        this.preferredDate = preferredDate;
+        this.profileImageURIs = profileImageURIs;
     }
 }

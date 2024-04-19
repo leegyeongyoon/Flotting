@@ -21,11 +21,10 @@ public class UserFilterRequestDto {
     boolean isDormant;
 
     List<GradeEnum> grade;
-    List<BodyEnum> body;
     List<LocationEnum> location;
     List<JobEnum> job;
 
-    boolean isApproved;
+    UserStatusEnum userStatus;
 
     ScopeModel height;
     ScopeModel age;
@@ -58,21 +57,6 @@ public class UserFilterRequestDto {
         });
         if(result.size() > 0) {
             this.grade = result;
-        }
-    }
-
-    public void setBody(List<String> body) {
-        ArrayList<BodyEnum> result = new ArrayList<>();
-        body.forEach(value -> {
-            BodyEnum parsedVal = BodyEnum.of(value);
-            if(Objects.isNull(parsedVal)) {
-                log.error("No RequestedValue in BodyList! value : {}", value);
-                return;
-            }
-            result.add(parsedVal);
-        });
-        if(result.size() > 0) {
-            this.body = result;
         }
     }
 
@@ -119,5 +103,14 @@ public class UserFilterRequestDto {
             log.error("Age must between(1970,2024) minVal: {} maxVal : {}", age.getMin(), age.getMax());
             throw new IllegalArgumentException("Age must between(1970,2024)");
         }
+    }
+
+    public void setUserStatus(String userStatus) {
+        UserStatusEnum parsedVal = UserStatusEnum.of(userStatus);
+        if(Objects.isNull(parsedVal)) {
+            log.error("No RequestedValue in UserStatusList! value : {}", userStatus);
+            throw new IllegalArgumentException();
+        }
+        this.userStatus = parsedVal;
     }
 }

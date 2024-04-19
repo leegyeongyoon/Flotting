@@ -48,14 +48,7 @@ public class ManagerService {
         UserSimpleEntity simpleProfile = detailProfile.getUserSimpleEntity();
         detailProfile.approveProfile(manager);
         GenderEnum gender = detailProfile.getGender();
-        int jobScore = simpleProfile.getJob().getScore(gender);
-        int heightScore = detailProfile.getHeightScore(gender);
-        int bodyScore = detailProfile.getBody().getScore(gender);
-        int eduScore = detailProfile.getEducation().getScore(gender);
-        int faceScore = detailProfile.getFaceScore();
-        int totalScore = jobScore + heightScore + bodyScore + eduScore + faceScore;
-        log.info("Approve User : {} score : {}", detailProfile.getEmail(), totalScore);
-        detailProfile.setTotalScore(totalScore);
+        log.info("Approve User : {} ", simpleProfile.getEmail());
     }
 
     @Transactional

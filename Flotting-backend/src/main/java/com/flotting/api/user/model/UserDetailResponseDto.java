@@ -2,13 +2,17 @@ package com.flotting.api.user.model;
 
 import com.flotting.api.manager.model.ManagerProfileDto;
 import com.flotting.api.user.entity.UserDetailEntity;
+import com.flotting.api.user.enums.HobbyEnum;
+import com.flotting.api.user.enums.JobEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -39,29 +43,13 @@ public class UserDetailResponseDto {
     @Schema(description = "추천인 이름")
     private String recommendUserName;
 
-    @Schema(description = "선호도1위", allowableValues = {"JOB", "DISTANCE", "AGE", "HEIGHT"})
-    private String preference;
-
-    @Schema(description = "선호 구체적 설명")
-    private String preferenceDetail;
-
-    @Schema(description = "나의 매력")
-    private String charm;
-
-    @Schema(description = "나의 연애관")
-    private String loveValues;
-
     @Schema(description = "취미")
-    private String hobby;
+    private List<String> hobby;
 
     @Schema(description = "닉네임")
     private String nickName;
 
-    @Schema(description = "체형**추후에 단순 문자로 바꿀 필요성(NORMAL -> A) 있음.",
-            allowableValues = {"NORMAL", "SLIM", "VOLUME", "SOLID","CHUBBY", "RELIABLE", "MUSCULAR"})
-    private String body;
-
-    @Schema(description = "직장명")
+    @Schema(description = "상세직")
     private String detailJob;
 
     @Schema(description = "졸업 이력", allowableValues = {"A", "B", "C", "D", "E", "F", "G"})
@@ -85,29 +73,67 @@ public class UserDetailResponseDto {
     @Schema(description = "프로필 승인일자")
     private LocalDate approvedAt;
 
+    @Schema(description = "매니저 코멘트")
+    private String managerComment;
+
+    @Schema(description = "mbti")
+    private String mbti;
+
+    @Schema(description = "내성격")
+    private String character;
+
+    @Schema(description = "선호데이트")
+    private String preferredDate;
+
+    @Schema(description = "직업")
+    private JobEnum job;
+
+    @Schema(description = "라이프스타일")
+    private String lifeStyle;
+
+    @Schema(description = "하고싶은말")
+    private String somethingWantToSay;
+
+    @Schema(description = "생일")
+    private String birthday;
+
+    @Schema(description = "사진경로")
+    private List<String> profileImageURIs;
+
+    @Schema(description = "거절사유")
+    private String rejectedReason;
+
+    @Schema(description = "계정상태")
+    private String userStatus;
+
     public UserDetailResponseDto(UserDetailEntity user) {
         this.seq = user.getSeq();
         this.appliedPath = user.getAppliedPath().name();
-        this.body = user.getBody().name();
         this.detailJob = user.getDetailJob();
-        this.charm = user.getCharm();
         this.drinking = user.getDrinking().name();
         this.education = user.getEducation().name();
-        this.email = user.getEmail();
         this.grade = user.getGrade().name();
         this.height = user.getHeight();
-        this.hobby = user.getHobby();
+        this.hobby = user.getHobby().stream().map(HobbyEnum::name).collect(Collectors.toList());
         this.identityVerificationURI = user.getIdentityVerificationURI();
         this.location = user.getLocation().name();
-        this.loveValues = user.getLoveValues();
         this.nickName = user.getNickName();
-        this.preference = user.getPreference().name();
-        this.preferenceDetail = user.getPreferenceDetail();
         this.gender = user.getGender().name();
         this.smoking = user.getSmoking();
         this.recommendUserName = user.getRecommendUserName();
         this.manager = new ManagerProfileDto(user.getManager());
         this.approvedAt = user.getApprovedAt();
+        this.mbti = user.getMbti();
+        this.character = user.getCharacter().name();
+        this.preferredDate = user.getPreferredDate();
+        this.birthday = user.getBirthday();
+        this.managerComment = user.getManagerComment();
+        this.preferredDate= user.getPreferredDate();
+        this.lifeStyle = user.getLifeStyle();
+        this.somethingWantToSay = user.getSomethingWantToSay();
+        this.rejectedReason = user.getRejectedReason();
+        this.userStatus = user.getUserStatus().name();
+        this.job = user.getJob();
     }
 
     @Override
