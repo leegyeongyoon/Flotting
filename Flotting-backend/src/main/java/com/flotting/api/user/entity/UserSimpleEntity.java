@@ -1,7 +1,6 @@
 package com.flotting.api.user.entity;
 
 import com.flotting.api.user.enums.GenderEnum;
-import com.flotting.api.user.enums.JobEnum;
 import com.flotting.api.user.enums.UserStatusEnum;
 import com.flotting.api.user.model.UserSimpleRequestDto;
 import jakarta.persistence.*;
@@ -62,30 +61,23 @@ public class UserSimpleEntity implements UserDetails {
     private String phoneNumber;
 
     /**
-     * 계정상태
-     */
-    @Enumerated(value = EnumType.STRING)
-    private UserStatusEnum userStatus = UserStatusEnum.NORMAL;
-
-    /**
-     * 공무원&공기업, 중견기업&대기업, 전문직, 사업가
-     */
-    private JobEnum job;
-
-    /**
      * 2차 프로필 id
      */
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_detail_entity")
     private UserDetailEntity userDetailEntity;
 
+    /**
+     * 이메일
+     */
+    @Column(unique = true)
+    private String email;
+
     public UserSimpleEntity(UserSimpleRequestDto requestDto , String encodedPassword) {
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
         this.password = encodedPassword;
         this.phoneNumber = requestDto.getPhoneNumber();
-        this.job = JobEnum.of(requestDto.getJob());
-        this.userStatus = UserStatusEnum.NORMAL;
     }
 
     public void setDetailUser(UserDetailEntity detailProfile) {
@@ -96,7 +88,6 @@ public class UserSimpleEntity implements UserDetails {
         this.name = requestDto.getName();
         this.age = requestDto.getAge();
         this.phoneNumber = requestDto.getPhoneNumber();
-        this.job = JobEnum.of(requestDto.getJob());
         return this;
     }
 

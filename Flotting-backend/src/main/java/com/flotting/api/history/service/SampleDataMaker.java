@@ -42,7 +42,7 @@ public class SampleDataMaker {
         List<EducationEnum> educations = List.of(EducationEnum.COLLEGE_ACADEMY_ATTENDING, EducationEnum.COLLEGE_ATTENDING, EducationEnum.JUNIOR_COLLEGE_ATTENDING, EducationEnum.COLLEGE_GRADUATION, EducationEnum.JUNIOR_COLLEGE_GRADUATION, EducationEnum.HIGH_SCHOOL_GRADUATION);
         List<String> emails = List.of("naver", "daum", "kakao", "google", "never", "gagle");
         List<GradeEnum> grades = List.of(GradeEnum.D, GradeEnum.D, GradeEnum.G, GradeEnum.P, GradeEnum.G, GradeEnum.D);
-        List<String> hobbies = List.of("a", "b", "c", "d", "e", "f");
+        List<List<String>> hobbies = List.of(List.of("a"), List.of("a"), List.of("a"), List.of("a"), List.of("a"), List.of("a"));
         List<LocationEnum> locations = List.of(LocationEnum.GGYEONGGI_EAST, LocationEnum.GGYEONGGI_EAST, LocationEnum.GGYEONGGI_EAST, LocationEnum.SEOUL_EAST, LocationEnum.SEOUL_NORTH, LocationEnum.SEOUL_WEST);
         List<String> loveValues = List.of("a", "b", "c", "d", "e", "f");
         List<String> nickNames = List.of("a", "b", "c", "d", "e", "f");
@@ -69,8 +69,6 @@ public class SampleDataMaker {
             UserDetailRequestDto detailRequestDto = UserDetailRequestDto.builder()
                     .height(heights.get(idx))
                     .smoking(smokings.get(idx))
-                    .body(bodies.get(idx).name())
-                    .charm(charms.get(idx))
                     .detailJob(detailJobs.get(idx))
                     .drinking(drinkings.get(idx).name())
                     .education(educations.get(idx).name())
@@ -78,17 +76,11 @@ public class SampleDataMaker {
                     .grade(grades.get(idx).name())
                     .hobby(hobbies.get(idx))
                     .location(locations.get(idx).name())
-                    .loveValues(loveValues.get(idx))
                     .nickName(nickNames.get(idx))
                     .path(paths.get(idx).name())
                     .gender(genders.get(idx).name())
-                    .preference(preferences.get(idx).name())
-                    .preferenceDetail(preferenceDetails.get(idx))
                     .recommendUserName(recommendUserNames.get(idx))
                     .URI(URIs.get(idx))
-                    .preferenceValue(preferenceValues.get(idx))
-                    .totalScore(totalScores.get(idx))
-                    .faceScore(faceScores.get(idx))
                     .build();
             UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(userSimpleResponseDto.getUserNo(), detailRequestDto);
             result.add(new UserResponseDto(userSimpleResponseDto, userDetailResponseDto));
@@ -124,26 +116,18 @@ public class SampleDataMaker {
                 UserDetailRequestDto detailRequestDto = UserDetailRequestDto.builder()
                         .height(Integer.parseInt(array[2]))
                         .smoking("Y".equals(array[20]) ? true : false)
-                        .body(BodyEnum.RELIABLE.name())
-                        .charm(array[10])
                         .detailJob(array[18])
                         .drinking(DrinkingEnum.byValue(array[21]).name())
                         .education(EducationEnum.byValue(array[19]).name())
                         .email(array[16])
                         .grade(GradeEnum.byValue(array[22]).name())
-                        .hobby(array[12])
+                        .hobby(List.of(array[12]))
                         .location(LocationEnum.byValue(array[4]).name())
-                        .loveValues(array[9])
                         .nickName(array[16])
                         .path(AppliedPathEnum.byValue(array[7]).name())
                         .gender("여성".equals(array[3]) ? GenderEnum.F.name() : GenderEnum.M.name())
-                        .preference(PreferenceEnum.AGE.name())
-                        .preferenceDetail("")
                         .recommendUserName(array[8])
                         .URI("")
-                        .preferenceValue(Arrays.asList(""))
-                        .totalScore(180)
-                        .faceScore(80)
                         .approvedAt(LocalDate.parse(array[23], DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                         .build();
                 UserDetailResponseDto userDetailResponseDto = userService.saveDetailUserInfo(userSimpleResponseDto.getUserNo(), detailRequestDto);

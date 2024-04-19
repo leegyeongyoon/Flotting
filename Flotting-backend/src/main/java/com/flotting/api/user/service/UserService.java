@@ -198,16 +198,6 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Set<UserResponseDto> getEqualScoreAndPreferenceUsers(GenderEnum gender, int score, PreferenceEnum preference, List<String> value) {
-       return userDetailRepository.findUsersByScoreAndPreference(gender, score, preference, value);
-    }
-
-    @Transactional(readOnly = true)
-    public Set<UserResponseDto> getEqualPreferenceUsers(GenderEnum gender, int score, PreferenceEnum preference, List<String> value) {
-        return userDetailRepository.findUsersByPreference(gender, score, preference, value);
-    }
-
-    @Transactional(readOnly = true)
     public void downloadExcel(UserFilterRequestDto userFilterRequestDto, HttpServletResponse response) {
         List<UserResponseDto> responseDtos = getUsersByFilter(userFilterRequestDto, Pageable.unpaged());
         if(responseDtos.size() == 0) {

@@ -155,12 +155,12 @@ public class AutoRecommendService {
         result.forEach(data -> {
             Long recommendedUserId = data.getSeq();
             UserDetailEntity recommendedUser = userService.getDetailUser(recommendedUserId);
-            AutoRecommendHistory autoRecommendHistory = AutoRecommendHistory.builder()
+            AutoRecommendHistory savedEntity = AutoRecommendHistory.builder()
                     .receiver(targetUser)
                     .profile(recommendedUser.getUserSimpleEntity())
                     .build();
-            log.info("Save RecommendedHistory! receiver : {} recommendUser: {}", targetDetailUser.getEmail(), recommendedUser.getEmail());
-            AutoRecommendHistory savedEntity = autoRecommendRepository.save(autoRecommendHistory);
+//            log.info("Save RecommendedHistory! receiver : {} recommendUser: {}", targetDetailUser.getEmail(), recommendedUser.getEmail());
+//            AutoRecommendHistory savedEntity = autoRecommendRepository.save(autoRecommendHistory);
             recommendedList.add(new AutoRecommendedData(savedEntity));
         });
         return recommendedList;
