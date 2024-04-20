@@ -1,10 +1,23 @@
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import UserProfileImageCard from "@/components/card/UserProfileImageCard.vue";
+import { fetchApiResource } from "@/axios/commonApi";
+import router from "@/router";
 
 const tab = ref(null);
 
 const list = ref([]);
+
+onBeforeMount(() => {
+    signup();
+});
+const signup = async () => {
+    try {
+        await fetchApiResource("test", "GET");
+    } catch (error) {
+        console.log(error);
+    }
+};
 </script>
 
 <template>

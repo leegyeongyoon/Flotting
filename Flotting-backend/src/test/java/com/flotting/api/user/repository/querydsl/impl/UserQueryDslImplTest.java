@@ -50,21 +50,16 @@ class UserQueryDslImplTest extends SampleDataMaker {
         UserDetailRequestDto requestDto = UserDetailRequestDto.builder()
                 .height(190)
                 .smoking(Boolean.FALSE)
-                .body(BodyEnum.SLIM.name())
-                .charm("abc")
                 .detailJob("abc")
                 .drinking(DrinkingEnum.ONE_WEEK.name())
                 .education(EducationEnum.COLLEGE_ACADEMY_ATTENDING.name())
                 .email("abc")
                 .grade(GradeEnum.D.name())
-                .hobby("abc")
+                .hobby(List.of("abc"))
                 .location(LocationEnum.SEOUL_EAST.name())
-                .loveValues("abc")
                 .nickName("bing")
                 .path(AppliedPathEnum.ETC.name())
                 .gender(GenderEnum.F.name())
-                .preference(PreferenceEnum.AGE.name())
-                .preferenceDetail("abc")
                 .recommendUserName("abc")
                 .URI("uri").build();
 
@@ -73,7 +68,6 @@ class UserQueryDslImplTest extends SampleDataMaker {
 
         //then
         Assertions.assertThat(userDetailResponseDto).isNotNull();
-        Assertions.assertThat(userDetailResponseDto.getBody()).isEqualTo(requestDto.getBody());
     }
 
     @Test
@@ -94,7 +88,7 @@ class UserQueryDslImplTest extends SampleDataMaker {
         List<UserResponseDto> userResponseDtos = makeUserData();
 
         //when
-        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos(Pageable.unpaged());
+        List<UserDetailResponseDto> detailUsers = userService.getDetailUserInfos(Pageable.unpaged(), "all");
 
         //then
         Assertions.assertThat(detailUsers.size()).isEqualTo(6);
@@ -121,12 +115,10 @@ class UserQueryDslImplTest extends SampleDataMaker {
         //when
         UserFilterRequestDto userFilterRequestDto = new UserFilterRequestDto();
         List<String> body = List.of(BodyEnum.NORMAL.name(), BodyEnum.RELIABLE.name());
-        userFilterRequestDto.setBody(body);
         Pageable unpaged = Pageable.unpaged();
         List<UserResponseDto> users = userService.getUsersByFilter(userFilterRequestDto,unpaged);
 
         //then
         Assertions.assertThat(users.size()).isEqualTo(1);
-        Assertions.assertThat(users.get(0).getBody()).isEqualTo(BodyEnum.NORMAL.name());
     }
 }

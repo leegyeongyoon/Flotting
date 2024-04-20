@@ -8,6 +8,12 @@ import router from "@/router";
 const onClickStart = () => {
     router.push("/signup/guide");
 };
+const onClickSignUp = () => {
+    router.push("/signupTest");
+};
+const onClickLogin = () => {
+    router.push("/login");
+};
 </script>
 
 <template>
@@ -20,6 +26,20 @@ const onClickStart = () => {
                 <span class="font-weight-bold text-center text-white" style="font-size: 50px; letter-spacing: 0;">Plotting</span>
                 <span class="font-weight-bold text-center text-white" style="font-size: 20px; letter-spacing: 0;"
                     >둘 사이에 새로운 줄거리를 만들다</span
+                >
+            </div>
+            <div class="w-100 d-flex justify-center">
+                <v-btn
+                    style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
+                    @click="onClickSignUp"
+                    >회원가입(테스트용)</v-btn
+                >
+            </div>
+            <div class="w-100 d-flex justify-center">
+                <v-btn
+                    style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
+                    @click="onClickLogin"
+                    >로그인(테스트용)</v-btn
                 >
             </div>
             <div class="w-100 d-flex justify-center">

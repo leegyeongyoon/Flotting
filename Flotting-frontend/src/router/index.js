@@ -17,9 +17,13 @@ import ConsultManagerDetail from "@/views/cns/ConsultManagerDetail.vue";
 import AdminLogin from "@/views/login/AdminLogin.vue";
 import store from "@/plugins/vuex/store";
 import SystemManager from "@/views/sys/SystemManager.vue";
+import UserLogin from "@/views/login/UserLogin.vue";
+import SignupSimple from "@/views/signup/SignupSimple.vue";
+import { userInfoStore } from "@/components/store/user/userInfoStore";
 
 const routes = [
-    { path: "/", component: AdminLogin },
+    { path: "/", component: UserLogin },
+    { path: "/signupTest", component: SignupSimple },
     { path: "/home", component: AdminDashboard },
     { path: "/account", component: UserList },
 
@@ -49,9 +53,16 @@ const router = createRouter({
     routes
 });
 
-router.beforeEach((to, from) => {
-    if (to.path !== "/" && !store.getters.isLogin) {
-        return "/";
+router.beforeEach((to, from, next) => {
+    const userStore = userInfoStore();
+    if (to.path === "/signupTest" || to.path === "/") {
+        userStore.resetUserAccessToken();
+        next();
+    } else {
+        if (!userStore.getUserAccessToken()) {
+            next("/");
+        }
+        next();
     }
 });
 

@@ -6,6 +6,7 @@
         <div class="text-subtitle-1 text-grey-lighten-5">Account</div>
 
         <v-text-field
+            v-model="accountInfo.phoneNumber"
             class="bg-grey-lighten-5"
             type="number"
             density="compact"
@@ -13,7 +14,6 @@
             prepend-inner-icon="mdi-cellphone"
             variant="outlined"
             hide-details="auto"
-            v-model="accountInfo.phoneNumber"
         ></v-text-field>
 
         <div class="text-subtitle-1 text-grey-lighten-5 d-flex align-center justify-space-between pt-3">
@@ -25,6 +25,7 @@
         </div>
 
         <v-text-field
+            v-model="accountInfo.password"
             :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
             :type="visible ? 'text' : 'password'"
             class="bg-grey-lighten-5"
@@ -34,7 +35,6 @@
             variant="outlined"
             hide-details="auto"
             @click:append-inner="visible = !visible"
-            v-model="accountInfo.password"
         ></v-text-field>
 
         <v-btn block class="mt-5 mb-8 bg-grey-lighten-4" size="large" @click="userLogin">
@@ -52,10 +52,12 @@
 import { fetchApiResource } from "@/axios/commonApi";
 import { ref } from "vue";
 
+import router from "@/router";
 import { userInfoStore } from "@/store/user/userInfoStore";
 
-const userInfo = userInfoStore();
 const visible = true;
+
+const userInfo = userInfoStore();
 
 const accountInfo = ref({
     phoneNumber: "",
@@ -63,9 +65,9 @@ const accountInfo = ref({
 });
 const userLogin = async () => {
     try {
-        const responseUserInfo = await fetchApiResource("user/login", accountInfo.value);
+        const responseUserInfo = await fetchApiResource("user/login", "POST", accountInfo.value);
         userInfo.setUserInfo(responseUserInfo.data);
-        alert("로그인 성공");
+        router.push("/dashboard");
     } catch (error) {
         console.log(error);
     }

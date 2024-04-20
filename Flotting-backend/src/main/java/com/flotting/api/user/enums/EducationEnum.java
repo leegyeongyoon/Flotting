@@ -1,5 +1,7 @@
 package com.flotting.api.user.enums;
 
+import java.util.Arrays;
+
 public enum EducationEnum {
 
     HIGH_SCHOOL_GRADUATION("고등학교 졸업", 1, 1), JUNIOR_COLLEGE_ATTENDING("전문대 대학", 1, 2), JUNIOR_COLLEGE_GRADUATION("전문대 졸업", 2, 2),
@@ -22,6 +24,14 @@ public enum EducationEnum {
         } else {
             return this.femaleScore;
         }
+    }
+
+
+    public static EducationEnum byValue(String data) {
+        return Arrays.stream(values())
+                .filter(value -> value.value.equals(data))
+                .findAny()
+                .orElse(null);
     }
 
     public static EducationEnum of(String name) {

@@ -32,15 +32,15 @@ public class ExcelService {
             cell.setCellValue(headers[i]);
         }
 
-        for(int i = 0; i<= data.size(); i++) {
+        for(int i = 0; i< data.size(); i++) {
             ExcelDownloadable excelData = (ExcelDownloadable) data.get(i);
             row = sheet.createRow(i + 1);
 
             String[] cellDatas = excelData.getCellDatas();
 
             Cell cell = null;
-            for(int j = 0; j<= cellDatas.length; j++) {
-                cell = row.createCell(i);
+            for(int j = 0; j< cellDatas.length; j++) {
+                cell = row.createCell(j);
                 cell.setCellValue(cellDatas[j]);
             }
 

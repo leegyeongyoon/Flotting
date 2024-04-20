@@ -1,21 +1,19 @@
 import axios from "axios";
-import { userInfoStore } from "@/store/user/userInfoStore";
+import { userInfoStore } from "@/components/store/user/userInfoStore";
 
-// const userInfo = userInfoStore();
-
-// Axios 인스턴스 생성
-const axiosInstance = axios.create({
+export const createInstance = axios.create({
     headers: {
         "Access-Control-Allow-Origin": "*",
-        "Content-type": "application/json",
-        "Access-Control-Allow-Headers": "X-Requested-With"
-        // Authorization: `Bearer ${userInfo.getUserAceessToken}`
-    }
+        "Content-type": "application/json"
+    },
+    baseURL: process.env.VUE_FLOTTING_API_URL
 });
 
-axiosInstance.interceptors.request.use(
+createInstance.interceptors.request.use(
     config => {
+        const userInfo = userInfoStore();
         console.log("Request Interceptor:", config);
+        config.headers.Authorization = `Bearer ${userInfo.getUserAccessToken()}`;
         return config;
     },
     error => {
@@ -24,7 +22,7 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-axiosInstance.interceptors.response.use(
+createInstance.interceptors.response.use(
     response => {
         console.log("Response Interceptor:", response);
         return response;
@@ -34,5 +32,3 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
-export default axiosInstance;

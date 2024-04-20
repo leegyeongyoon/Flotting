@@ -1,10 +1,12 @@
 package com.flotting.api.user.enums;
 
+import java.util.Arrays;
+
 public enum AppliedPathEnum {
 
-    SMALL_CLASS_C("소모임(클래스)"), SMALL_CLASS_M("소모임(모임)"), FRIP("프립"),
-    MOONTO("문토"), INSTA("인스타그램"), RECOMMEND("지인 추천"),
-    NAVER("네이버 카페"), ETC("기타"), PORTAL("포탈 검색");
+    SMALL_CLASS_C("소모임"), FRIP("프립"),
+    WADIZ("와디즈"), NAVER_STORE("네이버 스토어"), RECOMMEND("지인 추천"),
+    ETC("기타");
 
     private String value;
 
@@ -15,4 +17,10 @@ public enum AppliedPathEnum {
         return AppliedPathEnum.valueOf(name);
     }
 
+    public static AppliedPathEnum byValue(String data) {
+        return Arrays.stream(values())
+                .filter(value -> value.value.equals(data))
+                .findAny()
+                .orElse(null);
+    }
 }

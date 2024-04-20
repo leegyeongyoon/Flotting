@@ -1,6 +1,7 @@
 import axios from "axios";
+import { userInfoStore } from "@/store/user/userInfoStore";
 
-const createInstance = axios.create({
+export const createInstance = axios.create({
     headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-type": "application/json"
@@ -10,7 +11,9 @@ const createInstance = axios.create({
 
 createInstance.interceptors.request.use(
     config => {
+        const userInfo = userInfoStore();
         console.log("Request Interceptor:", config);
+        config.headers.Authorization = `Bearer ${userInfo.getUserAccessToken()}`;
         return config;
     },
     error => {
@@ -29,5 +32,3 @@ createInstance.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-
-export { createInstance };

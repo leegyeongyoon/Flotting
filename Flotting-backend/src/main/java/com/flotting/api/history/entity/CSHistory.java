@@ -47,7 +47,7 @@ public class CSHistory {
     private ProcessStatus status;
 
     /**
-     * 처리내역
+     * 요청내역
      */
     private String content;
 
@@ -55,4 +55,9 @@ public class CSHistory {
      * 상담 유형
      */
     private CSEnum csType;
+
+    /**
+     * 매니저 의견
+     */
+    private String managerComment;
 }

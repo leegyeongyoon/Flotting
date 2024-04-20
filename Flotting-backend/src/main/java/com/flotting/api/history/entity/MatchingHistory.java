@@ -52,6 +52,8 @@ public class MatchingHistory {
     /**
      * 매칭 상태
      */
+
+    @Enumerated(value = EnumType.STRING)
     private MatchingProcessEnum matchingProcess;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -59,7 +61,7 @@ public class MatchingHistory {
     private MatchingTicketPurchaseHistory matchingTicketPurchaseHistory;
 
     public void withdraw() {
-        this.matchingProcess = MatchingProcessEnum.FAIL;
+        this.matchingProcess = MatchingProcessEnum.DELETE;
         this.matchingTicketPurchaseHistory.withdraw();
     }
 
