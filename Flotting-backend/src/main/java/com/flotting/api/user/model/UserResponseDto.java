@@ -92,7 +92,7 @@ public class UserResponseDto implements ExcelDownloadable {
     private String mbti;
 
     @Schema(description = "내성격")
-    private String character;
+    private List<String> character;
 
     @Schema(description = "선호데이트")
     private String preferredDate;
@@ -147,7 +147,7 @@ public class UserResponseDto implements ExcelDownloadable {
                            JobEnum job, Integer height, GenderEnum gender, LocationEnum location, String email,
                            AppliedPathEnum appliedPath, String recommendUserName, List<HobbyEnum> hobby, String nickName,
                            String detailJob, EducationEnum education, Boolean smoking, DrinkingEnum drinking,  GradeEnum grade, Long detailProfileId,
-                           LocalDate approvedAt, String managerComment, String mbti, CharacterEnum character, String preferredDate, String lifeStyle, String somethingWantToSay,
+                           LocalDate approvedAt, String managerComment, String mbti, List<CharacterEnum> character, String preferredDate, String lifeStyle, String somethingWantToSay,
                            String birthday, List<String> profileImageURIs, String rejectedReason) {
         this.userNo = userNo;
         this.age = age;
@@ -172,7 +172,7 @@ public class UserResponseDto implements ExcelDownloadable {
         this.approvedAt = approvedAt;
         this.managerComment = managerComment;
         this.mbti = mbti;
-        this.character = character.name();
+        this.character = character.stream().map(CharacterEnum::name).collect(Collectors.toList());;
         this.lifeStyle = lifeStyle;
         this.preferredDate = preferredDate;
         this.somethingWantToSay = somethingWantToSay;

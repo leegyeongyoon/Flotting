@@ -2,6 +2,7 @@ package com.flotting.api.user.model;
 
 import com.flotting.api.manager.model.ManagerProfileDto;
 import com.flotting.api.user.entity.UserDetailEntity;
+import com.flotting.api.user.enums.CharacterEnum;
 import com.flotting.api.user.enums.HobbyEnum;
 import com.flotting.api.user.enums.JobEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -80,7 +81,7 @@ public class UserDetailResponseDto {
     private String mbti;
 
     @Schema(description = "내성격")
-    private String character;
+    private List<String> character;
 
     @Schema(description = "선호데이트")
     private String preferredDate;
@@ -124,7 +125,7 @@ public class UserDetailResponseDto {
         this.manager = new ManagerProfileDto(user.getManager());
         this.approvedAt = user.getApprovedAt();
         this.mbti = user.getMbti();
-        this.character = user.getCharacter().name();
+        this.character = user.getCharacter().stream().map(CharacterEnum::name).collect(Collectors.toList());
         this.preferredDate = user.getPreferredDate();
         this.birthday = user.getBirthday();
         this.managerComment = user.getManagerComment();

@@ -45,7 +45,7 @@ public class UserDetailRequestDto {
 
     private String mbti;
 
-    private String character;
+    private List<String> character;
 
     private String preferredDate;
 
@@ -67,7 +67,7 @@ public class UserDetailRequestDto {
     public UserDetailRequestDto(String path, String detailJob, String lifeStyle, String somethingWantToSay,
                                 String drinking, String education, String email, String grade,
                                 Integer height, List<String> hobby, String URI, String location,
-                                String character, String nickName, String preferredDate, List<String> profileImageURIs,
+                                List<String> character, String nickName, String preferredDate, List<String> profileImageURIs,
                                 String gender, Boolean smoking, String recommendUserName,
                                 String mbti, LocalDate approvedAt, String userStatus) {
         this.appliedPath = path;
