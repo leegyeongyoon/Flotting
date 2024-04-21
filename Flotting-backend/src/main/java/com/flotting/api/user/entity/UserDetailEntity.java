@@ -118,7 +118,10 @@ public class UserDetailEntity extends BaseEntity {
     /**
      * 나의 성격
      */
-    private CharacterEnum character;
+    @ElementCollection
+    @CollectionTable(name = "user_character_list",
+            joinColumns = @JoinColumn(name = "user_id"))
+    private List<CharacterEnum> character;
 
     /**
      * 선호 데이트
@@ -199,7 +202,7 @@ public class UserDetailEntity extends BaseEntity {
         this.recommendUserName = requestDto.getRecommendUserName();
         this.approvedAt = requestDto.getApprovedAt();
         this.mbti = requestDto.getMbti();
-        this.character = CharacterEnum.of(requestDto.getCharacter());
+        this.character = requestDto.getCharacter().stream().map(CharacterEnum::of).collect(Collectors.toList());
         this.preferredDate = requestDto.getPreferredDate();
     }
 
@@ -220,7 +223,7 @@ public class UserDetailEntity extends BaseEntity {
         this.smoking = requestDto.getSmoking();
         this.recommendUserName = requestDto.getRecommendUserName();
         this.mbti = requestDto.getMbti();
-        this.character = CharacterEnum.of(requestDto.getCharacter());
+        this.character = requestDto.getCharacter().stream().map(CharacterEnum::of).collect(Collectors.toList());
         this.preferredDate = requestDto.getPreferredDate();
         return this;
     }

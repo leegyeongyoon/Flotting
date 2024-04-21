@@ -3,9 +3,8 @@ package com.flotting.api.user.service;
 import com.flotting.api.user.entity.PersonalManagerRequesterEntity;
 import com.flotting.api.user.entity.UserDetailEntity;
 import com.flotting.api.user.entity.UserSimpleEntity;
-import com.flotting.api.user.enums.GenderEnum;
 import com.flotting.api.user.enums.GradeEnum;
-import com.flotting.api.user.enums.PreferenceEnum;
+import com.flotting.api.user.enums.UserStatusEnum;
 import com.flotting.api.user.model.*;
 import com.flotting.api.user.repository.PersonalManagerRequesterRepository;
 import com.flotting.api.user.repository.UserDetailRepository;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,8 +66,7 @@ public class UserService {
                     .stream().map(UserDetailResponseDto::new)
                     .collect(Collectors.toList());
         } else {
-            boolean isApprovedType = "approved".equals(type);
-            return userDetailRepository.findAllByIsApprovedOrderByCreatedAtDesc(pageable, isApprovedType).getContent()
+            return userDetailRepository.findAllByUserStatusOrderByCreatedAtDesc(pageable, UserStatusEnum.of(type)).getContent()
                     .stream().map(UserDetailResponseDto::new)
                     .collect(Collectors.toList());
         }
@@ -167,34 +164,6 @@ public class UserService {
     public UserDetailResponseDto getDetailUserDto(Long profileId) {
         UserDetailEntity userDetail = getDetailUser(profileId);
         return new UserDetailResponseDto(userDetail);
-    }
-
-    /**
-     * 사용자 2차 프로필 등록 최종점수 계산
-     */
-    @Transactional
-    public void calculateScore(Long detailProfileId) {
-//        userDetailEntity detailUser = getDetailUser(detailProfileId);
-//        userSimpleEntity simpleUser = detailUser.getuserSimpleEntity();
-//        GenderEnum gender = detailUser.getGender();
-//        int totalScore = 0;
-//        totalScore += simpleUser.getJob().getScore(gender);
-//        totalScore += detailUser.getBody().getScore(gender);
-//        totalScore += detailUser.getEducation().getScore(gender);
-//        totalScore += detailUser.getHeightScore(gender);
-//        totalScore += simpleUser.getAgeScore(gender);
-//
-//        log.info("사용자 : {} 총점 : {}", simpleUser.getUserNo(), totalScore);
-//        detailUser.setTotalScore(totalScore);
-    }
-
-    @Transactional(readOnly = true)
-    public List<UserDetailEntity> getEqualScoreUsers(GenderEnum targetUserGender, int targetUserScore) {
-        if(GenderEnum.M.equals(targetUserGender)) {
-            return userDetailRepository.findByGenderAndTotalScore(GenderEnum.F, targetUserScore);
-        } else {
-            return userDetailRepository.findByGenderAndTotalScore(GenderEnum.M, targetUserScore);
-        }
     }
 
     @Transactional(readOnly = true)
