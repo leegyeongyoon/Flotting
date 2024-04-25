@@ -2,8 +2,14 @@
 import MainHeader from "@/components/layout/MainHeader.vue";
 import router from "@/router";
 import SignupProgress from "@/views/signup/components/SignupProgress.vue";
+import { signupInfoStore } from "@/views/signup/store/singupInfoStore";
 const onClicked = () => {
     router.push("/signup/photo");
+};
+
+const store = signupInfoStore();
+const onClickedTest = () => {
+    console.log(store.getTotal());
 };
 </script>
 
@@ -40,6 +46,7 @@ const onClicked = () => {
                         <span>매칭 외 다른 용도로 활용되지 않습니다.</span>
                     </div>
                     <v-btn class="bottom-btn" @click="onClicked">플러팅 둘러보기</v-btn>
+                    <v-btn class="bottom-btn" @click="onClickedTest">정보 확인</v-btn>
                 </div>
             </div>
         </main>

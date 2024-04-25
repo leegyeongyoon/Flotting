@@ -28,9 +28,9 @@ const nameRules = [value => !!value || "필수 값 입니다.", value => value.l
 
 const birthRules = [
     value => !!value || "필수 값 입니다.",
-    value => /[^0-9]/.test(value) || "숫자만 입력해주세요.",
+    value => /[0-9]/.test(value) || "숫자만 입력해주세요.",
     value => value.length === 6 || "YYMMDD",
-    value => /^(?:\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/.test(value) || "잘못된 형식 입니다."
+    value => /(?:\d{2})(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/.test(value) || "잘못된 형식 입니다."
 ];
 
 const detailLocationRules = [

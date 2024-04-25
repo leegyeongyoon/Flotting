@@ -7,6 +7,12 @@ const onClickStart = () => {
 const onClickIntro = () => {
     router.push("/intro");
 };
+const onClickSignUp = () => {
+    router.push("/signupTest");
+};
+const onClickLogin = () => {
+    router.push("/login");
+};
 </script>
 
 <template>
@@ -24,14 +30,28 @@ const onClickIntro = () => {
             <div class="w-100 d-flex flex-column justify-center align-center ga-4">
                 <v-btn
                     style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
-                    @click="onClickStart"
-                    >START</v-btn
+                    @click="onClickSignUp"
                 >
+                    회원가입(테스트용)
+                </v-btn>
+                <v-btn
+                    style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
+                    @click="onClickLogin"
+                >
+                    로그인(테스트용)
+                </v-btn>
+                <v-btn
+                    style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
+                    @click="onClickStart"
+                >
+                    START
+                </v-btn>
                 <v-btn
                     style="width: 200px; height: 60px; box-shadow: 0px 4px 4px 0px #00000040; border-radius: 16px; font-weight: 700; font-size: 24px; letter-spacing: 0; color: #60E0E0;"
                     @click="onClickIntro"
-                    >플러팅 소개</v-btn
                 >
+                    플러팅 소개
+                </v-btn>
             </div>
         </div>
     </div>

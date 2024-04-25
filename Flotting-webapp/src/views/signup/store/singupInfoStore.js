@@ -24,6 +24,31 @@ export const signupInfoStore = defineStore(
         const hobby = ref([]); // 취미
         const dating = ref(""); // 데이트 유형
 
+        const getTotal = () => {
+            return {
+                name: name.value,
+                birth: birth.value,
+                height: height.value,
+                gender: gender.value,
+                location: location.value,
+                detailLocation: detailLocation.value,
+                appliedPath: appliedPath.value,
+                recommendUserName: recommendUserName.value,
+                worldFirst: worldFirst.value,
+                worldSecond: worldSecond.value,
+                nickname: nickname.value,
+                job: job.value,
+                detailJob: detailJob.value,
+                education: education.value,
+                smoking: smoking.value,
+                drinking: drinking.value,
+                mbti: mbti.value.join(""),
+                personality: personality.value,
+                hobby: hobby.value,
+                dating: dating.value
+            };
+        };
+
         return {
             name,
             birth,
@@ -44,7 +69,8 @@ export const signupInfoStore = defineStore(
             mbti,
             personality,
             hobby,
-            dating
+            dating,
+            getTotal
         };
     },
     {
